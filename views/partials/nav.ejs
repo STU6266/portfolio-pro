@@ -1,0 +1,32 @@
+<nav class="site-nav" role="navigation" aria-label="Primary">
+  <button
+    class="nav-toggle"
+    id="nav-toggle"
+    aria-expanded="false"
+    aria-controls="primary-nav"
+    aria-label="Open menu">
+    <span class="nav-toggle-bar"></span>
+    <span class="nav-toggle-bar"></span>
+    <span class="nav-toggle-bar"></span>
+  </button>
+  <ul id="primary-nav" class="nav-list">
+    <li class="<%= activePage === 'resume' ? 'active' : '' %>">
+      <a href="/resume">Resume</a>
+    </li>
+    <li class="<%= activePage === 'projects' ? 'active' : '' %>">
+      <a href="/projects">Projects</a>
+    </li>
+    <li class="<%= activePage === 'about' ? 'active' : '' %>">
+      <a href="/about">About Me</a>
+    </li>
+    <li class="<%= activePage === 'mcdonalds' ? 'active' : '' %>">
+      <a href="/mcdonalds">McDonald's</a>
+    </li>
+    <li class="<%= activePage === 'interspar' ? 'active' : '' %>">
+      <a href="/interspar">Interspar</a>
+    </li>
+    <li class="<%= activePage === 'reiter' ? 'active' : '' %>">
+      <a href="/reiter">Reiter</a>
+    </li>
+  </ul>
+</nav>

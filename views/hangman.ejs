@@ -1,0 +1,83 @@
+<%- include("partials/head") %>
+<%- include("partials/header") %>
+<%- include("partials/nav") %>
+
+<main class="resume-layout">
+  <!--
+    Main Hangman container.
+    We reuse your card/layout classes so it looks like the rest of the portfolio.
+  -->
+  <section class="card hangman-card">
+    <header class="hangman-header">
+      <p class="project-tag">GAME · C# → JavaScript</p>
+      <h1>Hangman (Web version)</h1>
+      <p class="project-description">
+        This is a small browser version of my original C# console Hangman game.
+        You can pick a difficulty, guess letters, and see the ASCII hangman
+        being drawn step by step.
+      </p>
+    </header>
+
+    <!-- Controls: difficulty + new game button -->
+    <section class="hangman-controls">
+      <div class="hangman-field">
+        <label for="hangman-difficulty">Difficulty</label>
+        <select id="hangman-difficulty">
+          <option value="easy">Easy (short words)</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard (long words)</option>
+        </select>
+      </div>
+
+      <button id="hangman-new-game" class="btn-primary">
+        Start new game
+      </button>
+    </section>
+
+    <!-- Game status: word, wrong guesses, info message -->
+    <section class="hangman-status">
+      <div class="hangman-word-wrapper">
+        <h2>Word</h2>
+        <p id="hangman-word" class="hangman-word">
+          <!-- underscores and letters go here -->
+        </p>
+      </div>
+
+      <div class="hangman-info">
+        <p>
+          Wrong guesses:
+          <span id="hangman-wrong-count">0</span> / 
+          <span id="hangman-max">10</span>
+        </p>
+        <p>
+          Guessed letters:
+          <span id="hangman-guessed-letters">–</span>
+        </p>
+        <p id="hangman-message" class="hangman-message">
+          Click "Start new game" to begin.
+        </p>
+      </div>
+    </section>
+
+    <!-- ASCII hangman figure (like your C# PrintHangmanFigure) -->
+    <section class="hangman-figure-section">
+      <h2>Hangman</h2>
+      <pre id="hangman-figure" class="hangman-figure">
+<!-- figure will be drawn here -->
+      </pre>
+    </section>
+
+    <!-- On-screen keyboard for A–Z -->
+    <section class="hangman-keyboard-section">
+      <h2>Guess a letter</h2>
+      <div id="hangman-keyboard" class="hangman-keyboard">
+        <!-- buttons A–Z will be created by JS -->
+      </div>
+    </section>
+  </section>
+
+  <!-- Attach the Hangman JS logic -->
+  <script src="/js/hangman.js" defer></script>
+</main>
+
+<%- include("partials/footer") %>

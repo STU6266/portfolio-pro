@@ -1,0 +1,156 @@
+<%- include("partials/head") %>
+<%- include("partials/header") %>
+<%- include("partials/nav") %>
+
+<main class="resume-layout">
+  <%- include("partials/contactModal") %>
+
+  <section class="projects-header">
+    <h2>Projects</h2>
+    <p>
+      A selection of small projects I have built so far while learning software
+      development. Most of them are simple, but they show how I practise
+      programming, version control and basic web development.
+    </p>
+  </section>
+
+  <section class="projects-grid">
+    <!-- Project 1: Portfolio / Resume Page -->
+    <article class="card project-card">
+      <div class="project-header">
+        <span class="project-tag">Web · HTML / CSS</span>
+        <h3 class="project-title">Portfolio &amp; Resume Page</h3>
+        <p class="project-description">
+          A personal portfolio and resume website that presents my work
+          experience, skills and background. It was one of my first steps
+          into building my own web presence.
+        </p>
+      </div>
+      <div class="project-meta">
+        <span class="project-tech-label">Tech:</span>
+        <span class="project-tech-list">
+          HTML, CSS, basic JavaScript
+        </span>
+      </div>
+      <div class="project-links">
+        <a
+          href="https://github.com/STU6266/JobExamples/tree/main/ResumePage"
+          class="project-link project-link-primary"
+          target="_blank"
+          rel="noopener"
+        >
+          View code on GitHub
+        </a>
+      </div>
+    </article>
+
+    <!-- Project 2: Hangman (C#) -->
+    <article class="card project-card">
+      <div class="project-header">
+        <span class="project-tag">Console · C#</span>
+        <h3 class="project-title">Hangman Game</h3>
+        <p class="project-description">
+          A small hangman game written in C#. The project helped me practise
+          basic programming concepts such as loops, conditions, input handling
+          and working with strings.
+        </p>
+      </div>
+
+      <div class="project-meta">
+        <span class="project-tech-label">Tech:</span>
+        <span class="project-tech-list">
+          C#, .NET (console application)
+        </span>
+      </div>
+
+      <div class="project-links">
+        <a
+          href="https://github.com/STU6266/JobExamples/tree/main/Hangman"
+          class="project-link project-link-primary"
+          target="_blank"
+          rel="noopener"
+        >
+          View code on GitHub
+        </a>
+        <a
+          href="/hangman"
+          class="project-link project-link-secondary"
+        >
+          Play Hangman
+        </a>
+      </div>
+    </article>
+
+    <!-- Project 3: Filament DB -->
+    <article class="card project-card">
+      <div class="project-header">
+        <span class="project-tag">DATA · SQL / JSON</span>
+        <h3 class="project-title">Filament Finder (3D printing)</h3>
+        <p class="project-description">
+          A small data project that uses a SQL schema and a static JSON file to
+          explore 3D printing filaments by brand, material and temperature range.
+        </p>
+      </div>
+      <div class="project-meta">
+        <span class="project-tech-label">Tech:</span>
+        <span class="project-tech-list">
+          MySQL, ER diagram, JSON, Node.js, Express, vanilla JavaScript
+        </span>
+      </div>
+
+      <div class="project-links">
+        <a
+          href="https://github.com/STU6266/JobExamples"
+          class="project-link project-link-primary"
+          target="_blank"
+          rel="noopener"
+        >
+          View code on GitHub
+        </a>
+        <a href="/filament" class="project-link project-link-secondary">
+          Open Filament Finder
+        </a>
+      </div>
+    </article>
+
+    <!-- Project 4: AI Stories Website -->
+    <article class="card project-card">
+      <div class="project-header">
+        <span class="project-tag">Web · HTML / CSS / JS</span>
+        <h3 class="project-title">AI Stories Website (WIP)</h3>
+        <p class="project-description">
+          A work-in-progress website built for a class assignment where I
+          experiment with layout, JavaScript and interactive content around
+          AI-generated stories. The project is still growing and will be
+          improved over time.
+        </p>
+      </div>
+      <div class="project-meta">
+        <span class="project-tech-label">Tech:</span>
+        <span class="project-tech-list">
+          HTML, CSS, JavaScript
+        </span>
+      </div>
+      <div class="project-links">
+        <a
+          href="https://github.com/STU6266/AIstories.git"
+          class="project-link project-link-primary"
+          target="_blank"
+          rel="noopener"
+        >
+          View code on GitHub
+        </a>
+        <a
+          href="https://stu6266.github.io/AIstories/"
+          class="project-link project-link-secondary"
+          target="_blank"
+          rel="noopener"
+        >
+          Open website
+        </a>
+      </div>
+    </article>
+  </section>
+</main>
+
+<%- include("partials/footer") %>
