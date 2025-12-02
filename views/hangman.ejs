@@ -5,9 +5,18 @@
 <main class="resume-layout">
   <!--
     Main Hangman container.
-    We reuse your card/layout classes so it looks like the rest of the portfolio.
+
+    We wrap the whole game in a single card so that it visually
+    matches your other portfolio sections (Projects, Filament Finder, etc.).
+    The "hangman-card" class is styled in style.css to control width, spacing, etc.
   -->
   <section class="card hangman-card">
+    <!--
+      Header: short explanation what this project is.
+
+      The "project-tag" and "project-description" classes re-use your
+      existing styling so this card looks consistent with your project cards.
+    -->
     <header class="hangman-header">
       <p class="project-tag">GAME · C# → JavaScript</p>
       <h1>Hangman (Web version)</h1>
@@ -18,8 +27,15 @@
       </p>
     </header>
 
-    <!-- Controls: difficulty + new game button -->
+    <!--
+      Controls section: difficulty selector + "Start new game" button.
+
+      Layout hint:
+      - The .hangman-controls container uses flexbox so that the dropdown
+        and button sit nicely next to each other (or wrap on small screens).
+    -->
     <section class="hangman-controls">
+      <!-- Difficulty select -->
       <div class="hangman-field">
         <label for="hangman-difficulty">Difficulty</label>
         <select id="hangman-difficulty">
@@ -29,20 +45,29 @@
         </select>
       </div>
 
+      <!-- Start new game button -->
       <button id="hangman-new-game" class="btn-primary">
         Start new game
       </button>
     </section>
 
-    <!-- Game status: word, wrong guesses, info message -->
+    <!--
+      Status section: shows the current word, counters and feedback text.
+
+      The layout uses a two-column grid:
+      - Left: the big word display (underscores + letters)
+      - Right: info such as wrong guesses, guessed letters and the message
+    -->
     <section class="hangman-status">
+      <!-- Left side: the word itself -->
       <div class="hangman-word-wrapper">
         <h2>Word</h2>
         <p id="hangman-word" class="hangman-word">
-          <!-- underscores and letters go here -->
+          <!-- underscores and letters are injected here by hangman.js -->
         </p>
       </div>
 
+      <!-- Right side: counters + feedback -->
       <div class="hangman-info">
         <p>
           Wrong guesses:
@@ -59,7 +84,12 @@
       </div>
     </section>
 
-    <!-- ASCII hangman figure (like your C# PrintHangmanFigure) -->
+    <!--
+      ASCII hangman figure (similar idea as your C# PrintHangmanFigure).
+
+      The <pre> tag keeps the spacing and line breaks exactly as defined
+      in the template strings inside hangman.js.
+    -->
     <section class="hangman-figure-section">
       <h2>Hangman</h2>
       <pre id="hangman-figure" class="hangman-figure">
@@ -67,7 +97,13 @@
       </pre>
     </section>
 
-    <!-- On-screen keyboard for A–Z -->
+    <!--
+      On-screen keyboard for A–Z.
+
+      The buttons are not written by hand in HTML. Instead, hangman.js
+      builds 26 buttons (A–Z) dynamically so the code stays short and
+      easy to change later.
+    -->
     <section class="hangman-keyboard-section">
       <h2>Guess a letter</h2>
       <div id="hangman-keyboard" class="hangman-keyboard">
@@ -76,7 +112,13 @@
     </section>
   </section>
 
-  <!-- Attach the Hangman JS logic -->
+  <!--
+    Attach the Hangman JS logic.
+
+    The "defer" attribute makes sure the script runs after the HTML
+    has been parsed, which fits well with our DOMContentLoaded handler
+    inside public/js/hangman.js.
+  -->
   <script src="/js/hangman.js" defer></script>
 </main>
 
