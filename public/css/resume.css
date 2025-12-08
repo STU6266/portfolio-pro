@@ -1,10 +1,11 @@
 /* ==========================================================================
-   resume.css – Interactive resume layout and components
+   resume.css – Interactive resume layout and shared detail components
    --------------------------------------------------------------------------
-   - Defines the resume grid (sidebar + main content) and card layout.
-   - Styles profile section, skills, strengths and the experience timeline.
+   - Defines the resume layout grid (sidebar + main content) and card styling.
+   - Styles profile summary, skills, strengths and the experience timeline.
    - Implements profile and experience hover panels for additional context.
-   - Styles simple lists and "chip" lists reused on detail pages.
+   - Provides simple lists and "chip" lists reused on detail pages.
+   - Includes shared responsive rules for the About and experience pages.
    ========================================================================== */
 
 /* ==========================================================================
@@ -37,24 +38,25 @@
   gap: 1.25rem;
 }
 
-/* Kleine Screens: alles untereinander, Info (Sidebar) zuerst */
+/* Small screens: stack everything in a single column.
+   Sidebar (profile, details, skills) appears above the main experience. */
 @media (max-width: 900px) {
   .resume-grid {
-    grid-template-columns: minmax(0, 1fr); /* nur eine Spalte */
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  /* Sidebar (Profile, Details, Skills) ganz oben */
   .resume-sidebar {
     order: 1;
   }
 
-  /* Experience (Berufserfahrung) darunter */
   .resume-main {
     order: 2;
   }
 }
 
-/* Cards */
+/* ==========================================================================
+   Generic cards used across the resume
+   ========================================================================== */
 
 .card {
   background: radial-gradient(circle at top left, #020617, #020617);
@@ -78,57 +80,64 @@
   color: var(--text-main);
 }
 
-/* Summary / profile */
-
+/* Slightly increased line-height for the profile summary paragraph. */
 .summary-card p {
   line-height: 1.6;
 }
 
-/* Hover panel for Profile card
-   ------------------------------------------------------------------ */
+/* ==========================================================================
+   Profile hover panel
+   --------------------------------------------------------------------------
+   The profile card shows a concise summary. On larger screens, hovering
+   reveals an adjacent floating panel with additional context and a link
+   to the About page. On small screens the hover panel is hidden and a
+   regular button is used instead.
+   ========================================================================== */
 
 .profile-summary-card {
-  position: relative; /* anchor for the floating panel */
+  position: relative; /* Anchor element for the floating panel. */
 }
 
-/* Unsichtbare "Brücke" zwischen Karte und Panel, damit der Hover
-   nicht sofort abbricht, wenn du mit der Maus rüberfährst */
+/* Invisible bridge between the card and the hover panel so the hover
+   does not drop when moving the mouse between them. */
 .profile-summary-card::before {
   content: "";
   position: absolute;
   top: -8px;
   bottom: -8px;
   width: 0;
-  pointer-events: none; /* wir aktivieren das je nach Screen-Größe */
+  pointer-events: none; /* Enabled per breakpoint below. */
 }
 
-/* Große Screens: Panel links → Brücke links an der Karte */
+/* Large screens: panel sits to the LEFT of the card, bridge on the left. */
 @media (min-width: 1201px) {
   .profile-summary-card::before {
-    left: -24px;    /* ragt 24px nach links raus */
+    left: -24px; /* bridge extends 24px to the left */
     width: 24px;
     pointer-events: auto;
   }
 }
 
-/* Tablet / kleiner Desktop: Panel rechts → Brücke rechts an der Karte */
+/* Medium screens (tablet / small desktop): panel sits to the RIGHT,
+   so the bridge is placed on the right side. */
 @media (max-width: 1200px) and (min-width: 769px) {
   .profile-summary-card::before {
-    right: -24px;   /* ragt 24px nach rechts raus */
+    right: -24px; /* bridge extends 24px to the right */
     left: auto;
     width: 24px;
     pointer-events: auto;
   }
 }
 
-/* Kleine Screens: keine Brücke nötig, Panel sitzt direkt unter der Karte */
+/* On small screens, the hover panel is not used.
+   The profile card will typically show a regular button instead. */
 @media (max-width: 768px) {
   .profile-hover-panel {
     display: none;
   }
 }
 
-/* --- Panel selbst -------------------------------------------------- */
+/* --- Hover panel itself -------------------------------------------------- */
 
 .profile-hover-panel {
   position: absolute;
@@ -147,10 +156,10 @@
   border: 1px solid var(--border-subtle);
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.95);
 
-  /* Panel darf im versteckten Zustand NICHT angeklickt / gehovert werden */
+  /* When hidden, the panel should not receive hover or click events. */
   pointer-events: none;
 
-  /* langsamere, weichere Animation */
+  /* Slightly slower, softer animation for a smooth appearance. */
   transition:
     opacity 0.45s ease,
     transform 0.45s ease;
@@ -169,7 +178,8 @@
   line-height: 1.55;
 }
 
-/* Sichtbar, solange entweder die Karte ODER das Panel selbst gehovert wird */
+/* The panel is visible as long as either the card OR the panel
+   itself is hovered. */
 .profile-summary-card:hover .profile-hover-panel,
 .profile-hover-panel:hover {
   opacity: 1;
@@ -177,12 +187,12 @@
   pointer-events: auto;
 }
 
-/* --- Medium Screens (~Tablet / kleiner Desktop) → Panel rechts --- */
+/* Medium screens: move the panel to the RIGHT of the card. */
 @media (max-width: 1200px) {
   .profile-hover-panel {
     right: auto;
     margin-right: 0;
-    left: 100%;              /* Panel auf die RECHTE Seite schieben */
+    left: 100%; /* push panel to the right side */
     margin-left: 1rem;
     transform: translateY(-50%) scale(0.96);
   }
@@ -194,16 +204,18 @@
   }
 }
 
-/* Mobile-only variant of the "more details" button */
+/* Mobile-only "More details" button (defined in HTML, shown via media query). */
 .experience-more-mobile {
-  display: none; /* hidden on desktop, shown via media query on small screens */
+  display: none; /* hidden on desktop, enabled on small screens below */
 }
 
-/* ========================================================================== */
-/* Small-screen layout adjustments (mobile friendly)                          */
-/* ========================================================================== */
+/* ==========================================================================
+   Small-screen layout adjustments for Experience card
+   --------------------------------------------------------------------------
+   When hovering is impractical (touch devices), the experience entries
+   use inline buttons instead of side hover panels.
+   ========================================================================== */
 
-/* no hover panels, simple list + buttons ---------------------------------- */
 @media (max-width: 768px) {
   .experience-card {
     padding: 1.5rem 1.25rem;
@@ -213,24 +225,24 @@
     padding: 1rem 1rem 1rem 1.2rem;
   }
 
-  /* Punkt vor dem Job etwas näher an den Text */
+  /* Dot indicator before the job entry slightly closer to the text. */
   .experience-job::after {
     left: 0.35rem;
     top: 0.95rem;
   }
 
-  /* Hover-Panels auf kleinen Screens komplett ausblenden */
+  /* Hover panels are disabled on small screens. */
   .experience-hover-panel {
     display: none;
   }
 
-  /* Brücke für den Hover wird auf Mobile nicht gebraucht */
+  /* Hover bridge is not needed on small screens. */
   .experience-job::before {
     width: 0;
     pointer-events: none;
   }
 
-  /* Statt Hover: Mobile-Buttons direkt unter der Liste anzeigen */
+  /* Instead of hover, show the "More details" button directly below the job. */
   .experience-more-mobile {
     display: inline-flex;
     margin-top: 0.75rem;
@@ -240,7 +252,9 @@
   }
 }
 
-/* Info list */
+/* ==========================================================================
+   Info list (labels + values)
+   ========================================================================== */
 
 .info-list {
   list-style: none;
@@ -269,7 +283,9 @@
   text-align: right;
 }
 
-/* Chip lists for skills & strengths */
+/* ==========================================================================
+   Chip lists for skills & strengths
+   ========================================================================== */
 
 .chip-list {
   list-style: none;
@@ -290,7 +306,9 @@
   letter-spacing: 0.03em;
 }
 
-/* Experience timeline */
+/* ==========================================================================
+   Experience timeline (used in summary and detail views)
+   ========================================================================== */
 
 .timeline {
   margin-top: 0.6rem;
@@ -304,6 +322,7 @@
   padding-left: 1.3rem;
 }
 
+/* Circular marker to the left of each timeline item. */
 .timeline-item::before {
   content: '';
   position: absolute;
@@ -316,6 +335,7 @@
   box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
 }
 
+/* Header row with title, company name and date range. */
 .timeline-header {
   display: flex;
   flex-wrap: wrap;
@@ -340,6 +360,7 @@
   margin-left: auto;
 }
 
+/* Bullet list of key points under each timeline item. */
 .timeline-item ul {
   margin: 0.2rem 0 0;
   padding-left: 1.1rem;
@@ -351,7 +372,9 @@
   margin-top: 0.12rem;
 }
 
-/* Education & languages */
+/* ==========================================================================
+   Education & languages – two-column layout and simple lists
+   ========================================================================== */
 
 .two-col {
   display: grid;
@@ -376,4 +399,375 @@
   display: block;
   font-size: 0.8rem;
   color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Shared responsiveness from former style.css
+   --------------------------------------------------------------------------
+   These media queries adjust the resume grid and common layout pieces
+   for smaller screens. They also provide shared tweaks used on detail pages.
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .resume-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .resume-sidebar {
+    order: 2;
+  }
+
+  .resume-main {
+    order: 1;
+  }
+
+  .timeline-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .timeline-legend {
+    margin-top: 0.2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  header {
+    padding-inline: 1.1rem;
+  }
+
+  .profile-container {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .profile-pic {
+    width: 82px;
+    height: 82px;
+  }
+
+  .resume-layout {
+    padding-inline: 1.1rem;
+  }
+
+  .card {
+    padding-inline: 1rem;
+  }
+
+  .two-col {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #contact-modal {
+    max-width: calc(100% - 2.4rem);
+  }
+}
+
+/* ==========================================================================
+   About page layout & spacing
+   --------------------------------------------------------------------------
+   Styles the "More about me" detail page and other text-heavy detail pages:
+   main card, header block and content sections with dividers.
+   ========================================================================== */
+
+/* Main card on the About/experience detail pages. */
+.about-card {
+  padding: 2rem 2.25rem;
+}
+
+/* Top header area including tag, H1, description and back button. */
+.about-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;        /* Spacing between tag, H1, description text and button. */
+  margin-bottom: 2rem; /* Spacing between header block and the first content section. */
+}
+
+/* Individual content sections below the header, separated by a border. */
+.about-section {
+  margin-top: 2rem;                        /* Space between sections. */
+  padding-top: 1.25rem;                    /* Space between divider line and text. */
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* Section headings inside About sections. */
+.about-section h2 {
+  margin: 0 0 0.85rem;
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Paragraph spacing inside sections. */
+.about-section p {
+  margin: 0 0 0.85rem;
+  line-height: 1.6;
+}
+
+/* Slightly smaller bottom margin for the last paragraph. */
+.about-section p:last-child {
+  margin-bottom: 0.35rem;
+}
+
+/* Tighter spacing on smaller screens for better readability. */
+@media (max-width: 768px) {
+  .about-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .about-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .about-section {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+  }
+
+  .about-section h2 {
+    margin-bottom: 0.65rem;
+  }
+}
+
+/* ==========================================================================
+   Detailed professional experience – list + side hover panels
+   --------------------------------------------------------------------------
+   This section styles the dedicated "Experience" card that mirrors the
+   resume list styling with additional hover panels to the side describing
+   how each job supports a future software-development role.
+   ========================================================================== */
+
+.experience-card {
+  padding: 2rem 2.25rem;
+}
+
+.experience-card h2 {
+  margin-bottom: 1.25rem;
+}
+
+/* Each job row inside the large experience card. */
+.experience-job {
+  position: relative;
+  padding: 0.45rem 1.3rem 0.55rem;
+  margin-top: 1.4rem;
+  border-radius: var(--radius-lg);
+  background: #020617;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.75);
+}
+
+/* First job sits closer to the header. */
+.experience-card > .experience-job:first-of-type {
+  margin-top: 0.5rem;
+  border-top: none;
+}
+
+/* Hover bridge between job row and side panel (enabled via breakpoints). */
+.experience-job::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  bottom: -8px;
+  width: 0;
+  pointer-events: none;
+}
+
+/* Header line inside each job row (title + company + date). */
+.experience-job-header {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.25rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.experience-job-header h3 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.experience-job-meta {
+  margin: 0.1rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Bullet list of responsibilities or selected contributions. */
+.experience-bullets {
+  margin: 0;
+  padding-left: 1.15rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.experience-bullets li + li {
+  margin-top: 0.2rem;
+}
+
+/* Floating hover panel that sits beside each job entry. */
+.experience-hover-panel {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  margin-left: 1.25rem;
+  transform: translateY(-50%) scale(0.96);
+  opacity: 0;
+  pointer-events: none;
+
+  width: 340px;
+  max-width: 90vw;
+
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+
+  /* Use a small internal grid: title, summary text and button vertically. */
+  display: grid;
+  grid-auto-rows: max-content;
+  gap: 0.9rem; /* Space between heading, text and button. */
+
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+  z-index: 12;
+}
+
+.experience-hover-panel h4 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.experience-hover-panel p {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+/* "More details" button inside the hover panel. */
+.experience-more-button {
+  font-size: 0.85rem;
+  padding-inline: 1.15rem;
+  min-height: 2.1rem;
+  margin-top: 0;
+}
+
+/* The panel stays visible as long as either the job or the panel itself
+   is hovered. */
+.experience-job:hover .experience-hover-panel,
+.experience-hover-panel:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+  pointer-events: auto;
+}
+
+/* Large screens: panel placed on the RIGHT side, bridge to the right. */
+@media (min-width: 1201px) {
+  .experience-job::before {
+    right: -24px;  /* bridge extends 24px to the right */
+    width: 24px;
+    pointer-events: auto;
+  }
+}
+
+/* Medium screens (tablet / small desktop):
+   Mirror profile layout – panel outside on the LEFT. */
+@media (max-width: 1200px) and (min-width: 769px) {
+  .experience-hover-panel {
+    left: auto;
+    margin-left: 0;
+    right: 100%;
+    margin-right: 1.25rem;
+    transform: translateY(-50%) scale(0.96);
+  }
+
+  .experience-job:hover .experience-hover-panel,
+  .experience-hover-panel:hover {
+    transform: translateY(-50%) scale(1);
+  }
+
+  .experience-job::before {
+    left: -24px; /* bridge now on the left because panel is left */
+    right: auto;
+    width: 24px;
+    pointer-events: auto;
+  }
+}
+
+/* Small screens:
+   Panel displayed below the job, full width, still hover-triggered. */
+@media (max-width: 768px) {
+  .experience-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .experience-job {
+    padding: 1rem 0 1rem 1.6rem; /* slightly different padding on mobile */
+  }
+
+  .experience-hover-panel {
+    position: static;
+    margin-top: 0.65rem;
+    width: 100%;
+    max-width: 100%;
+    transform: scale(0.96);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .experience-job:hover .experience-hover-panel,
+  .experience-hover-panel:hover {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+
+  .experience-job::before {
+    width: 0; /* no side bridge needed when panel is below */
+    pointer-events: none;
+  }
+}
+
+/* ==========================================================================
+   Education hover images
+   --------------------------------------------------------------------------
+   Small floating image box that appears for specific education entries.
+   The position and visibility are controlled by education-hover.js.
+   ========================================================================== */
+
+.edu-hover-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;   /* Do not block clicks on underlying content. */
+  transition: opacity 0.25s ease;
+  z-index: 40;
+}
+
+.edu-hover-image img {
+  max-width: 500px;
+  max-height: 400px;
+  display: block;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+  background: #020617;
+}
+
+/* On very small screens the education hover image is disabled. */
+@media (max-width: 768px) {
+  .edu-hover-image {
+    display: none !important;
+  }
+}
+
+/* Visible state toggled via JavaScript when hovering an education item. */
+.edu-hover-image.is-visible {
+  opacity: 1;
+  visibility: visible;
 }

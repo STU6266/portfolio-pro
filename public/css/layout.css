@@ -11,6 +11,9 @@
 
 /* ==========================================================================
    Header / hero
+   --------------------------------------------------------------------------
+   The hero header appears at the top of every page. It contains a blurred
+   background image, the profile picture, and the main title/subtitle.
    ========================================================================== */
 
 header {
@@ -22,6 +25,7 @@ header {
   border-bottom: 1px solid rgba(148, 163, 184, 0.3);
 }
 
+/* Background image layer, blurred and slightly zoomed for a soft backdrop. */
 .header-bg-image {
   position: absolute;
   inset: 0;
@@ -36,6 +40,7 @@ header {
   filter: blur(6px) saturate(1.2);
 }
 
+/* Inner header content: profile image + text block */
 .profile-container {
   position: relative;
   max-width: 1100px;
@@ -46,6 +51,7 @@ header {
   z-index: 1;
 }
 
+/* Circular profile picture with border and shadow. */
 .profile-pic {
   width: 96px;
   height: 96px;
@@ -58,6 +64,7 @@ header {
   background: #020617;
 }
 
+/* Main title text in the header (name) */
 .header-text h1 {
   margin: 0 0 0.35rem;
   font-family: 'Montserrat', system-ui, sans-serif;
@@ -66,6 +73,7 @@ header {
   text-transform: uppercase;
 }
 
+/* Subtitle line (role description) */
 .header-text p {
   margin: 0;
   font-size: 0.95rem;
@@ -76,6 +84,9 @@ header {
 
 /* ==========================================================================
    Navigation
+   --------------------------------------------------------------------------
+   Sticky site navigation bar that stays at the top when scrolling.
+   Includes a mobile toggle button and a centered nav group on desktop.
    ========================================================================== */
 
 .site-nav-wrapper {
@@ -87,6 +98,7 @@ header {
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
 }
 
+/* Inner navigation container (title + toggle + nav list). */
 .site-nav {
   max-width: 1100px;
   margin: 0 auto;
@@ -97,6 +109,7 @@ header {
   gap: 1rem;
 }
 
+/* Small text label on the left ("Portfolio" etc.). */
 .site-nav-title {
   font-family: 'Montserrat', system-ui, sans-serif;
   font-size: 0.9rem;
@@ -110,6 +123,7 @@ header {
   opacity: 0.7;
 }
 
+/* Mobile nav toggle (hamburger button); hidden on desktop. */
 .nav-toggle {
   display: none;
 }
@@ -126,6 +140,7 @@ header {
   gap: 0.4rem;
 }
 
+/* Hamburger icon made of three horizontal lines. */
 .nav-toggle-icon {
   width: 14px;
   height: 14px;
@@ -156,6 +171,7 @@ header {
   top: 11px;
 }
 
+/* Animate icon into an "X" when the mobile nav is expanded. */
 #nav-toggle[aria-expanded='true'] .nav-toggle-icon span:nth-child(1) {
   transform: translateY(4px) rotate(45deg);
 }
@@ -168,7 +184,10 @@ header {
   transform: translateY(-4px) rotate(-45deg);
 }
 
-/* Nav list */
+/* --------------------------------------------------------------------------
+   Nav list (desktop base styling)
+   -------------------------------------------------------------------------- */
+
 .nav-list {
   list-style: none;
   display: flex;
@@ -177,6 +196,7 @@ header {
   padding: 0;
 }
 
+/* Individual nav links as pill-shaped buttons. */
 .nav-list a {
   display: inline-flex;
   align-items: center;
@@ -196,6 +216,7 @@ header {
     transform 0.1s ease;
 }
 
+/* Hover state for non-active nav links. */
 .nav-list li:hover a {
   color: #e5e7eb;
   background-color: rgba(148, 163, 184, 0.12);
@@ -203,12 +224,14 @@ header {
   transform: translateY(-1px);
 }
 
+/* Active nav link (current page indicator). */
 .nav-list li.active a {
   color: #e5e7eb;
   background: radial-gradient(circle at top left, var(--accent), var(--accent-strong));
   border-color: transparent;
 }
 
+/* Small dot in front of the active link text. */
 .nav-list li.active a::before {
   content: '';
   width: 6px;
@@ -217,7 +240,13 @@ header {
   background: #38bdf8;
 }
 
-/* Mobile navigation behaviour */
+/* --------------------------------------------------------------------------
+   Mobile navigation behaviour
+   --------------------------------------------------------------------------
+   On small screens, the nav list is collapsed behind a toggle button and
+   shown as a vertical list when expanded.
+   ========================================================================== */
+
 @media (max-width: 768px) {
   .site-nav {
     padding-inline: 1.1rem;
@@ -227,10 +256,12 @@ header {
     display: block;
   }
 
+  /* When collapsed (aria-expanded="false"), hide the nav list. */
   #nav-toggle[aria-expanded='false'] + .nav-list {
     display: none;
   }
 
+  /* When expanded, show the nav list as a vertical column. */
   #nav-toggle[aria-expanded='true'] + .nav-list {
     display: flex;
     flex-direction: column;
@@ -242,38 +273,46 @@ header {
     width: 100%;
     justify-content: flex-start;
   }
-  
 }
-/* Desktop navigation behaviour */
+
+/* --------------------------------------------------------------------------
+   Desktop navigation behaviour
+   --------------------------------------------------------------------------
+   On wider screens, center the whole nav group and distribute the three
+   buttons evenly so they form a long pill-style group in the middle.
+   ========================================================================== */
+
 @media (min-width: 769px) {
-  /* Nav-Bar zentriert die ganze Button-Gruppe */
+  /* Center the entire nav group inside the available header width. */
   .site-nav {
     justify-content: center;
   }
 
-  /* Die drei Buttons bilden eine Gruppe mit fester Max-Breite in der Mitte */
+  /* The three nav items share a fixed maximum width as a group. */
   .nav-list {
-    flex: 0 1 520px;          /* Breite der gesamten Gruppe – nach Geschmack anpassen */
+    flex: 0 1 520px;          /* Overall width of the nav group; adjust if needed. */
     justify-content: space-between;
   }
 
-  /* Jeder Listeneintrag bekommt gleich viel Platz */
+  /* Each list item gets equal space within the nav group. */
   .nav-list li {
     flex: 1;
     display: flex;
     justify-content: center;
   }
 
-  /* Der eigentliche Link wird zum „langen“ Pill-Button */
+  /* Each link becomes a full-width pill-style button. */
   .nav-list a {
     width: 100%;
     justify-content: center;
-    padding: 0.45rem 1.8rem;  /* mehr horizontales Padding = längere Buttons */
+    padding: 0.45rem 1.8rem;  /* Larger horizontal padding = longer buttons. */
   }
 }
 
 /* ==========================================================================
    Footer
+   --------------------------------------------------------------------------
+   Global footer with copyright text, impressum link and social icons.
    ========================================================================== */
 
 footer {
@@ -293,6 +332,7 @@ footer {
   font-size: 0.8rem;
 }
 
+/* Impressum link in the footer (legal information). */
 .footer-impressum a {
   color: var(--text-muted);
   text-decoration: none;
@@ -302,15 +342,18 @@ footer {
   color: var(--accent);
 }
 
+/* Small copyright line. */
 .footer-copy {
   margin: 0;
 }
 
+/* Container for social icons (GitHub, LinkedIn, etc.). */
 .footer-nav {
   display: flex;
   gap: 0.5rem;
 }
 
+/* Social icon images in the footer. */
 .social-icon {
   width: 20px;
   height: 20px;

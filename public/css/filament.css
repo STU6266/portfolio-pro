@@ -1,13 +1,20 @@
 /* ==========================================================================
    filament.css – Filament Finder and "Add filament" pages
    --------------------------------------------------------------------------
-   - Layout and styling for the Filament Finder UI (filters, material info,
-     results list) on /filament.
-   - Styles filter controls, result cards and the mobile filter toggle button.
-   - Defines grid layout and preview card styling for the /filament/add demo.
+   - Defines layout and styling for the Filament Finder UI on /filament.
+   - Styles the filter controls, material information panel and results list.
+   - Provides grid-based layout and preview card styling for /filament/add.
+   - Contains mobile adjustments for both finder and add pages.
    ========================================================================== */
 
-/* Main layout container for Filament Finder */
+/* ==========================================================================
+   Main layout container
+   --------------------------------------------------------------------------
+   This wrapper is used for the Filament Finder page. It constrains the
+   maximum width, centers the content and adds consistent padding and gap
+   between the intro, filter and results sections.
+   ========================================================================== */
+
 .filament-layout {
   max-width: 1100px;
   margin: 0 auto;
@@ -16,20 +23,29 @@
   gap: 1.5rem;
 }
 
+/* Text inside the intro card at the top of Filament pages. */
 .filament-intro p {
   margin-bottom: 0.5rem;
 }
 
+/* The last paragraph before a button (e.g. "Back to projects") gets extra
+   space so that the button does not visually "stick" to the text. */
 .filament-intro p:last-of-type {
   margin-bottom: 1.4rem;
 }
 
+/* Secondary explanatory note text inside the intro card. */
 .filament-note {
   font-size: 0.9rem;
   color: var(--text-muted, #555);
-  margin: 0 0 1.4rem;   /* Abstand zwischen Text und Button */
+  margin: 0 0 1.4rem;   /* Space between the note text and any following button. */
 }
 
+/* ==========================================================================
+   Filter form (material, brand, color, temperature inputs)
+   ========================================================================== */
+
+/* Wrapper for all filter fields. Switches to a two-column grid on tablets. */
 .filament-filter-form {
   display: grid;
   gap: 1rem;
@@ -42,6 +58,8 @@
   }
 }
 
+/* High-level layout: filter + material info side-by-side on larger screens,
+   stacked on mobile. */
 .filament-filter-layout {
   display: flex;
   flex-direction: column;
@@ -57,7 +75,12 @@
   }
 }
 
-/* Box für Material-Infos */
+/* ==========================================================================
+   Material info panel (right side of the filter area)
+   ========================================================================== */
+
+/* Container that shows details about the currently selected material.
+   Uses a subtle radial highlight and a dark card background. */
 .filament-material-info {
   padding: 0.75rem 1rem;
   border-radius: 1rem;
@@ -72,6 +95,7 @@
   color: var(--text-muted);
 }
 
+/* Title of the material info panel ("PLA", "PETG" etc.). */
 .filament-material-info h3 {
   margin: 0 0 0.4rem;
   font-size: 0.85rem;
@@ -80,6 +104,8 @@
   color: #e5e7eb;
 }
 
+/* Small grid that shows key/value pairs for the material:
+   nozzle range, bed range, flexibility / enclosure, etc. */
 .filament-material-meta {
   margin: 0.5rem 0;
   display: grid;
@@ -97,16 +123,24 @@
   margin: 0;
 }
 
+/* Additional explanatory text for the selected material. Often a short
+   paragraph describing when and why to use it. */
 .filament-material-notes {
   margin-top: 0.4rem;
   font-size: 0.78rem;
   color: var(--text-muted);
 }
 
+/* Used when no material is currently selected. */
 .filament-material-empty {
   margin: 0;
 }
 
+/* ==========================================================================
+   Individual filter fields (labels, range inputs, etc.)
+   ========================================================================== */
+
+/* Generic label styling for all filter fields (material, brand, etc.). */
 .filament-field label {
   font-size: 0.8rem;
   text-transform: uppercase;
@@ -116,6 +150,7 @@
   margin-bottom: 0.25rem;
 }
 
+/* Special layout for a min/max input pair (e.g. nozzle temperature range). */
 .filament-range {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -123,6 +158,8 @@
   align-items: center;
 }
 
+/* Row that groups the primary action buttons below the filter fields:
+   "Apply filters", "Reset" etc. */
 .filament-actions {
   grid-column: 1 / -1;
   display: flex;
@@ -131,6 +168,7 @@
   margin-top: 0.5rem;
 }
 
+/* Shared button styles for primary and secondary actions on this page. */
 .btn-primary,
 .btn-secondary {
   padding: 0.45rem 0.9rem;
@@ -140,31 +178,44 @@
   font-size: 0.9rem;
 }
 
+/* Primary action button (accent color, white text). */
 .btn-primary {
   background: #2563eb;
   color: #fff;
 }
 
+/* Secondary action button (light background, dark text). */
 .btn-secondary {
   background: #f3f4f6;
   color: #111827;
 }
 
+/* ==========================================================================
+   Results section (matching filaments list)
+   ========================================================================== */
+
+/* Heading above the results list. */
 .filament-results-card h2 {
   margin-bottom: 0.75rem;
 }
 
+/* Text used when there are no matching filaments. */
 .filament-empty {
   font-size: 0.9rem;
   color: var(--text-muted, #666);
 }
 
+/* The outer wrapper for the list of filaments.
+   On desktop this is treated as a simple vertical list; the grid variant
+   is prepared but not fully used in this design. */
 .filament-grid {
-  display: block; /* einfache Einspalten-Liste */
+  display: block; /* behaves as a single-column list by default */
 }
 
+/* Class for a potential filter toggle control – hidden on desktop by default.
+   The HTML may use the ID-based variant below instead. */
 .filament-filter-toggle {
-  display: none; /* standard: auf Desktop verstecken */
+  display: none;
 }
 
 @media (min-width: 768px) {
@@ -173,6 +224,8 @@
   }
 }
 
+/* Single filament row. Uses a multi-column grid on larger screens to keep
+   brand/name, material, temperatures and notes aligned in columns. */
 .filament-card {
   display: grid;
   grid-template-columns: minmax(0, 2.4fr) repeat(3, minmax(0, 1fr));
@@ -190,15 +243,20 @@
   border-bottom: none;
 }
 
+/* Container for brand and product name in a filament row. */
 .filament-card-header h3 {
   font-size: 0.9rem;
   margin: 0;
 }
 
+/* "Chip" element for material tags – currently not shown.
+   This can be enabled later if a chip-style label should be visible. */
 .filament-chip {
   display: none;
 }
 
+/* Wrapper that allows distributing some fields across the same grid
+   columns as the main card. */
 .filament-meta {
   display: contents;
 }
@@ -217,7 +275,8 @@
   margin: 0;
 }
 
-/* Notizen nur bei Hover zeigen, sonst Platz sparen */
+/* Notes for a filament: only shown when the user hovers over the row,
+   so the list stays compact but still provides extra context on demand. */
 .filament-notes {
   display: none;
   grid-column: 1 / -1;
@@ -230,33 +289,51 @@
   display: block;
 }
 
+/* Row that aligns the "Add filament" link to the right above the results. */
 .filament-add-link-row {
   display: flex;
   justify-content: flex-end;
   margin: 0.5rem 0 1.25rem;
 }
 
+/* Styling for the link that opens the add-filament page. */
 .filament-add-link {
   font-size: 0.85rem;
 }
 
-/* Add-filament-Form etwas gridig machen */
+/* ==========================================================================
+   Add-filament form layout (/filament/add)
+   ========================================================================== */
+
+/* Grid layout for the input fields on the "Add filament" demo page.
+   Distributes fields across multiple columns where space permits. */
 .filament-add-form {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem 1.5rem;
 }
 
+/* Field for notes spans the full width of the form grid. */
 .filament-field-notes {
   grid-column: 1 / -1;
 }
 
+/* The action buttons in the add-form (submit, reset, etc.) also span
+   the full width and are aligned to the left. */
 .filament-add-form .filament-actions {
   grid-column: 1 / -1;
   justify-content: flex-start;
 }
 
-/* Auf kleinen Screens: Toggle zeigen, Filter-Card einklappbar machen */
+/* ==========================================================================
+   Mobile: optional filter toggle control
+   --------------------------------------------------------------------------
+   This block styles a potential filter toggle button that sits above the
+   actual filter card on small screens. The current design shows the filter
+   panel by default; JavaScript could later add an "is-open" class to make
+   the toggle functional.
+   ========================================================================== */
+
 @media (max-width: 768px) {
   .filament-filter-toggle {
     display: inline-flex;
@@ -276,33 +353,26 @@
     outline: 2px solid rgba(96, 165, 250, 0.9);
     outline-offset: 2px;
   }
-
-  /* Auf Handy: Filter-Card standardmäßig verstecken */
-  .filament-filter-card {
-    display: none;
-  }
-
-  /* Wenn "is-open" gesetzt ist → anzeigen */
-  .filament-filter-card.is-open {
-    display: block;
-  }
 }
 
 /* ==========================================================================
-   Mobile adjustments
+   Mobile adjustments (Filament Finder and Add filament)
    ========================================================================== */
 
 @media (max-width: 900px) {
+  /* Ensure a single-column layout for any grid wrapper that uses this class. */
   .filament-main-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 }
 
 @media (max-width: 768px) {
+  /* Slightly narrower horizontal padding on small screens. */
   .filament-layout {
     padding-inline: 1.1rem;
   }
 
+  /* Add-filament preview grid collapses to a single column on mobile. */
   .filament-add-grid {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -311,6 +381,9 @@
     margin-top: 0.25rem;
   }
 
+  /* Filter card remains visible on mobile in this design.
+     The "is-open" class can be used later if a collapsible filter
+     behaviour is implemented via JavaScript. */
   .filament-filter-card {
     display: block;
   }
@@ -320,7 +393,14 @@
   }
 }
 
-/* Toggle button above filter card on small screens */
+/* ==========================================================================
+   ID-based filter toggle button (alternative to .filament-filter-toggle)
+   --------------------------------------------------------------------------
+   Some templates may use an element with the ID #filament-filter-toggle
+   instead of the .filament-filter-toggle class. These styles make it look
+   like a pill-shaped outline button and only show it on small screens.
+   ========================================================================== */
+
 #filament-filter-toggle {
   display: none;
   margin-bottom: 0.6rem;

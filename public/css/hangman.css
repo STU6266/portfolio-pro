@@ -33,11 +33,12 @@
   line-height: 1.6;
 }
 
+/* Intro / description text directly under the title */
 .hangman-header .project-description {
   margin: 0.2rem 0 1.4rem;
 }
 
-/* Difficulty + new game controls */
+/* Difficulty + "New game" controls row */
 .hangman-controls {
   display: flex;
   flex-wrap: wrap;
@@ -46,7 +47,7 @@
   margin-top: 0.5rem;
 }
 
-
+/* Single form field (label + select) in the controls row */
 .hangman-field {
   min-width: 180px;
 }
@@ -60,6 +61,7 @@
   margin-bottom: 0.25rem;
 }
 
+/* Difficulty select element */
 #hangman-difficulty {
   padding: 0.4rem 0.7rem;
   border-radius: 0.5rem;
@@ -76,14 +78,15 @@
   align-items: flex-start;
 }
 
-
+/* On narrow viewports the main grid (word + figure + keyboard) stacks
+   vertically instead of side by side. */
 @media (max-width: 780px) {
   .hangman-main-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 }
 
-/* Section headings inside the game */
+/* Section headings inside the game (Word, Status, Keyboard) */
 .hangman-word-wrapper h2,
 .hangman-figure-section h2,
 .hangman-keyboard-section h2 {
@@ -93,7 +96,7 @@
   margin: 0 0 0.35rem;
 }
 
-/* The main word display */
+/* The main word display (underscores and revealed letters) */
 .hangman-word {
   font-family: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular,
     Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -118,12 +121,12 @@
   color: var(--text-soft);
 }
 
-/* The number with stronger color */
+/* The number with stronger accent color */
 .hangman-status-row strong {
   color: var(--accent);
 }
 
-/* ASCII-figure area */
+/* ASCII-figure area where the hangman is drawn step by step */
 #hangman-figure {
   margin: 0.3rem 0 0;
   padding: 0.6rem 0.85rem;
@@ -134,17 +137,17 @@
     Consolas, 'Liberation Mono', 'Courier New', monospace;
   font-size: 0.85rem;
   line-height: 1.35;
-  white-space: pre;
+  white-space: pre; /* Preserve text formatting for ASCII art */
 }
 
-/* Message area below the figure ("correct", "already used", etc.) */
+/* Message area below the figure (feedback like "correct", "already used"). */
 #hangman-message {
   margin: 0.45rem 0 0;
   font-size: 0.9rem;
   color: var(--text-main);
 }
 
-/* Section showing guessed letters */
+/* Section showing all guessed letters */
 .hangman-guessed-wrapper {
   margin-top: 1rem;
   font-size: 0.86rem;
@@ -156,7 +159,7 @@
     Consolas, 'Liberation Mono', 'Courier New', monospace;
 }
 
-/* Keyboard grid */
+/* On-screen keyboard grid for the A–Z buttons */
 .hangman-keyboard {
   margin-top: 0.75rem;
   display: grid;
@@ -164,6 +167,7 @@
   gap: 0.3rem;
 }
 
+/* Fewer columns on small screens so keys remain readable and tappable. */
 @media (max-width: 780px) {
   .hangman-keyboard {
     grid-template-columns: repeat(9, minmax(0, 1fr));
@@ -185,20 +189,20 @@
     border-color 0.1s ease;
 }
 
-/* Hover effect for keys */
+/* Hover effect for keys (only when active) */
 .hangman-key:hover:not(:disabled) {
   background: rgba(148, 163, 184, 0.15);
   border-color: rgba(148, 163, 184, 0.9);
 }
 
-/* Disabled key: already used */
+/* Disabled key: already used, dimmed and not interactive */
 .hangman-key:disabled {
   opacity: 0.35;
   cursor: default;
   transform: none;
 }
 
-/* "New game" button aligns nicely with select */
+/* "New game" button aligns nicely with the difficulty select */
 #hangman-new-game {
   padding-inline: 1.1rem;
   height: 2.2rem;

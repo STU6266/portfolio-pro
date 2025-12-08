@@ -7,7 +7,13 @@
      primary/secondary action buttons.
    ========================================================================== */
 
-/* Header above the projects grid */
+/* ==========================================================================
+   Header above the projects grid
+   --------------------------------------------------------------------------
+   Centered section heading for the projects page with a short description
+   underneath. This sits above the grid of project cards.
+   ========================================================================== */
+
 .projects-header {
   text-align: center;
   margin: 2rem 0 1.8rem;
@@ -28,14 +34,26 @@
   color: var(--text-main);
 }
 
-/* Grid of project cards */
+/* ==========================================================================
+   Grid of project cards
+   --------------------------------------------------------------------------
+   Responsive grid that automatically fits as many project cards per row
+   as possible, with a minimum width to keep each card readable.
+   ========================================================================== */
+
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.4rem;
 }
 
-/* Project card extends basic .card look via additional styling */
+/* ==========================================================================
+   Project card
+   --------------------------------------------------------------------------
+   Individual project card that extends the generic .card look with
+   flex-based vertical layout and a subtle hover effect.
+   ========================================================================== */
+
 .project-card {
   display: flex;
   flex-direction: column;
@@ -47,6 +65,7 @@
     background 0.15s ease;
 }
 
+/* Lift the card slightly and highlight it on hover to signal interactivity. */
 .project-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 24px 60px rgba(15, 23, 42, 0.95);
@@ -58,13 +77,18 @@
   );
 }
 
+/* Header area inside a project card containing tag, title and description. */
 .project-header {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
 }
 
-/* Tag line at the top (e.g., WEB · HTML / CSS / JS) */
+/* ==========================================================================
+   Project tag, title, description and meta line
+   ========================================================================== */
+
+/* Tag line at the top (e.g., "WEB · HTML / CSS / JS"). */
 .project-tag {
   display: inline-flex;
   align-items: center;
@@ -77,13 +101,13 @@
   text-transform: uppercase;
 }
 
-/* Title of the project */
+/* Title of the project. */
 .project-title {
   margin: 0;
   font-size: 1rem;
 }
 
-/* Short description */
+/* Short descriptive paragraph for the project. */
 .project-description {
   margin: 0;
   font-size: 0.9rem;
@@ -91,19 +115,11 @@
   line-height: 1.6;
 }
 
-/* Small tech stack line under the description */
+/* Small tech stack line under the description (e.g., "Tech: Node, Express"). */
 .project-meta {
   margin-top: 0.3rem;
   font-size: 0.85rem;
   color: var(--text-muted);
-}
-
-/* Footer row with buttons */
-.project-actions {
-  margin-top: auto;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
 }
 
 .project-tech-label {
@@ -115,8 +131,25 @@
   opacity: 0.9;
 }
 
-/* Primary link (e.g., "View code on GitHub") */
+/* ==========================================================================
+   Project actions (buttons/links)
+   --------------------------------------------------------------------------
+   Row at the bottom of the card that contains primary (GitHub) and
+   secondary (Open project) actions.
+   ========================================================================== */
 
+/* Footer row with buttons aligned horizontally; "margin-top: auto" pushes
+   it to the bottom of the card when content above grows. */
+.project-actions {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+/* Base styling for project links (buttons).
+   Note: display is set twice (inline-flex and flex); the second declaration
+   effectively takes precedence and the element behaves as a flex container. */
 .project-link {
   display: inline-flex;
   align-items: center;
@@ -133,6 +166,7 @@
   gap: 0.5rem;
 }
 
+/* Primary link (e.g., "View code on GitHub") with accent gradient background. */
 .project-link-primary {
   background: radial-gradient(
     circle at top left,
@@ -147,6 +181,8 @@
   filter: brightness(1.05);
 }
 
+/* Secondary link (e.g., "Open project") with transparent background and
+   subtle border; hover adds a soft tinted background. */
 .project-link-secondary {
   background: transparent;
   border-color: rgba(148, 163, 184, 0.7);
@@ -157,7 +193,13 @@
   background: rgba(148, 163, 184, 0.15);
 }
 
-/* Small layout adjustment on very narrow screens */
+/* ==========================================================================
+   Mobile adjustments
+   --------------------------------------------------------------------------
+   Slightly increase horizontal padding for the grid on very narrow screens
+   so the cards do not sit flush against the viewport edges.
+   ========================================================================== */
+
 @media (max-width: 600px) {
   .projects-grid {
     padding-inline: 1.1rem;
