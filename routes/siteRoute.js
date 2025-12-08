@@ -1,67 +1,100 @@
 // routes/siteRoute.js
+
+/**
+ * Main site routes.
+ *
+ * Each route delegates to a controller function in siteController.js
+ * and is wrapped with handleErrors to ensure that thrown errors or
+ * rejected promises are passed into the Express error middleware.
+ */
+
 const express = require("express");
 const router = express.Router();
 
 const siteController = require("../controllers/siteController");
 const { handleErrors } = require("../utilities/handleErrors");
 
+// ---------------------------------------------------------------------------
 // Home & Resume
-router.get(
-  "/",
-  handleErrors(siteController.buildResume)
-);
+// ---------------------------------------------------------------------------
 
-router.get(
-  "/resume",
-  handleErrors(siteController.buildResume)
-);
+/**
+ * GET /
+ * Default entry point: redirect to the resume page.
+ */
+router.get("/", handleErrors(siteController.buildResume));
 
+/**
+ * GET /resume
+ * Main resume / profile page.
+ */
+router.get("/resume", handleErrors(siteController.buildResume));
+
+// ---------------------------------------------------------------------------
 // Projects
-router.get(
-  "/projects",
-  handleErrors(siteController.buildProjects)
-);
+// ---------------------------------------------------------------------------
 
+/**
+ * GET /projects
+ * Project overview page with links to individual demos.
+ */
+router.get("/projects", handleErrors(siteController.buildProjects));
+
+// ---------------------------------------------------------------------------
 // Filament Finder
-router.get(
-  "/filament",
-  handleErrors(siteController.buildFilament)
-);
+// ---------------------------------------------------------------------------
 
-// Filament Add
-router.get(
-  "/filament/add",
-  handleErrors(siteController.buildFilamentAdd)
-);
+/**
+ * GET /filament
+ * Filament Finder main UI (filters + result list).
+ */
+router.get("/filament", handleErrors(siteController.buildFilament));
 
-// Hangman game (web version of the C# console game)
-router.get(
-  "/hangman",
-  handleErrors(siteController.buildHangman)
-);
+/**
+ * GET /filament/add
+ * Demo page for adding a filament and seeing a live preview.
+ */
+router.get("/filament/add", handleErrors(siteController.buildFilamentAdd));
 
-// About
-router.get(
-  "/about",
-  handleErrors(siteController.buildAbout)
-);
+// ---------------------------------------------------------------------------
+// Hangman game
+// ---------------------------------------------------------------------------
 
-// McDonald's
-router.get(
-  "/mcdonalds",
-  handleErrors(siteController.buildMcdonalds)
-);
+/**
+ * GET /hangman
+ * Browser version of the original C# console hangman game.
+ */
+router.get("/hangman", handleErrors(siteController.buildHangman));
 
-// Interspar
-router.get(
-  "/interspar",
-  handleErrors(siteController.buildInterspar)
-);
+// ---------------------------------------------------------------------------
+// About & detailed experience pages
+// ---------------------------------------------------------------------------
 
-// Reiter
-router.get(
-  "/reiter",
-  handleErrors(siteController.buildReiter)
-);
+/**
+ * GET /about
+ * Long-form "More about me" page.
+ */
+router.get("/about", handleErrors(siteController.buildAbout));
+
+/**
+ * GET /mcdonalds
+ * Detailed experience page for the McDonald's role.
+ */
+router.get("/mcdonalds", handleErrors(siteController.buildMcdonalds));
+
+/**
+ * GET /interspar
+ * Detailed experience page for the Interspar role.
+ */
+router.get("/interspar", handleErrors(siteController.buildInterspar));
+
+/**
+ * GET /reiter
+ * Detailed experience page for the Heinrich Reiter role.
+ */
+router.get("/reiter", handleErrors(siteController.buildReiter));
+
+// Impressum
+router.get("/impressum", handleErrors(siteController.buildImpressum));
 
 module.exports = router;

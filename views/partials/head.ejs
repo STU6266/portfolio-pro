@@ -5,12 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><%= title %></title>
 
-  <!-- Google Fonts -->
+  <!--
+    Global fonts.
+    Using a simple combination of Montserrat (headings) and
+    Open Sans (body text) for a clean, readable UI.
+  -->
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;700&display=swap"
-    rel="stylesheet" />
+    rel="stylesheet"
+  />
 
-  <!-- Haupt-CSS -->
-  <link rel="stylesheet" href="/css/style.css" />
+  <!--
+    CSS structure:
+    - base.css: resets, typography, colors, utility classes
+    - layout.css: global layout (grid, containers, header, footer)
+    - style.css: shared component styles (cards, buttons, chips, etc.)
+    - resume.css: resume-specific layout and hover behaviour
+    - filament.css: Filament Finder and "Add filament" page
+    - projects.css: projects overview page
+    - hangman.css: Hangman game
+    - contact.css: modal-specific styling
+  -->
+  
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/resume.css">
+  <link rel="stylesheet" href="/css/filament.css">
+  <link rel="stylesheet" href="/css/projects.css">
+  <link rel="stylesheet" href="/css/hangman.css">
+  <link rel="stylesheet" href="/css/contact.css">
+
 </head>
 <body>

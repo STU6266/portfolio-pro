@@ -1,0 +1,1749 @@
+/* ==========================================================================
+   Global layout & theme
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-body: #0b1120;
+  --bg-muted: #020617;
+  --bg-surface: #020617;
+  --bg-card: #020617;
+  --accent: #38bdf8;
+  --accent-soft: rgba(56, 189, 248, 0.12);
+  --accent-strong: #0ea5e9;
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+  --border-subtle: rgba(148, 163, 184, 0.35);
+  --shadow-soft: 0 24px 60px rgba(15, 23, 42, 0.8);
+  --radius-lg: 18px;
+  --radius-full: 999px;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Open Sans', system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', sans-serif;
+  color: var(--text-main);
+  background:
+    radial-gradient(circle at top left, #1e293b 0, transparent 55%),
+    radial-gradient(circle at bottom right, #0f172a 0, transparent 55%),
+    #020617;
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   Header / hero
+   ========================================================================== */
+
+header {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at top left, #0f172a, #020617);
+  color: #f9fafb;
+  padding: 2.25rem 1.5rem 1.75rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.header-bg-image {
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+  transform: scale(1.05);
+}
+
+.header-bg-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(6px) saturate(1.2);
+}
+
+.profile-container {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  z-index: 1;
+}
+
+.profile-pic {
+  width: 96px;
+  height: 96px;
+  border-radius: 999px;
+  border: 3px solid rgba(15, 23, 42, 0.8);
+  box-shadow:
+    0 18px 45px rgba(15, 23, 42, 0.85),
+    0 0 0 1px rgba(148, 163, 184, 0.4);
+  object-fit: cover;
+  background: #020617;
+}
+
+.header-text h1 {
+  margin: 0 0 0.35rem;
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-size: clamp(1.85rem, 3vw, 2.3rem);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.header-text p {
+  margin: 0;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   Navigation
+   ========================================================================== */
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(18px);
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 23, 42, 0.96),
+    rgba(15, 23, 42, 0.9)
+  );
+  border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0.4rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Hamburger */
+.nav-toggle {
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: radial-gradient(circle at top left, #0f172a, #020617);
+  border-radius: 999px;
+  padding: 0.4rem 0.55rem;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.22rem;
+  cursor: pointer;
+  color: #f9fafb;
+}
+
+.nav-toggle-bar {
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: #e5e7eb;
+}
+
+/* Nav list */
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-list li a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  transition:
+    color 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.nav-list li:hover a {
+  color: #e5e7eb;
+  background-color: rgba(148, 163, 184, 0.12);
+  border-color: rgba(148, 163, 184, 0.4);
+  transform: translateY(-1px);
+}
+
+.nav-list li.active a {
+  color: #e5e7eb;
+  background: radial-gradient(circle at top left, var(--accent), var(--accent-strong));
+  border-color: transparent;
+}
+
+/* Mobile behaviour: hide list when nav-toggle aria-expanded="false" */
+@media (max-width: 768px) {
+  .site-nav {
+    padding-inline: 1rem;
+    gap: 0.75rem;
+  }
+
+  .nav-list {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 52px;
+    margin: 0;
+    padding: 0.75rem 1.5rem 1rem;
+    flex-direction: column;
+    background: rgba(15, 23, 42, 0.98);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+  }
+
+  #nav-toggle[aria-expanded="false"] + .nav-list {
+    display: none;
+  }
+
+  #nav-toggle[aria-expanded="true"] + .nav-list {
+    display: flex;
+  }
+}
+
+/* Desktop: hide hamburger, nav inline */
+@media (min-width: 769px) {
+  .nav-toggle {
+    display: none;
+  }
+/* Nav-Leiste zentrieren */
+  .site-nav {
+    justify-content: center;
+  }
+
+  /* Liste füllt die ganze Breite und verteilt die 3 Punkte */
+  .nav-list {
+    flex: 1;
+    justify-content: space-between;
+  }
+
+  /* Jeder Eintrag bekommt den gleichen Platz */
+  .nav-list li {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Links selber nehmen die volle Breite ihres Slots ein */
+  .nav-list li a {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+/* ==========================================================================
+   Contact button + modal
+   ========================================================================== */
+
+/* Overlay */
+#modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.78);
+  z-index: 40;
+}
+
+/* Modal */
+#contact-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  max-width: 420px;
+  height: max-content;
+  background: radial-gradient(circle at top left, #020617, #020617);
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  padding: 1.25rem 1.5rem 1.2rem;
+  color: #e5e7eb;
+  box-shadow: var(--shadow-soft);
+  z-index: 50;
+}
+
+#contact-modal h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+#contact-modal textarea {
+  width: 100%;
+  min-height: 120px;
+  margin-bottom: 0.9rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: #020617;
+  color: #e5e7eb;
+  font-family: inherit;
+  font-size: 0.9rem;
+  resize: vertical;
+}
+
+#contact-modal textarea::placeholder {
+  color: rgba(148, 163, 184, 0.9);
+}
+
+
+#send-button {
+  background: radial-gradient(circle at top left, var(--accent), var(--accent-strong));
+  color: #0b1120;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+#send-button:hover {
+  filter: brightness(1.05);
+}
+
+#close-button {
+  background: transparent;
+  border-color: rgba(148, 163, 184, 0.7);
+  color: #e5e7eb;
+}
+
+#close-button:hover {
+  background: rgba(148, 163, 184, 0.15);
+}
+
+/* Contact modal form layout --------------------------------------------- */
+
+#contact-modal .contact-field {
+  margin-bottom: 0.75rem;
+}
+
+#contact-modal label {
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 0.25rem;
+  color: var(--text-muted);
+}
+
+#contact-modal input[type="text"],
+#contact-modal input[type="email"] {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 0.9rem;
+}
+
+#contact-modal input::placeholder {
+  color: rgba(148, 163, 184, 0.9);
+}
+
+#contact-modal textarea {
+  width: 100%;
+  min-height: 120px;
+  margin-bottom: 0.9rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: #020617;
+  color: #e5e7eb;
+  font-family: inherit;
+  font-size: 0.9rem;
+  resize: vertical;
+}
+
+#contact-modal textarea::placeholder {
+  color: rgba(148, 163, 184, 0.9);
+}
+
+.contact-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+/* Kleine Fehlermeldungen im Kontakt-Modal */
+.form-error {
+  margin: 0.15rem 0 0.4rem;
+  font-size: 0.75rem;
+  color: #fca5a5; /* weiches Rot */
+}
+
+/* Rotes Border, wenn ein Feld einen Fehler hat */
+.contact-field.has-error input,
+.contact-field.has-error textarea {
+  border-color: #fca5a5;
+  box-shadow: 0 0 0 1px rgba(248, 113, 113, 0.35);
+}
+
+/* ==========================================================================
+   Resume layout
+   ========================================================================== */
+
+.resume-layout {
+  max-width: 1100px;
+  margin: 1.75rem auto 3rem;
+  padding: 0 1.5rem 2.5rem;
+}
+
+.resume-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: flex-start;
+  margin-top: 1.5rem;
+}
+
+.resume-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.resume-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Cards */
+
+.card {
+  background: radial-gradient(circle at top left, #020617, #020617);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  padding: 1.25rem 1.4rem;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+}
+
+.card h2 {
+  margin: 0 0 0.6rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+}
+
+.card p {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+/* Summary / profile */
+
+.summary-card p {
+  line-height: 1.6;
+}
+
+/* Hover panel for Profile card
+   ------------------------------------------------------------------ */
+
+.profile-summary-card {
+  position: relative; /* anchor for the floating panel */
+}
+
+/* Unsichtbare "Brücke" zwischen Karte und Panel, damit der Hover
+   nicht sofort abbricht, wenn du mit der Maus rüberfährst */
+.profile-summary-card::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  bottom: -8px;
+  width: 0;
+  pointer-events: none; /* wir aktivieren das je nach Screen-Größe */
+}
+
+/* Große Screens: Panel links → Brücke links an der Karte */
+@media (min-width: 1201px) {
+  .profile-summary-card::before {
+    left: -24px;    /* ragt 24px nach links raus */
+    width: 24px;
+    pointer-events: auto;
+  }
+}
+
+/* Tablet / kleiner Desktop: Panel rechts → Brücke rechts an der Karte */
+@media (max-width: 1200px) and (min-width: 769px) {
+  .profile-summary-card::before {
+    right: -24px;   /* ragt 24px nach rechts raus */
+    left: auto;
+    width: 24px;
+    pointer-events: auto;
+  }
+}
+
+/* Kleine Screens: keine Brücke nötig, Panel sitzt direkt unter der Karte */
+@media (max-width: 768px) {
+  .profile-summary-card::before {
+    width: 0;
+    pointer-events: none;
+  }
+}
+
+/* --- Panel selbst -------------------------------------------------- */
+
+.profile-hover-panel {
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-right: 1rem;
+  transform: translateY(-50%) scale(0.96);
+  opacity: 0;
+
+  width: 420px;
+  max-width: 90vw;
+
+  padding: 1rem 1.15rem;
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.95);
+
+  /* Panel darf im versteckten Zustand NICHT angeklickt / gehovert werden */
+  pointer-events: none;
+
+  /* langsamere, weichere Animation */
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+  z-index: 15;
+}
+
+.profile-hover-panel h3 {
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.profile-hover-panel p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+/* Sichtbar, solange entweder die Karte ODER das Panel selbst gehovert wird */
+.profile-summary-card:hover .profile-hover-panel,
+.profile-hover-panel:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+  pointer-events: auto;
+}
+
+/* --- Medium Screens (~Tablet / kleiner Desktop) → Panel rechts --- */
+@media (max-width: 1200px) {
+  .profile-hover-panel {
+    right: auto;
+    margin-right: 0;
+    left: 100%;              /* Panel auf die RECHTE Seite schieben */
+    margin-left: 1rem;
+    transform: translateY(-50%) scale(0.96);
+  }
+
+  .profile-summary-card:hover .profile-hover-panel,
+  .profile-hover-panel:hover {
+    transform: translateY(-50%) scale(1);
+    pointer-events: auto;
+  }
+}
+
+/* --- Kleine Screens → Panel UNTER der Karte, zentriert, nur Hover --- */
+@media (max-width: 768px) {
+  .profile-hover-panel {
+    top: 100%;              /* unterhalb der Karte */
+    left: 50%;
+    right: auto;
+    margin: 0.5rem 0 0;
+
+    width: auto;
+    max-width: min(420px, 95vw);
+
+    transform: translate(-50%, 0) scale(0.96);
+  }
+
+  .profile-summary-card:hover .profile-hover-panel,
+  .profile-hover-panel:hover {
+    transform: translate(-50%, 0) scale(1);
+    pointer-events: auto;
+  }
+}
+
+/* "More about me" button inside the hover panel */
+.profile-hover-panel .profile-more-button {
+  margin-top: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 1.1rem;
+  min-height: 2.25rem;
+  font-size: 0.9rem;
+}
+
+/* auf kleinen Screens im Panel schön breit */
+@media (max-width: 768px) {
+  .profile-hover-panel .profile-more-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Info list */
+
+.info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.2rem 0 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.info-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.info-list .label {
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  font-size: 0.72rem;
+  color: rgba(148, 163, 184, 0.9);
+}
+
+.info-list .value {
+  text-align: right;
+}
+
+/* Chip lists for skills & strengths */
+
+.chip-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.4rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip-list li {
+  padding: 0.35rem 0.7rem;
+  border-radius: var(--radius-full);
+  background: var(--accent-soft);
+  color: #e0f2fe;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* Experience timeline */
+
+.timeline {
+  margin-top: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 1.3rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 0.2rem;
+  top: 0.3rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
+}
+
+.timeline-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  align-items: baseline;
+  margin-bottom: 0.35rem;
+}
+
+.timeline-header h3 {
+  margin: 0;
+  font-size: 0.98rem;
+}
+
+.timeline-company {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.timeline-dates {
+  font-size: 0.82rem;
+  color: rgba(148, 163, 184, 0.9);
+  margin-left: auto;
+}
+
+.timeline-item ul {
+  margin: 0.2rem 0 0;
+  padding-left: 1.1rem;
+  font-size: 0.88rem;
+  color: var(--text-main);
+}
+
+.timeline-item li + li {
+  margin-top: 0.12rem;
+}
+
+/* Education & languages */
+
+.two-col {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 1.25rem;
+}
+
+.simple-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.3rem 0 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.simple-list li {
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+.simple-list span {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+footer {
+  border-top: 1px solid rgba(148, 163, 184, 0.35);
+  padding: 1rem 1.5rem 1.4rem;
+  background: linear-gradient(to top, #020617, #020617);
+}
+
+.footer-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.footer-impressum a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.footer-impressum a:hover {
+  color: var(--accent);
+}
+
+.footer-copy {
+  margin: 0;
+}
+
+.footer-nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.social-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+  filter: grayscale(0.1) brightness(1.3);
+  opacity: 0.8;
+  transition:
+    opacity 0.12s ease,
+    transform 0.12s ease;
+}
+
+.social-icon:hover {
+  opacity: 1;
+  transform: translateY(-1px) scale(1.02);
+}
+
+/* ==========================================================================
+   Responsiveness
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .resume-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .resume-sidebar {
+    order: 2;
+  }
+
+  .resume-main {
+    order: 1;
+  }
+
+  .timeline-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .timeline-dates {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  header {
+    padding-inline: 1.1rem;
+  }
+
+  .profile-container {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .profile-pic {
+    width: 82px;
+    height: 82px;
+  }
+
+  .resume-layout {
+    padding-inline: 1.1rem;
+  }
+
+  .card {
+    padding-inline: 1rem;
+  }
+
+  .two-col {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #contact-modal {
+    max-width: calc(100% - 2.4rem);
+  }
+}
+
+/* ==========================================================================
+   Projects page
+   ========================================================================== */
+
+.projects-header {
+  text-align: center;
+  margin: 2rem 0 1.8rem;
+}
+
+.projects-header h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+}
+
+.projects-header p {
+  margin: 0 auto;
+  max-width: 620px;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.4rem;
+}
+
+/* extends base .card */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.95);
+  border-color: var(--accent);
+  background: radial-gradient(
+    circle at top left,
+    rgba(56, 189, 248, 0.12),
+    #020617
+  );
+}
+
+.project-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.project-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.12);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.project-title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.project-description {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.project-meta {
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.project-tech-label {
+  font-weight: 600;
+  margin-right: 0.25rem;
+}
+
+.project-tech-list {
+  opacity: 0.9;
+}
+
+.project-links {
+  margin-top: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.project-link-primary {
+  background: radial-gradient(
+    circle at top left,
+    var(--accent),
+    var(--accent-strong)
+  );
+  color: #0b1120;
+  font-weight: 600;
+}
+
+.project-link-primary:hover {
+  filter: brightness(1.05);
+}
+
+.project-link-secondary {
+  background: transparent;
+  border-color: rgba(148, 163, 184, 0.7);
+  color: var(--text-main);
+}
+
+.project-link-secondary:hover {
+  background: rgba(148, 163, 184, 0.15);
+}
+
+/* ==========================================================================
+   Hangman game
+   ========================================================================== */
+
+.hangman-card {
+  max-width: 960px;
+  margin: 0 auto 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.hangman-header {
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.hangman-header h1 {
+  margin-bottom: 0.35rem;
+}
+
+.hangman-header .project-description {
+  margin: 0.2rem 0 0.4rem;
+}
+
+/* Controls: difficulty + new game button */
+.hangman-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+  margin-top: 0.5rem;
+}
+
+.hangman-field {
+  min-width: 180px;
+}
+
+.hangman-field label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+#hangman-difficulty {
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-subtle);
+  background: #020617;
+  color: var(--text-main);
+}
+
+/* Status: word + info side by side */
+.hangman-status {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 2fr);
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+@media (max-width: 768px) {
+  .hangman-status {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Section headings inside the game */
+.hangman-word-wrapper h2,
+.hangman-figure-section h2,
+.hangman-keyboard-section h2 {
+  font-size: 0.9rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0 0 0.35rem;
+}
+
+/* The main word display ( _ _ e e ) */
+.hangman-word {
+  font-family: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular,
+    Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 1.6rem;
+  letter-spacing: 0.35em;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.75rem;
+  background: rgba(15, 23, 42, 0.9);
+  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.35);
+  min-height: 2.6rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Info text on the right (wrong guesses, guessed letters, message) */
+.hangman-info p {
+  margin: 0.15rem 0;
+  font-size: 0.9rem;
+}
+
+.hangman-message {
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* ASCII figure styling */
+.hangman-figure-section {
+  margin-top: 0.75rem;
+}
+
+.hangman-figure {
+  font-family: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular,
+    Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  background: rgba(15, 23, 42, 0.9);
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.35);
+  min-height: 7.5rem;
+  white-space: pre;
+}
+
+/* On-screen keyboard */
+.hangman-keyboard-section {
+  margin-top: 1.25rem;
+}
+
+.hangman-keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.4rem;
+}
+
+.hangman-key {
+  min-width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Slightly tone down disabled keys */
+.hangman-key:disabled {
+  opacity: 0.35;
+  cursor: default;
+  transform: none;
+}
+
+/* Button inside controls inherits your normal primary style,
+   this just makes sure spacing matches the select */
+#hangman-new-game {
+  padding-inline: 1.1rem;
+  height: 2.2rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ==========================================================================
+   Filament
+   ========================================================================== */
+
+.filament-layout {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.filament-intro p {
+  margin-bottom: 0.5rem;
+}
+
+.filament-note {
+  font-size: 0.9rem;
+  color: var(--text-muted, #555);
+}
+
+.filament-filter-form {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .filament-filter-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: end;
+  }
+}
+
+.filament-filter-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .filament-filter-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.2fr);
+    align-items: flex-start;
+    gap: 1.75rem;
+  }
+}
+
+/* Box für Material-Infos */
+.filament-material-info {
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  background: radial-gradient(
+      circle at top left,
+      rgba(56, 189, 248, 0.12),
+      transparent 60%
+    ),
+    rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.filament-material-info h3 {
+  margin: 0 0 0.4rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #e5e7eb;
+}
+
+.filament-material-meta {
+  margin: 0.5rem 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.3rem 1.25rem;
+  font-size: 0.78rem;
+}
+
+.filament-material-meta dt {
+  font-weight: 600;
+  margin: 0;
+}
+
+.filament-material-meta dd {
+  margin: 0;
+}
+
+.filament-material-notes {
+  margin-top: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.filament-material-empty {
+  margin: 0;
+}
+
+.filament-field label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted, #666);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.filament-range {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.filament-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.filament-results-card h2 {
+  margin-bottom: 0.75rem;
+}
+
+.filament-empty {
+  font-size: 0.9rem;
+  color: var(--text-muted, #666);
+}
+
+.filament-grid {
+  display: block; /* einfache Einspalten-Liste */
+}
+
+.filament-filter-toggle {
+  display: none; /* standard: auf Desktop verstecken */
+}
+
+@media (min-width: 768px) {
+  .filament-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.filament-card {
+  display: grid;
+  grid-template-columns: minmax(0, 2.4fr) repeat(3, minmax(0, 1fr));
+  column-gap: 1rem;
+  align-items: baseline;
+
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.filament-card:last-child {
+  border-bottom: none;
+}
+
+.filament-card-header h3 {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.filament-chip {
+  display: none;
+}
+
+.filament-meta {
+  display: contents;
+}
+
+.filament-meta > div {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.filament-meta dt {
+  font-weight: 600;
+  margin: 0;
+}
+
+.filament-meta dd {
+  margin: 0;
+}
+
+/* Notizen nur bei Hover zeigen, sonst Platz sparen */
+.filament-notes {
+  display: none;
+  grid-column: 1 / -1;
+  font-size: 0.78rem;
+  margin-top: 0.2rem;
+  color: var(--text-muted);
+}
+
+.filament-card:hover .filament-notes {
+  display: block;
+}
+
+.filament-add-link-row {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0.5rem 0 1.25rem;
+}
+
+.filament-add-link {
+  font-size: 0.85rem;
+}
+
+/* Add-filament-Form etwas gridig machen */
+.filament-add-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem 1.5rem;
+}
+
+.filament-field-notes {
+  grid-column: 1 / -1;
+}
+
+.filament-add-form .filament-actions {
+  grid-column: 1 / -1;
+  justify-content: flex-start;
+}
+
+/* Auf kleinen Screens: Toggle zeigen, Filter-Card einklappbar machen */
+@media (max-width: 768px) {
+  .filament-filter-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.8);
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    font-size: 0.85rem;
+  }
+
+  .filament-filter-toggle:focus-visible {
+    outline: 2px solid rgba(96, 165, 250, 0.9);
+    outline-offset: 2px;
+  }
+
+  /* Auf Handy: Filter-Card standardmäßig verstecken */
+  .filament-filter-card {
+    display: none;
+  }
+
+  /* Wenn "is-open" gesetzt ist → anzeigen */
+  .filament-filter-card.is-open {
+    display: block;
+  }
+}
+
+/* About page layout & spacing
+   ------------------------------------------------------------------ */
+
+/* Gesamtkarte: etwas mehr Luft innen */
+.about-card {
+  padding: 2rem 2.25rem;
+}
+
+/* Header oben inkl. Tag, H1, Beschreibung und Button */
+.about-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;          /* Abstand zwischen Tag, H1, Text, Button */
+  margin-bottom: 2rem;   /* Abstand zum ersten Inhaltblock */
+}
+
+/* Back-to-resume-Button – mehr Abstand rundherum */
+.about-back-button {
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+  padding-inline: 1.4rem;
+  min-height: 2.3rem;
+  font-size: 0.9rem;
+}
+
+/* Einzelne Abschnitte darunter */
+.about-section {
+  margin-top: 2rem;                        /* Abstand zwischen den Blöcken */
+  padding-top: 1.25rem;                    /* Abstand zwischen Linie und Text */
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* Überschriften innerhalb der Abschnitte */
+.about-section h2 {
+  margin: 0 0 0.85rem;                     /* Abstand zwischen Überschrift & Text */
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Absätze im Abschnitt – etwas Abstand zwischen den Paragraphen */
+.about-section p {
+  margin: 0 0 0.85rem;                     /* Abstand nach unten je Absatz */
+  line-height: 1.6;
+}
+
+/* Letzten Absatz pro Abschnitt ein bisschen weniger Abstand unten */
+.about-section p:last-child {
+  margin-bottom: 0.35rem;
+}
+
+/* Auf kleineren Screens die Abstände etwas enger machen */
+@media (max-width: 768px) {
+  .about-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .about-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .about-section {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+  }
+
+  .about-section h2 {
+    margin-bottom: 0.65rem;
+  }
+}
+
+/* Professional Experience – list style like original + side hover panels
+   ------------------------------------------------------------------ */
+
+.experience-card {
+  padding: 2rem 2.25rem;
+}
+
+.experience-card h2 {
+  margin-bottom: 1.25rem;
+}
+
+/* Each job: simple list row inside the big card */
+.experience-job {
+  position: relative;
+  /* weniger Innenabstand oben/unten → Rechteck wirkt schlanker */
+  padding: 0.45rem 1.3rem 0.55rem;   /* vorher ca. 1.1 / 1.15 */
+  margin-top: 1.4rem;
+  border-radius: var(--radius-lg);
+  background: #020617;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.75);
+}
+
+
+/* first job without top border / extra margin */
+.experience-card > .experience-job:first-of-type {
+  margin-top: 0.5rem;
+  border-top: none;
+}
+
+/* Invisible "bridge" so the hover doesn't break
+   when you move the mouse from the job to the panel */
+.experience-job::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  bottom: -8px;
+  width: 0;
+  pointer-events: none;               /* we switch this on in media queries */
+}
+
+.experience-job-header {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;           /* weniger Platz nach unten */
+  margin-bottom: 0.25rem;           /* kleinerer Abstand zur Linie unten */
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.experience-job-meta {
+  margin: 0.1rem 0 0;               /* fast direkt unter dem Titel */
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.experience-job-header h3 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Bullet list under each job */
+.experience-bullets {
+  margin: 0;
+  padding-left: 1.15rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.experience-bullets li + li {
+  margin-top: 0.2rem;
+}
+
+/* Side panel – default: OUTSIDE on the RIGHT for large screens */
+.experience-hover-panel {
+  position: absolute;
+  top: 50%;
+  left: 100%;                  /* right next to the job block */
+  margin-left: 1.25rem;
+  transform: translateY(-50%) scale(0.96);
+  opacity: 0;
+  pointer-events: none;
+
+  width: 340px;
+  max-width: 90vw;
+
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+
+  /* slower, softer animation like the Profile hover */
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+  z-index: 12;
+}
+
+.experience-hover-panel h4 {
+  margin: 0 0 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.experience-hover-panel p {
+  margin: 0 0 0.7rem;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.experience-more-button {
+  font-size: 0.85rem;
+  padding-inline: 1.15rem;
+  min-height: 2.1rem;
+}
+
+/* Panel stays visible as long as either the job OR the panel is hovered */
+.experience-job:hover .experience-hover-panel,
+.experience-hover-panel:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+  pointer-events: auto;
+}
+
+/* ---------- Large screens: bridge on the RIGHT side (panel on the right) --- */
+@media (min-width: 1201px) {
+  .experience-job::before {
+    right: -24px;       /* sticks out 24px to the right */
+    width: 24px;
+    pointer-events: auto;
+  }
+}
+
+/* ---------- Medium screens (tablet / small desktop):
+   mirror layout of Profile – panel OUTSIDE LEFT ---------------------------- */
+@media (max-width: 1200px) and (min-width: 769px) {
+  .experience-hover-panel {
+    left: auto;
+    margin-left: 0;
+    right: 100%;               /* panel on the LEFT side */
+    margin-right: 1.25rem;
+    transform: translateY(-50%) scale(0.96);
+  }
+
+  .experience-job:hover .experience-hover-panel,
+  .experience-hover-panel:hover {
+    transform: translateY(-50%) scale(1);
+  }
+
+  /* bridge now on the LEFT, because the panel is left */
+  .experience-job::before {
+    left: -24px;
+    right: auto;
+    width: 24px;
+    pointer-events: auto;
+  }
+}
+
+/* ---------- Small screens:
+   panel below the job, full width, still only on hover -------------------- */
+@media (max-width: 768px) {
+  .experience-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .experience-job {
+    padding: 1rem 0 1rem 1.6rem;
+  }
+
+  .experience-job::after {
+    left: 0.25rem;
+    top: 0.85rem;
+  }
+
+  .experience-hover-panel {
+    position: static;          /* normal flow under the job */
+    margin-top: 0.65rem;
+
+    width: 100%;
+    max-width: 100%;
+
+    transform: scale(0.96);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .experience-job:hover .experience-hover-panel,
+  .experience-hover-panel:hover {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+
+  /* on mobile we don't need a side bridge */
+  .experience-job::before {
+    width: 0;
+    pointer-events: none;
+  }
+}
+
+/* Education hover images
+   ------------------------------------------------------------------ */
+
+.edu-hover-image {
+  position: fixed;          /* schwebt über dem Layout, verändert nichts im Flow */
+  top: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;     /* stört keine Klicks darunter */
+  transition: opacity 0.25s ease;
+  z-index: 40;
+}
+
+.edu-hover-image img {
+  max-width: 500px;
+  max-height: 400px;
+  display: block;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+  background: #020617;
+}
+
+@media (max-width: 600px) {
+  .edu-hover-image img {
+    max-width: 75vw;
+    max-height: 40vh;
+  }
+}
+
+/* sichtbarer Zustand – wird per JS gesetzt */
+.edu-hover-image.is-visible {
+  opacity: 1;
+  visibility: visible;
+}

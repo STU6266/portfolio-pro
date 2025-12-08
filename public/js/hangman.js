@@ -1,15 +1,18 @@
 // public/js/hangman.js
-// ---------------------------------------------------------
-// Browser version of the C# Hangman game.
-// Based on your original console logic:
-// - difficulty (easy / medium / hard) controls word length
-// - random word from a word list
-// - up to 10 wrong guesses (then you lose)
-// - ASCII hangman drawing, similar to PrintHangmanFigure.
-// ---------------------------------------------------------
+
+/**
+ * Browser-based implementation of the original C# Hangman game.
+ *
+ * Features:
+ * - Difficulty selector (easy / medium / hard) based on word length.
+ * - Random word selection from an in-memory word list.
+ * - Up to maxWrongGuesses incorrect attempts before the game is lost.
+ * - ASCII hangman figure that progresses with each wrong guess.
+ * - On-screen A–Z keyboard for mouse-based play.
+ */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // --- DOM elements -------------------------------------------------
+  // DOM elements for controls and game state display.
   const difficultySelect = document.querySelector("#hangman-difficulty");
   const newGameButton = document.querySelector("#hangman-new-game");
 
@@ -21,31 +24,53 @@ document.addEventListener("DOMContentLoaded", () => {
   const figurePre = document.querySelector("#hangman-figure");
   const keyboardContainer = document.querySelector("#hangman-keyboard");
 
-  // --- Game state ---------------------------------------------------
-  let secretWord = "";         // the word to guess (lowercase)
-  let revealed = [];           // array of chars, '_' or the revealed letter
-  let wrongGuesses = 0;        // how many wrong letters so far
-  const maxWrongGuesses = 10;  // like in your C# code
-  let guessedLetters = new Set(); // track all guessed letters
+  // Game state.
+  let secretWord = "";
+  let revealed = [];
+  let wrongGuesses = 0;
+  const maxWrongGuesses = 10;
+  let guessedLetters = new Set();
 
   maxSpan.textContent = String(maxWrongGuesses);
 
-  // Small word list for demo.
-  // We don't load from a file here; instead it's all in the script.
-  // Difficulty is decided later based on word length.
+  // Word list. Difficulty is derived later from the word length.
   const allWords = [
-    // easy-ish (short words)
-    "cat", "dog", "code", "game", "tree", "house", "print", "bed",
-    "nozzle", "axis", "gear", "filament", "layer", "motor", "plate",
-    // some medium/longer
-    "extruder", "settings", "quality", "progress",
-    "portfolio", "project", "backend", "frontend", "express",
-    "javascript", "variable", "function", "hardware", "software",
-    "terminal", "console", "practice", "learning"
+    "cat",
+    "dog",
+    "code",
+    "game",
+    "tree",
+    "house",
+    "print",
+    "bed",
+    "nozzle",
+    "axis",
+    "gear",
+    "filament",
+    "layer",
+    "motor",
+    "plate",
+    "extruder",
+    "settings",
+    "quality",
+    "progress",
+    "portfolio",
+    "project",
+    "backend",
+    "frontend",
+    "express",
+    "javascript",
+    "variable",
+    "function",
+    "hardware",
+    "software",
+    "terminal",
+    "console",
+    "practice",
+    "learning",
   ];
 
-  // ASCII hangman stages (0..10).
-  // These are simple, but they mirror the idea of your C# PrintHangmanFigure.
+  // ASCII hangman stages for 0..10 wrong guesses.
   const hangmanStages = [
     `
        
@@ -124,14 +149,21 @@ document.addEventListener("DOMContentLoaded", () => {
  |   O
  |  /|\\
  |  / \\
-=======`
+=======`,
   ];
 
-  // --- Helper: pick a word based on difficulty ----------------------
-  function pickRandomWord(difficulty) {
-    let minLength, maxLength;
+  // ---------------------------------------------------------------------------
+  // Game setup and helpers
+  // ---------------------------------------------------------------------------
 
-    // Same idea as your C# switch(difficulty)
+  /**
+   * Picks a random word from the word list according to the selected
+   * difficulty. Difficulty is expressed through minimum and maximum length.
+   */
+  function pickRandomWord(difficulty) {
+    let minLength;
+    let maxLength;
+
     switch (difficulty) {
       case "easy":
         minLength = 1;
@@ -151,20 +183,20 @@ document.addEventListener("DOMContentLoaded", () => {
         break;
     }
 
-    // Filter allWords according to length
     const filtered = allWords.filter((w) => {
       const len = w.trim().length;
       return len >= minLength && len <= maxLength;
     });
 
-    // Fallback: if somehow no word matches, use the full list
     const list = filtered.length > 0 ? filtered : allWords;
-
     const randomIndex = Math.floor(Math.random() * list.length);
+
     return list[randomIndex].trim().toLowerCase();
   }
 
-  // --- Helper: start a new game ------------------------------------
+  /**
+   * Resets the game state and UI for a new round.
+   */
   function startNewGame() {
     const difficulty = difficultySelect.value || "easy";
 
@@ -173,22 +205,24 @@ document.addEventListener("DOMContentLoaded", () => {
     wrongGuesses = 0;
     guessedLetters = new Set();
 
-    // Reset UI text
     updateWordDisplay();
     updateStatus();
     drawFigure(0);
     buildKeyboard();
-    messageSpan.textContent = `I picked a word with ${secretWord.length} letters. Good luck!`;
+
+    messageSpan.textContent = `A word with ${secretWord.length} letters has been chosen.`;
   }
 
-  // --- Update displayed word ---------------------------------------
+  /**
+   * Updates the text representation of the current word state.
+   */
   function updateWordDisplay() {
-    // e.g. "_ _ a _ _"
-    const display = revealed.join(" ");
-    wordDisplay.textContent = display;
+    wordDisplay.textContent = revealed.join(" ");
   }
 
-  // --- Update wrong count + guessed letters -------------------------
+  /**
+   * Updates the wrong guess counter and the list of guessed letters.
+   */
   function updateStatus() {
     wrongCountSpan.textContent = String(wrongGuesses);
 
@@ -199,16 +233,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // --- Draw ASCII figure for current wrongGuesses -------------------
+  /**
+   * Writes the ASCII hangman figure corresponding to the given stage.
+   */
   function drawFigure(stage) {
-    const index = Math.min(
-      Math.max(stage, 0),
-      hangmanStages.length - 1
-    );
+    const index = Math.min(Math.max(stage, 0), hangmanStages.length - 1);
     figurePre.textContent = hangmanStages[index];
   }
 
-  // --- Create on-screen A–Z keyboard -------------------------------
+  // ---------------------------------------------------------------------------
+  // On-screen keyboard
+  // ---------------------------------------------------------------------------
+
+  /**
+   * Builds the A–Z keyboard and wires click handlers for each letter.
+   */
   function buildKeyboard() {
     keyboardContainer.innerHTML = "";
 
@@ -228,69 +267,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // --- Handle a single letter guess --------------------------------
-  function handleGuess(letter) {
-    // If game is already over, ignore any further clicks
-    if (isGameOver()) {
-      return;
-    }
-
-    // If already guessed, ignore
-    if (guessedLetters.has(letter)) {
-      messageSpan.textContent = `You already guessed "${letter.toUpperCase()}". Try another letter.`;
-      return;
-    }
-
-    guessedLetters.add(letter);
-
-    // Is the letter in the secret word?
-    if (secretWord.includes(letter)) {
-      // Reveal all occurrences
-      for (let i = 0; i < secretWord.length; i++) {
-        if (secretWord[i] === letter) {
-          revealed[i] = letter;
-        }
-      }
-      messageSpan.textContent = `Good job! "${letter.toUpperCase()}" is in the word.`;
-    } else {
-      // Wrong guess
-      wrongGuesses++;
-      messageSpan.textContent = `Sorry, "${letter.toUpperCase()}" is not in the word.`;
-    }
-
-    // Update UI after the guess
-    updateWordDisplay();
-    updateStatus();
-    drawFigure(wrongGuesses);
-    updateKeyboardState();
-
-    // Check win/lose conditions
-    checkGameEnd();
+  /**
+   * Updates the disabled state of all keyboard buttons based on the guess set.
+   */
+  function updateKeyboardState() {
+    const buttons = keyboardContainer.querySelectorAll("button");
+    buttons.forEach((btn) => {
+      const letter = btn.textContent.toLowerCase();
+      btn.disabled = guessedLetters.has(letter);
+    });
   }
 
-  // --- Check if game is over ---------------------------------------
-  function isGameOver() {
-    const wordGuessed = revealed.join("") === secretWord;
-    const noAttemptsLeft = wrongGuesses >= maxWrongGuesses;
-    return wordGuessed || noAttemptsLeft;
-  }
-
-  function checkGameEnd() {
-    const wordGuessed = revealed.join("") === secretWord;
-    const noAttemptsLeft = wrongGuesses >= maxWrongGuesses;
-
-    if (wordGuessed) {
-      messageSpan.textContent = "Congratulations! You guessed the word 🎉";
-      disableKeyboard();
-    } else if (noAttemptsLeft) {
-      messageSpan.textContent = `Game over! The word was "${secretWord.toUpperCase()}".`;
-      // Draw final figure just in case
-      drawFigure(maxWrongGuesses);
-      disableKeyboard();
-    }
-  }
-
-  // --- Disable all keys if game is finished -------------------------
+  /**
+   * Disables all keyboard buttons once the game has finished.
+   */
   function disableKeyboard() {
     const buttons = keyboardContainer.querySelectorAll("button");
     buttons.forEach((btn) => {
@@ -298,24 +288,79 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- Update keyboard styles after each guess ----------------------
-  function updateKeyboardState() {
-    const buttons = keyboardContainer.querySelectorAll("button");
-    buttons.forEach((btn) => {
-      const letter = btn.textContent.toLowerCase();
-      btn.disabled = guessedLetters.has(letter);
+  // ---------------------------------------------------------------------------
+  // Guess handling and end-of-game logic
+  // ---------------------------------------------------------------------------
 
-      // Optional: you can adjust classes here (e.g. success/error colors)
-      // depending on whether the letter is in the word.
-    });
+  /**
+   * Processes a single letter guess and updates the state and UI.
+   */
+  function handleGuess(letter) {
+    if (isGameOver()) {
+      return;
+    }
+
+    if (guessedLetters.has(letter)) {
+      messageSpan.textContent = `The letter "${letter.toUpperCase()}" has already been tried.`;
+      return;
+    }
+
+    guessedLetters.add(letter);
+
+    if (secretWord.includes(letter)) {
+      for (let i = 0; i < secretWord.length; i++) {
+        if (secretWord[i] === letter) {
+          revealed[i] = letter;
+        }
+      }
+      messageSpan.textContent = `Correct: "${letter.toUpperCase()}" is in the word.`;
+    } else {
+      wrongGuesses++;
+      messageSpan.textContent = `Incorrect: "${letter.toUpperCase()}" is not in the word.`;
+    }
+
+    updateWordDisplay();
+    updateStatus();
+    drawFigure(wrongGuesses);
+    updateKeyboardState();
+    checkGameEnd();
   }
 
-  // --- Wire up "Start new game" button ------------------------------
+  /**
+   * Returns true once the game has either been won or lost.
+   */
+  function isGameOver() {
+    const wordGuessed = revealed.join("") === secretWord;
+    const noAttemptsLeft = wrongGuesses >= maxWrongGuesses;
+    return wordGuessed || noAttemptsLeft;
+  }
+
+  /**
+   * Evaluates whether the player has won or lost and updates the game message.
+   */
+  function checkGameEnd() {
+    const wordGuessed = revealed.join("") === secretWord;
+    const noAttemptsLeft = wrongGuesses >= maxWrongGuesses;
+
+    if (wordGuessed) {
+      messageSpan.textContent = "Congratulations! The word has been guessed. 🎉";
+      disableKeyboard();
+    } else if (noAttemptsLeft) {
+      messageSpan.textContent = `Game over. The word was "${secretWord.toUpperCase()}".`;
+      drawFigure(maxWrongGuesses);
+      disableKeyboard();
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Initialisation
+  // ---------------------------------------------------------------------------
+
   newGameButton.addEventListener("click", () => {
     startNewGame();
   });
 
-  // On page load, show empty keyboard and neutral state
+  // Show a neutral state on first load so that the structure is visible.
   buildKeyboard();
   drawFigure(0);
   updateWordDisplay();

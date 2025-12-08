@@ -2,18 +2,28 @@
 <%- include("partials/header") %>
 <%- include("partials/nav") %>
 
+<!--
+  projects.ejs
+  ---------------------------------------------------------------------------
+  Renders the project overview page with 4 project cards.
+  - Each card shows tag line, title, description, tech stack and links.
+  - Layout and styling are handled by projects.css.
+-->
+
 <main class="resume-layout">
   <%- include("partials/contactModal") %>
 
+  <!-- Intro header above the project grid -->
   <section class="projects-header">
     <h2>Projects</h2>
     <p>
-      A selection of small projects I have built so far while learning software
-      development. Most of them are simple, but they show how I practise
+      A selection of small projects built so far while learning software
+      development. They are simple by design, but show practice with
       programming, version control and basic web development.
     </p>
   </section>
 
+  <!-- Project grid -->
   <section class="projects-grid">
     <!-- Project 1: Portfolio / Resume Page -->
     <article class="card project-card">
@@ -21,17 +31,19 @@
         <span class="project-tag">Web · HTML / CSS</span>
         <h3 class="project-title">Portfolio &amp; Resume Page</h3>
         <p class="project-description">
-          A personal portfolio and resume website that presents my work
-          experience, skills and background. It was one of my first steps
-          into building my own web presence.
+          A personal portfolio and resume website that presents work
+          experience, skills and background. It was one of the first steps
+          into building a web presence.
         </p>
       </div>
+
       <div class="project-meta">
         <span class="project-tech-label">Tech:</span>
         <span class="project-tech-list">
           HTML, CSS, basic JavaScript
         </span>
       </div>
+
       <div class="project-links">
         <a
           href="https://github.com/STU6266/portfolio-pro/blob/main/views/resume.ejs"
@@ -44,13 +56,13 @@
       </div>
     </article>
 
-    <!-- Project 2: Hangman (C#) -->
+    <!-- Project 2: Hangman (Web version) -->
     <article class="card project-card">
       <div class="project-header">
         <span class="project-tag">Console · C#</span>
         <h3 class="project-title">Hangman Game</h3>
         <p class="project-description">
-          A small hangman game written in C#. The project helped me practise
+          A small hangman game written in C#. The project helped to practise
           basic programming concepts such as loops, conditions, input handling
           and working with strings.
         </p>
@@ -72,25 +84,23 @@
         >
           View code on GitHub
         </a>
-        <a
-          href="/hangman"
-          class="project-link project-link-secondary"
-        >
+        <a href="/hangman" class="project-link project-link-secondary">
           Play Hangman
         </a>
       </div>
     </article>
 
-    <!-- Project 3: Filament DB -->
+    <!-- Project 3: Filament Finder -->
     <article class="card project-card">
       <div class="project-header">
         <span class="project-tag">DATA · SQL / JSON</span>
         <h3 class="project-title">Filament Finder (3D printing)</h3>
         <p class="project-description">
-          A small data project that uses a SQL schema and a static JSON file to
+          A small data project that uses a SQL-style schema and a static JSON file to
           explore 3D printing filaments by brand, material and temperature range.
         </p>
       </div>
+
       <div class="project-meta">
         <span class="project-tech-label">Tech:</span>
         <span class="project-tech-list">
@@ -113,24 +123,25 @@
       </div>
     </article>
 
-    <!-- Project 4: AI Stories Website -->
+    <!-- Project 4: AI Stories Website (WIP) -->
     <article class="card project-card">
       <div class="project-header">
         <span class="project-tag">Web · HTML / CSS / JS</span>
         <h3 class="project-title">AI Stories Website (WIP)</h3>
         <p class="project-description">
-          A work-in-progress website built for a class assignment where I
-          experiment with layout, JavaScript and interactive content around
-          AI-generated stories. The project is still growing and will be
-          improved over time.
+          A work-in-progress website for a class assignment that experiments with
+          layout, JavaScript and interactive content around AI-generated stories.
+          The project is still growing and will be improved over time.
         </p>
       </div>
+
       <div class="project-meta">
         <span class="project-tech-label">Tech:</span>
         <span class="project-tech-list">
           HTML, CSS, JavaScript
         </span>
       </div>
+
       <div class="project-links">
         <a
           href="https://github.com/STU6266/AIstories.git"

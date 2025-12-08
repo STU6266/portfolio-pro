@@ -1,0 +1,199 @@
+/* ==========================================================================
+   contact.css – Portfolio contact modal
+   --------------------------------------------------------------------------
+   - Styles the full-screen overlay and centered modal dialog for contacting.
+   - Defines layout and typography for the contact form fields.
+   - Styles primary and secondary buttons ("Send message" / "Close").
+   - Adds error state styling used by contact-modal.js for validation.
+   ========================================================================== */
+
+/* Overlay covers the entire viewport */
+#modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.78);
+  z-index: 40;
+}
+
+/* Modal dialog container */
+#contact-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  max-width: 520px;
+  width: calc(100% - 3rem);
+  max-height: calc(100% - 3rem);
+  padding: 1.5rem 1.6rem 1.4rem;
+  background: #020617;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.8);
+  box-shadow:
+    0 24px 65px rgba(15, 23, 42, 0.96),
+    0 0 0 1px rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
+  overflow: hidden;
+  z-index: 50;
+}
+
+/* Keeps content scrollable while header/footer stay inside the card */
+#contact-modal-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header text inside the modal */
+#contact-modal h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+
+#contact-modal p {
+  margin: 0 0 0.9rem;
+  font-size: 0.9rem;
+  color: #d1d5db;
+}
+
+/* The form takes the remaining vertical space and scrolls */
+#contact-modal form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding-right: 0.15rem;
+}
+
+/* Individual field block, used for error highlighting as well */
+.contact-field {
+  margin-bottom: 0.8rem;
+}
+
+/* Label above each input */
+#contact-modal label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+
+/* Text inputs share a common look */
+#contact-modal input[type='text'] {
+  width: 100%;
+  padding: 0.55rem 0.7rem;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: #020617;
+  color: #e5e7eb;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+#contact-modal input::placeholder {
+  color: rgba(148, 163, 184, 0.9);
+}
+
+/* Larger free-text area for the message */
+#contact-modal textarea {
+  width: 100%;
+  min-height: 120px;
+  margin-bottom: 0.9rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: #020617;
+  color: #e5e7eb;
+  font-family: inherit;
+  font-size: 0.9rem;
+  resize: vertical;
+}
+
+#contact-modal textarea::placeholder {
+  color: rgba(148, 163, 184, 0.9);
+}
+
+/* Row of buttons at the bottom */
+#contact-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 0.4rem;
+}
+
+/* Primary "Send message" button */
+#send-button {
+  padding: 0.6rem 1.35rem;
+  border-radius: 999px;
+  border: 1px solid rgba(56, 189, 248, 0.9);
+  background: radial-gradient(circle at top left, #38bdf8, #0ea5e9);
+  color: #0f172a;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    filter 0.12s ease,
+    transform 0.08s ease;
+  margin-left: 0.5rem;
+}
+
+#send-button:hover {
+  filter: brightness(1.05);
+}
+
+#send-button:active {
+  transform: translateY(1px);
+}
+
+/* Secondary "Close" button */
+#close-button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: transparent;
+  color: #e5e7eb;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color 0.12s ease,
+    transform 0.08s ease;
+}
+
+#close-button:hover {
+  background: rgba(148, 163, 184, 0.15);
+}
+
+#close-button:active {
+  transform: translateY(1px);
+}
+
+/* Small error message under a field */
+.form-error {
+  margin: 0.15rem 0 0.4rem;
+  font-size: 0.75rem;
+  color: #fca5a5; /* soft red */
+}
+
+/* Highlight field wrapper when input/textarea is invalid */
+.contact-field.has-error input,
+.contact-field.has-error textarea {
+  border-color: #fca5a5;
+  box-shadow: 0 0 0 1px rgba(248, 113, 113, 0.35);
+}
+
+/* On narrow screens, reduce modal padding so it fits better */
+@media (max-width: 480px) {
+  #contact-modal {
+    width: calc(100% - 2rem);
+    padding: 1.25rem 1.25rem 1.1rem;
+  }
+}

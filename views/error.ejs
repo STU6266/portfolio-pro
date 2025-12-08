@@ -2,9 +2,18 @@
 <%- include("partials/header") %>
 <%- include("partials/nav") %>
 
+<!--
+  error.ejs
+  ---------------------------------------------------------------------------
+  Generic error template used by both:
+  - the 404 "not found" handler, and
+  - the generic server error handler.
+  The controller / middleware passes "title" and "message" into the view.
+-->
+
 <main class="resume-layout">
-  <section class="card">
-    <h2><%= title %></h2>
+  <section class="card about-card">
+    <h1><%= title %></h1>
     <p><%= message %></p>
   </section>
 </main>

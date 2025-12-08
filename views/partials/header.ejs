@@ -1,9 +1,27 @@
-<header>
+<!--
+  header.ejs
+  ---------------------------------------------------------------------------
+  Global header / hero section.
+  - Background image spans full width (set via CSS).
+  - Profile picture and name are overlaid in a centered container.
+-->
+
+<header role="banner">
   <div class="header-bg-image">
-    <img src="/images/backround.webp" alt="Steven Kemendics at a desk" />
+    <!--
+      Background image for the hero section.
+      The exact visual treatment (overlay, cropping) is done in CSS.
+    -->
+    <img src="/images/backround.webp" alt="Background image behind the profile" />
   </div>
+
   <div class="profile-container">
-    <img src="/images/original-profile.jpg" alt="Profile picture" class="profile-pic" />
+    <!-- Main profile photo used on all pages -->
+    <img
+      src="/images/original-profile.jpg"
+      alt="Portrait of Steven Kemendics"
+      class="profile-pic"
+    />
     <div class="header-text">
       <h1>Steven KEMENDICS</h1>
       <p>Software Developer</p>

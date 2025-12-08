@@ -1,0 +1,165 @@
+/* ==========================================================================
+   projects.css – Project overview page
+   --------------------------------------------------------------------------
+   - Styles the /projects header and introductory copy.
+   - Defines the responsive grid layout for project cards.
+   - Styles cards with project tag, title, description, tech stack and
+     primary/secondary action buttons.
+   ========================================================================== */
+
+/* Header above the projects grid */
+.projects-header {
+  text-align: center;
+  margin: 2rem 0 1.8rem;
+}
+
+.projects-header h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+}
+
+.projects-header p {
+  margin: 0 auto;
+  max-width: 620px;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+/* Grid of project cards */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.4rem;
+}
+
+/* Project card extends basic .card look via additional styling */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.95);
+  border-color: var(--accent);
+  background: radial-gradient(
+    circle at top left,
+    rgba(56, 189, 248, 0.12),
+    #020617
+  );
+}
+
+.project-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+/* Tag line at the top (e.g., WEB · HTML / CSS / JS) */
+.project-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.12);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Title of the project */
+.project-title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Short description */
+.project-description {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+/* Small tech stack line under the description */
+.project-meta {
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Footer row with buttons */
+.project-actions {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.project-tech-label {
+  font-weight: 600;
+  margin-right: 0.25rem;
+}
+
+.project-tech-list {
+  opacity: 0.9;
+}
+
+/* Primary link (e.g., "View code on GitHub") */
+
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  margin-top: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.project-link-primary {
+  background: radial-gradient(
+    circle at top left,
+    var(--accent),
+    var(--accent-strong)
+  );
+  color: #0b1120;
+  font-weight: 600;
+}
+
+.project-link-primary:hover {
+  filter: brightness(1.05);
+}
+
+.project-link-secondary {
+  background: transparent;
+  border-color: rgba(148, 163, 184, 0.7);
+  color: var(--text-main);
+}
+
+.project-link-secondary:hover {
+  background: rgba(148, 163, 184, 0.15);
+}
+
+/* Small layout adjustment on very narrow screens */
+@media (max-width: 600px) {
+  .projects-grid {
+    padding-inline: 1.1rem;
+  }
+}

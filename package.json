@@ -1,14 +1,19 @@
 {
   "name": "portfolio-pro",
   "version": "1.0.0",
-  "description": "",
+  "description": "Personal developer portfolio with interactive resume, projects, Filament Finder and Hangman game.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "portfolio",
+    "express",
+    "ejs",
+    "node"
+  ],
+  "author": "Steven Kemendics",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {

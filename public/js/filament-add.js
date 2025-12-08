@@ -1,24 +1,21 @@
 // public/js/filament-add.js
-// ----------------------------------------------------------
-// This script powers the "Add filament (demo)" page.
-//
-// Main idea:
-// - Load the material list from filaments.json to fill the Material dropdown
-// - Let the user type in brand, product, temps, etc.
-// - Show a live preview of how this filament would look in the main list
-// - When the user clicks "Save filament", send a POST request to the
-//   backend (/api/filaments) so it gets added to filaments.json.
-//
-// Note: The live preview uses "fallback" values so the card still looks
-// decent even if some fields are empty while the user is typing.
-// ----------------------------------------------------------
+
+/**
+ * Client-side logic for the "Add filament" demo page.
+ *
+ * Responsibilities:
+ * - Load the material list from filaments.json to populate the Material select.
+ * - Maintain a live preview of the filament card while the user is typing.
+ * - Validate basic fields before saving.
+ * - Send a POST request to /api/filaments so the new filament is persisted
+ *   in filaments.json on the server.
+ */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // The form that holds all input fields for the new filament
   const form = document.querySelector("#filament-add-form");
   if (!form) return;
 
-  // Grab all individual inputs
+  // Input fields.
   const brandInput = document.querySelector("#add-brand");
   const productInput = document.querySelector("#add-product");
   const materialSelect = document.querySelector("#add-material");
@@ -31,15 +28,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const notesInput = document.querySelector("#add-notes");
   const saveButton = document.querySelector("#filament-save");
 
-  // Where the preview card will be rendered
+  // Preview container.
   const previewContainer = document.querySelector("#filament-add-preview");
 
-  // This will be filled from filaments.json
+  // Material metadata loaded from JSON.
   let materials = [];
 
-  // --------------------------------------------------------
-  // Load materials from the same JSON used on the main page
-  // --------------------------------------------------------
+  // ---------------------------------------------------------------------------
+  // Data loading
+  // ---------------------------------------------------------------------------
+
   fetch("/data/filaments.json")
     .then((res) => {
       if (!res.ok) throw new Error("Could not load filaments.json");
@@ -47,20 +45,17 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .then((data) => {
       materials = data.materials || [];
-      // Fill material dropdown
       populateMaterialOptions(materials);
-      // Show an initial preview (using placeholder values)
       renderPreview();
     })
     .catch((err) => console.error(err));
 
-  // --------------------------------------------------------
-  // Fill the Material <select> with options from the JSON
-  // --------------------------------------------------------
+  /**
+   * Populates the material <select> with options from the JSON file.
+   */
   function populateMaterialOptions(list) {
     materialSelect.innerHTML = "";
 
-    // First option is a placeholder – user must pick a real material
     const placeholder = document.createElement("option");
     placeholder.value = "";
     placeholder.textContent = "Select material";
@@ -68,19 +63,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     list.forEach((mat) => {
       const opt = document.createElement("option");
-      opt.value = mat.name;   // matches the "material" field of each filament
+      opt.value = mat.name; // matches the "material" field of each filament
       opt.textContent = mat.name;
       materialSelect.appendChild(opt);
     });
   }
 
-  // --------------------------------------------------------
-  // Collect data for the PREVIEW card (with fallback texts)
-  //
-  // This is what we use to render the card the user sees below
-  // the form while typing. We don't want to show "undefined" in
-  // the UI, so we provide default strings for missing values.
-  // --------------------------------------------------------
+  // ---------------------------------------------------------------------------
+  // Data preparation for preview and saving
+  // ---------------------------------------------------------------------------
+
+  /**
+   * Builds a filament object for preview purposes.
+   * Uses reasonable default values where the user has not entered data yet
+   * to keep the card visually readable.
+   */
   function getPreviewData() {
     const nozzleMin = parseInt(nozzleMinInput.value, 10);
     const nozzleMax = parseInt(nozzleMaxInput.value, 10);
@@ -92,22 +89,20 @@ document.addEventListener("DOMContentLoaded", () => {
       product_name: productInput.value.trim() || "Product name",
       material: materialSelect.value || "Material",
       color: colorSelect.value || null,
-      // For temps, if the user leaves it empty, we choose a "reasonable" default
       nozzle_temp_min: Number.isNaN(nozzleMin) ? 200 : nozzleMin,
       nozzle_temp_max: Number.isNaN(nozzleMax) ? 220 : nozzleMax,
       bed_temp_min: Number.isNaN(bedMin) ? 50 : bedMin,
       bed_temp_max: Number.isNaN(bedMax) ? 60 : bedMax,
       special_type: specialInput.value.trim() || null,
-      notes: notesInput.value.trim()
+      notes: notesInput.value.trim(),
     };
   }
 
-  // --------------------------------------------------------
-  // Collect data that we actually send to the backend to save
-  //
-  // Here we do NOT use dummy text. Instead we send exactly
-  // what the user entered (including empty strings or nulls).
-  // --------------------------------------------------------
+  /**
+   * Builds the filament object that will actually be sent to the backend.
+   * No placeholders are used here; the payload reflects exactly what the user
+   * entered (including null/empty values).
+   */
   function getDataForSave() {
     const nozzleMin = parseInt(nozzleMinInput.value, 10);
     const nozzleMax = parseInt(nozzleMaxInput.value, 10);
@@ -124,20 +119,23 @@ document.addEventListener("DOMContentLoaded", () => {
       bed_temp_min: bedMin,
       bed_temp_max: bedMax,
       special_type: specialInput.value.trim() || null,
-      notes: notesInput.value.trim()
+      notes: notesInput.value.trim(),
     };
   }
 
-  // --------------------------------------------------------
-  // Render the preview card under the form
-  // --------------------------------------------------------
+  // ---------------------------------------------------------------------------
+  // Preview rendering
+  // ---------------------------------------------------------------------------
+
+  /**
+   * Renders a single preview card into the preview container, reusing
+   * the same visual structure as the main Filament Finder list.
+   */
   function renderPreview() {
     const f = getPreviewData();
 
-    // Clear any previous preview
     previewContainer.innerHTML = "";
 
-    // Build a card using the same layout as the main list
     const card = document.createElement("article");
     card.className = "filament-card";
 
@@ -172,18 +170,14 @@ document.addEventListener("DOMContentLoaded", () => {
     previewContainer.appendChild(card);
   }
 
-  // --------------------------------------------------------
-  // Form "submit": we don't actually send anything,
-  // we just trigger a manual preview refresh.
-  // --------------------------------------------------------
+  // The form's submit event is repurposed to simply refresh the preview,
+  // avoiding a full page reload.
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     renderPreview();
   });
 
-  // --------------------------------------------------------
-  // Live preview: whenever something changes, re-render
-  // --------------------------------------------------------
+  // Live preview: all inputs are wired so that changes render immediately.
   const inputs = [
     brandInput,
     productInput,
@@ -194,35 +188,35 @@ document.addEventListener("DOMContentLoaded", () => {
     bedMinInput,
     bedMaxInput,
     specialInput,
-    notesInput
+    notesInput,
   ];
 
   inputs.forEach((el) => {
     if (!el) return;
-    // For select fields we use "change", for text/number inputs we use "input"
-    const evt = el.tagName === "SELECT" ? "change" : "input";
-    el.addEventListener(evt, renderPreview);
+    const eventName = el.tagName === "SELECT" ? "change" : "input";
+    el.addEventListener(eventName, renderPreview);
   });
 
-  // --------------------------------------------------------
-  // Save button: send the new filament to the backend API
-  // --------------------------------------------------------
+  // ---------------------------------------------------------------------------
+  // Saving to the backend
+  // ---------------------------------------------------------------------------
+
   if (saveButton) {
     saveButton.addEventListener("click", async () => {
       const data = getDataForSave();
 
-      // Very simple validation: user must provide brand, product and material
+      // Minimal required fields: brand, product name, and material.
       if (!data.brand || !data.product_name || !data.material) {
         alert("Please fill at least brand, product name and material.");
         return;
       }
 
-      // Check that all temperature fields are numeric
+      // All temperature fields must be numeric.
       const nums = [
         data.nozzle_temp_min,
         data.nozzle_temp_max,
         data.bed_temp_min,
-        data.bed_temp_max
+        data.bed_temp_max,
       ];
 
       if (nums.some((n) => Number.isNaN(parseInt(n, 10)))) {
@@ -231,17 +225,15 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       try {
-        // Send a POST request to our Node.js API
         const response = await fetch("/api/filaments", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(data)
+          body: JSON.stringify(data),
         });
 
         if (!response.ok) {
-          // Try to read a more specific error message from the server
           const errData = await response.json().catch(() => ({}));
           const msg = errData.error || "Could not save filament.";
           alert(msg);
@@ -252,7 +244,6 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Saved filament:", result);
 
         alert("Filament saved. It will now appear in the main list.");
-        // After saving, go back to the main Filament Finder page
         window.location.href = "/filament";
       } catch (err) {
         console.error(err);

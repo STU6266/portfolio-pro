@@ -1,0 +1,47 @@
+/* ==========================================================================
+   base.css – Global design tokens and base document styles
+   --------------------------------------------------------------------------
+   - Defines CSS custom properties (colors, radii, shadows) shared across
+     the entire portfolio.
+   - Normalizes box-sizing and resets margins for html/body elements.
+   - Applies the global dark theme background and base font family.
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-body: #0b1120;
+  --bg-muted: #020617;
+  --bg-surface: #020617;
+  --bg-card: #020617;
+  --accent: #38bdf8;
+  --accent-soft: rgba(56, 189, 248, 0.12);
+  --accent-strong: #0ea5e9;
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+  --border-subtle: rgba(148, 163, 184, 0.35);
+  --shadow-soft: 0 24px 60px rgba(15, 23, 42, 0.8);
+  --radius-lg: 18px;
+  --radius-full: 999px;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Open Sans', system-ui, -apple-system, BlinkMacSystemFont,
+    'Segoe UI', sans-serif;
+  color: var(--text-main);
+  background:
+    radial-gradient(circle at top left, #1e293b 0, transparent 55%),
+    radial-gradient(circle at bottom right, #0f172a 0, transparent 55%),
+    #020617;
+  min-height: 100vh;
+}

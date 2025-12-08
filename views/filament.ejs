@@ -3,69 +3,78 @@
 <%- include("partials/nav") %>
 
 <!--
-  Main layout wrapper.
-  In your portfolio, "resume-layout" is the general page layout with side spacing
-  and a centered content column. We reuse it here so Filament Finder visually
-  fits into the rest of the site.
+  filament.ejs
+  ---------------------------------------------------------------------------
+  Renders the Filament Finder demo.
+  - Uses a JSON dataset in public/data/filaments.json.
+  - public/js/filament.js handles loading, filtering and rendering results.
+  - This view focuses on the page structure and semantic markup.
 -->
-<main class="resume-layout"> 
-  <!--
-    filament-layout groups all cards belonging to the Filament Finder feature.
-    This keeps the structure similar to other pages (intro + content cards).
-  -->
-  <section class="filament-layout"> 
-    <!--
-      Intro card: explains what this mini-tool is about.
-      This is helpful for recruiters so they understand the context quickly.
-    -->
-    <section class="card filament-intro"> 
-      <h1>Filament Finder</h1> 
+
+<main class="resume-layout">
+  <section class="filament-layout">
+    <!-- Optional contact modal (nav "Contact Me" integrates with this) -->
+    <%- include("partials/contactModal") %>
+
+    <!-- Intro card: short explanation for visitors / reviewers -->
+    <section class="card filament-intro">
+      <h1>Filament Finder</h1>
       <p>
-        This small tool shows how I work with data structures, filtering, and UI.
+        This small tool shows basic work with data structures, filtering, and a simple UI.
         The dataset is based on real filament brands and typical printing temperature ranges.
-      </p> 
+      </p>
       <p class="filament-note">
-        In a real application this would query a SQL database. Here it runs fully
-        static using a JSON file, which makes it easy to host on GitHub Pages.
-      </p> 
-    </section> 
-    
-    <!--
-      Filter card: holds the filter controls and the material info panel.
-      The left part contains the form; the right part shows extra info
-      for the currently selected material.
-    -->
+        In a larger application this could read from a SQL database. Here it runs fully
+        static from a JSON file for easier hosting and deployment.
+      </p>
+
+      <!-- Back button to the projects page -->
+      <a href="/projects" class="btn-secondary filament-back-button">
+        ← Back to projects
+      </a>
+    </section>
+
+    <!-- Filter card with controls + material info box -->
     <section class="card filament-filter-card">
       <h2>Filter</h2>
 
       <!--
-        filament-filter-layout uses CSS (flex/grid) to arrange:
-        - the form on the left
-        - the material info box on the right (on larger screens)
+        Wrapper for filter form (left) and material info (right).
+        Layout is controlled via CSS (flex / grid) to adapt between
+        desktop and mobile screens.
       -->
       <div class="filament-filter-layout">
+        <!-- Mobile-only toggle button to show/hide filters -->
+        <button
+          type="button"
+          id="filament-filter-toggle"
+          class="filament-filter-toggle">
+          Show filters
+        </button>
+
         <!--
-          Filter form: all user inputs that control the result list.
-          The script public/js/filament.js listens to changes on these fields.
+          Filter form.
+          All values are read by filament.js, which reacts on change/input
+          and updates the result list accordingly.
         -->
         <form id="filament-filter-form" class="filament-filter-form">
-          <!-- Material dropdown -->
+          <!-- Material dropdown (populated from materials[] in filaments.json) -->
           <div class="filament-field">
             <label for="filter-material">Material</label>
             <select id="filter-material" name="material">
-              <!-- Options are filled by filament.js based on materials[] from JSON -->
+              <!-- options are injected by filament.js -->
             </select>
           </div>
 
-          <!-- Brand dropdown -->
+          <!-- Brand dropdown (populated from filaments[] in filaments.json) -->
           <div class="filament-field">
             <label for="filter-brand">Brand</label>
             <select id="filter-brand" name="brand">
-              <!-- Options are filled by filament.js based on filaments[] from JSON -->
+              <!-- options are injected by filament.js -->
             </select>
           </div>
 
-          <!-- Color dropdown (simple, just black/white/any) -->
+          <!-- Color dropdown (simple: any / black / white) -->
           <div class="filament-field">
             <label for="filter-color">Color</label>
             <select id="filter-color" name="color">
@@ -75,11 +84,7 @@
             </select>
           </div>
 
-          <!--
-            Nozzle temperature filter.
-            Instead of a min/max range, the user can enter a single value
-            (e.g. 212) and the script finds all filaments whose range includes it.
-          -->
+          <!-- Nozzle temperature: user enters a single value (e.g. 210°C) -->
           <div class="filament-field">
             <label for="filter-nozzle-temp">Nozzle temp (°C)</label>
             <div class="filament-range">
@@ -87,16 +92,12 @@
                 type="number"
                 id="filter-nozzle-temp"
                 name="nozzle"
-                placeholder="z.B. 210"
+                placeholder="e.g. 210"
               />
             </div>
           </div>
 
-          <!--
-            Bed temperature filter, same idea as nozzle.
-            The placeholder "optional" is a small UX hint that this field
-            does not have to be filled to get results.
-          -->
+          <!-- Bed temperature: same idea as nozzle, but optional -->
           <div class="filament-field">
             <label for="filter-bed-temp">Bed temp (°C)</label>
             <div class="filament-range">
@@ -111,23 +112,19 @@
         </form>
 
         <!--
-          Right-hand side: Material information box.
-          The JavaScript updates this when the user picks a material.
+          Right-hand side: material information panel.
+          Updated by filament.js when the user selects a material.
         -->
         <aside id="filament-material-info" class="filament-material-info">
           <h3>Material info</h3>
           <p class="filament-material-empty">
-            Select a material on the left to see typical nozzle &amp; bed temps.
+            Select a material on the left to see typical nozzle and bed temperatures.
           </p>
         </aside>
       </div>
     </section>
 
-    <!--
-      Small row with a link to the "Add filament" page.
-      This stays visually separate from the main cards but is still part
-      of the Filament Finder section.
-    -->
+    <!-- Simple link row to the "Add filament" demo page -->
     <section class="filament-add-link-row">
       <a href="/filament/add" class="btn-secondary filament-add-link">
         + Add new filament
@@ -135,25 +132,21 @@
     </section>
 
     <!--
-      Results card: shows either
-      - the "Loading filament data…" / "No filaments match" message, or
-      - the full grid with filament cards built by filament.js
+      Results card.
+      - Initial state shows a "Loading..." message.
+      - filament.js replaces this with result cards or a "no matches" message.
     -->
-    <section class="card filament-results-card"> 
-      <h2>Matching filaments</h2> 
+    <section class="card filament-results-card">
+      <h2>Matching filaments</h2>
       <p id="filament-results-empty" class="filament-empty">
         Loading filament data…
-      </p> 
-      <div id="filament-results-list" class="filament-grid"></div> 
-    </section> 
-  </section> 
+      </p>
+      <div id="filament-results-list" class="filament-grid"></div>
+    </section>
+  </section>
 
-  <!--
-    Attach the main Filament Finder script.
-    "defer" makes sure it runs after the HTML is parsed, but still
-    before the user can really interact with the page.
-  -->
-  <script src="/js/filament.js" defer></script> 
+  <!-- Attach the main Filament Finder script -->
+  <script src="/js/filament.js" defer></script>
 </main>
 
 <%- include("partials/footer") %>

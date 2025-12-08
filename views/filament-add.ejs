@@ -3,38 +3,36 @@
 <%- include("partials/nav") %>
 
 <!--
-  We reuse the same main layout class so this page visually matches
-  the rest of your portfolio.
+  filament-add.ejs
+  ---------------------------------------------------------------------------
+  Renders the "Add filament" companion page.
+  - Contains a form for a new filament entry.
+  - Shows a live preview that mirrors the main Filament Finder list layout.
+  - public/js/filament-add.js syncs form state and preview and sends
+    POST /api/filaments to write into filaments.json.
 -->
+
 <main class="resume-layout">
   <section class="filament-layout">
-    <!--
-      Intro card: explains what this "Add filament" page does.
-      This is especially helpful for someone reviewing your project,
-      because they understand this is more of a demo/editor.
-    -->
+    <%- include("partials/contactModal") %>
+
+    <!-- Intro card: context for reviewers and a link back to Filament Finder -->
     <section class="card filament-intro">
       <h1>Add filament</h1>
       <p>
-        This form lets you draft a new filament entry and see in real time how it would
-        appear in the list below.
+        This form lets users draft a new filament entry and see in real time how it
+        would appear in the list below.
       </p>
-      <p>
-        <a href="/filament" class="project-link project-link-secondary">
-          ← Back to Filament Finder
-        </a>
-      </p>
+      <a href="/filament" class="btn-secondary filament-back-button">
+        ← Back to Filament Finder
+      </a>
     </section>
 
-    <!--
-      Form card: all inputs for creating a new filament.
-      The layout uses the same "filament-field" class as the filter card,
-      so styling is consistent across the project.
-    -->
+    <!-- Form card: collects all attributes for a new filament -->
     <section class="card filament-add-card">
       <h2>New filament</h2>
       <form id="filament-add-form" class="filament-add-form">
-        <!-- Brand input -->
+        <!-- Brand -->
         <div class="filament-field">
           <label for="add-brand">Brand</label>
           <input
@@ -45,7 +43,7 @@
           />
         </div>
 
-        <!-- Product name input -->
+        <!-- Product name -->
         <div class="filament-field">
           <label for="add-product">Product name</label>
           <input
@@ -56,15 +54,15 @@
           />
         </div>
 
-        <!-- Material dropdown, filled from JSON by filament-add.js -->
+        <!-- Material (populated from materials[] by filament-add.js) -->
         <div class="filament-field">
           <label for="add-material">Material</label>
           <select id="add-material" name="material">
-            <!-- will be filled with materials[] from filaments.json -->
+            <!-- options are injected from filaments.json -->
           </select>
         </div>
 
-        <!-- Color dropdown, restricted to black/white or none for simplicity -->
+        <!-- Color (restricted to a small set for demo purposes) -->
         <div class="filament-field">
           <label for="add-color">Color</label>
           <select id="add-color" name="color">
@@ -74,7 +72,7 @@
           </select>
         </div>
 
-        <!-- Nozzle temperature range (min) -->
+        <!-- Nozzle temperature range -->
         <div class="filament-field">
           <label for="add-nozzle-min">Nozzle min (°C)</label>
           <input
@@ -84,8 +82,6 @@
             placeholder="e.g. 200"
           />
         </div>
-
-        <!-- Nozzle temperature range (max) -->
         <div class="filament-field">
           <label for="add-nozzle-max">Nozzle max (°C)</label>
           <input
@@ -96,7 +92,7 @@
           />
         </div>
 
-        <!-- Bed temperature range (min) -->
+        <!-- Bed temperature range -->
         <div class="filament-field">
           <label for="add-bed-min">Bed min (°C)</label>
           <input
@@ -106,8 +102,6 @@
             placeholder="e.g. 50"
           />
         </div>
-
-        <!-- Bed temperature range (max) -->
         <div class="filament-field">
           <label for="add-bed-max">Bed max (°C)</label>
           <input
@@ -118,7 +112,7 @@
           />
         </div>
 
-        <!-- Optional "special type" label such as wood, silk, carbon-fiber -->
+        <!-- Optional special type -->
         <div class="filament-field">
           <label for="add-special-type">Special type (optional)</label>
           <input
@@ -129,7 +123,7 @@
           />
         </div>
 
-        <!-- Notes textarea: short description or print tips -->
+        <!-- Notes / short description -->
         <div class="filament-field filament-field-notes">
           <label for="add-notes">Notes</label>
           <textarea
@@ -140,12 +134,7 @@
           ></textarea>
         </div>
 
-        <!--
-          Action area.
-          Right now you have one main action: "Save filament".
-          The JavaScript both updates the preview (on change) and
-          sends a POST when this button is clicked.
-        -->
+        <!-- Action area: saving to backend is triggered here -->
         <div class="filament-actions">
           <button type="button" id="filament-save" class="btn-primary">
             Save filament
@@ -154,18 +143,14 @@
       </form>
     </section>
 
-    <!--
-      Preview card: shows a live sample of how the filament would look
-      in the main Filament Finder list.
-      filament-add.js fills this dynamically.
-    -->
+    <!-- Preview card: shows how the filament would appear in the list -->
     <section class="card filament-results-card">
       <h2>Preview in list</h2>
       <div id="filament-add-preview" class="filament-grid"></div>
     </section>
   </section>
 
-  <!-- Attach the JS file that drives this page -->
+  <!-- Attach the script that drives this page -->
   <script src="/js/filament-add.js" defer></script>
 </main>
 

@@ -2,40 +2,38 @@
 <%- include("partials/header") %>
 <%- include("partials/nav") %>
 
+<!--
+  hangman.ejs
+  ---------------------------------------------------------------------------
+  Renders the browser-based Hangman game.
+  - public/js/hangman.js contains the full game logic.
+  - The template provides semantic containers for difficulty, status,
+    ASCII figure and the on-screen keyboard.
+-->
+
 <main class="resume-layout">
-  <!--
-    Main Hangman container.
+  <%- include("partials/contactModal") %>
 
-    We wrap the whole game in a single card so that it visually
-    matches your other portfolio sections (Projects, Filament Finder, etc.).
-    The "hangman-card" class is styled in style.css to control width, spacing, etc.
-  -->
+  <!-- Main Hangman card, visually consistent with other feature cards -->
   <section class="card hangman-card">
-    <!--
-      Header: short explanation what this project is.
-
-      The "project-tag" and "project-description" classes re-use your
-      existing styling so this card looks consistent with your project cards.
-    -->
+    <!-- Header with short project description -->
     <header class="hangman-header">
       <p class="project-tag">GAME · C# → JavaScript</p>
       <h1>Hangman (Web version)</h1>
       <p class="project-description">
-        This is a small browser version of my original C# console Hangman game.
-        You can pick a difficulty, guess letters, and see the ASCII hangman
+        This is a small browser version of the original C# console Hangman game.
+        Users can pick a difficulty, guess letters, and watch the ASCII hangman
         being drawn step by step.
       </p>
+
+      <!-- Back button to the projects page -->
+      <a href="/projects" class="btn-secondary hangman-back-button">
+        ← Back to projects
+      </a>
     </header>
 
-    <!--
-      Controls section: difficulty selector + "Start new game" button.
-
-      Layout hint:
-      - The .hangman-controls container uses flexbox so that the dropdown
-        and button sit nicely next to each other (or wrap on small screens).
-    -->
+    <!-- Controls: difficulty selector + "Start new game" button -->
     <section class="hangman-controls">
-      <!-- Difficulty select -->
       <div class="hangman-field">
         <label for="hangman-difficulty">Difficulty</label>
         <select id="hangman-difficulty">
@@ -45,33 +43,26 @@
         </select>
       </div>
 
-      <!-- Start new game button -->
       <button id="hangman-new-game" class="btn-primary">
         Start new game
       </button>
     </section>
 
-    <!--
-      Status section: shows the current word, counters and feedback text.
-
-      The layout uses a two-column grid:
-      - Left: the big word display (underscores + letters)
-      - Right: info such as wrong guesses, guessed letters and the message
-    -->
+    <!-- Status area: word display, counters and feedback text -->
     <section class="hangman-status">
-      <!-- Left side: the word itself -->
+      <!-- Current word (underscores + revealed letters) -->
       <div class="hangman-word-wrapper">
         <h2>Word</h2>
         <p id="hangman-word" class="hangman-word">
-          <!-- underscores and letters are injected here by hangman.js -->
+          <!-- content is injected by hangman.js -->
         </p>
       </div>
 
-      <!-- Right side: counters + feedback -->
+      <!-- Wrong guesses, guessed letters and message -->
       <div class="hangman-info">
         <p>
           Wrong guesses:
-          <span id="hangman-wrong-count">0</span> / 
+          <span id="hangman-wrong-count">0</span> /
           <span id="hangman-max">10</span>
         </p>
         <p>
@@ -84,41 +75,24 @@
       </div>
     </section>
 
-    <!--
-      ASCII hangman figure (similar idea as your C# PrintHangmanFigure).
-
-      The <pre> tag keeps the spacing and line breaks exactly as defined
-      in the template strings inside hangman.js.
-    -->
+    <!-- ASCII figure section -->
     <section class="hangman-figure-section">
       <h2>Hangman</h2>
       <pre id="hangman-figure" class="hangman-figure">
-<!-- figure will be drawn here -->
+<!-- figure is drawn here by hangman.js -->
       </pre>
     </section>
 
-    <!--
-      On-screen keyboard for A–Z.
-
-      The buttons are not written by hand in HTML. Instead, hangman.js
-      builds 26 buttons (A–Z) dynamically so the code stays short and
-      easy to change later.
-    -->
+    <!-- On-screen keyboard A–Z (buttons are injected by JS) -->
     <section class="hangman-keyboard-section">
       <h2>Guess a letter</h2>
       <div id="hangman-keyboard" class="hangman-keyboard">
-        <!-- buttons A–Z will be created by JS -->
+        <!-- buttons A–Z are created in hangman.js -->
       </div>
     </section>
   </section>
 
-  <!--
-    Attach the Hangman JS logic.
-
-    The "defer" attribute makes sure the script runs after the HTML
-    has been parsed, which fits well with our DOMContentLoaded handler
-    inside public/js/hangman.js.
-  -->
+  <!-- Attach the Hangman logic -->
   <script src="/js/hangman.js" defer></script>
 </main>
 

@@ -2,64 +2,81 @@
 <%- include("partials/header") %>
 <%- include("partials/nav") %>
 
+<!--
+  resume.ejs
+  ---------------------------------------------------------------------------
+  Main entry page for the portfolio.
+  - Left column: profile, quick facts, technical skills, strengths.
+  - Right column: professional experience, education, languages.
+  - Experience entries include hover panels that link to detailed pages.
+  - Education entries integrate with the education-hover.js image overlay.
+-->
+
 <main class="resume-layout">
   <%- include("partials/contactModal") %>
 
   <section class="resume-grid">
     <!-- LEFT SIDEBAR -->
     <aside class="resume-sidebar">
-      <!-- Profile summary -->
-      <section class="card summary-card">
+      <!-- Profile summary with hover panel -->
+      <section class="card summary-card profile-summary-card">
         <h2>Profile</h2>
         <p>
-            I am an aspiring software developer currently studying for a B.Sc. in
-            Software Development (online, BYU–Idaho) while working as a warehouse
-            team lead. Through my studies I am building practical skills in Python,
-            C#, HTML, CSS, JavaScript and basic backend development with Node.js,
-            Express and SQL.
+          I am an aspiring software developer currently studying for a B.Sc. in
+          Software Development (online, BYU–Idaho) while working as a warehouse
+          team lead. Through my studies I am building practical skills in Python,
+          C#, HTML, CSS, JavaScript and basic backend development with Node.js,
+          Express and SQL.
         </p>
-        <p>
-            In my current job I am responsible for organising processes, working with
-            orders and stock data and coordinating people on a daily basis. I now want
-            to combine this practical experience with my technical knowledge and grow
-            into a developer role in a professional development team in the
-            Vienna area.
-        </p>
-      </section>
 
+        <!-- Floating profile hover panel, see CSS for hover behaviour -->
+        <div class="profile-hover-panel">
+          <h3>More about my profile</h3>
+          <p>
+            In my current job I am responsible for organising processes,
+            working with orders and stock data and coordinating people on a daily basis.
+            Over the years I have learned to stay calm under pressure,
+            think in systems and keep an eye on both details and the bigger picture.
+            Through my church and work experience I have spent a lot of time teaching,
+            training and supporting others, which taught me how to explain things clearly
+            and work well in a team.
+            At the same time I enjoy building and fixing things myself, whether it’s in
+            the warehouse, at home or now in code. By studying for a B.Sc. in Software
+            Development I am adding solid technical skills in Python, C#, web development
+            and backend basics to this practical background. My goal is to combine these
+            strengths and grow into a reliable, hands-on developer in a professional team
+            in the Vienna area.
+          </p>
+          <a href="/about" class="btn-secondary profile-more-button">
+            More about me
+          </a>
+        </div>
+      </section>
 
       <!-- Quick facts -->
       <section class="card">
         <h2>Details</h2>
         <ul class="info-list">
-            <li>
-                <span class="label">Location</span>
-                <span class="value">Vienna, Austria</span>
-            </li>
-            <li>
-                <span class="label">Current role</span>
-                <span class="value">Warehouse team lead transitioning into software development</span>
-            </li>
-            <li>
-                <span class="label">Employer</span>
-                <span class="value">Heinrich Reiter GmbH</span>
-            </li>
-            <li>
-                <span class="label">Studies</span>
-                <span class="value">B.Sc. Software Development (online, since 04/2024)</span>
-            </li>
-            <li>
-                <span class="label">Target roles</span>
-                <span class="value">Junior software developer (backend / web), IT-related roles</span>
-            </li>
-            <li>
-                <span class="label">Portfolio</span>
-                <span class="value">
-                    <a href="https://STU6266.github.io/JobExamples/ResumePage/resume.html" target="_blank">
-                        Online portfolio
-                    </a>
-                </span>
-            </li>
+          <li>
+            <span class="label">Location</span>
+            <span class="value">Vienna, Austria</span>
+          </li>
+          <li>
+            <span class="label">Current role</span>
+            <span class="value">Warehouse team lead transitioning into software development</span>
+          </li>
+          <li>
+            <span class="label">Employer</span>
+            <span class="value">Heinrich Reiter GmbH</span>
+          </li>
+          <li>
+            <span class="label">Studies</span>
+            <span class="value">B.Sc. Software Development (online, since 04/2024)</span>
+          </li>
+          <li>
+            <span class="label">Target roles</span>
+            <span class="value">Junior software developer (backend / web), IT-related roles</span>
+          </li>
         </ul>
       </section>
 
@@ -67,15 +84,15 @@
       <section class="card">
         <h2>Technical Skills</h2>
         <ul class="chip-list">
-            <li>Python</li>
-            <li>C#</li>
-            <li>HTML &amp; CSS</li>
-            <li>JavaScript</li>
-            <li>Node.js &amp; Express (basic)</li>
-            <li>SQL / PostgreSQL (basic)</li>
-            <li>Git &amp; GitHub</li>
-            <li>VS Code</li>
-            <li>Microsoft Office</li>
+          <li>Python</li>
+          <li>C#</li>
+          <li>HTML &amp; CSS</li>
+          <li>JavaScript</li>
+          <li>Node.js &amp; Express (basic)</li>
+          <li>SQL / PostgreSQL (basic)</li>
+          <li>Git &amp; GitHub</li>
+          <li>VS Code</li>
+          <li>Microsoft Office</li>
         </ul>
       </section>
 
@@ -83,75 +100,145 @@
       <section class="card">
         <h2>Core Strengths</h2>
         <ul class="chip-list">
-            <li>Problem solving &amp; analytical thinking</li>
-            <li>Structured &amp; organised working style</li>
-            <li>Learning new technologies quickly</li>
-            <li>Team communication &amp; collaboration</li>
-            <li>Reliability &amp; ownership</li>
-            <li>Training &amp; onboarding of colleagues</li>
+          <li>Problem solving &amp; analytical thinking</li>
+          <li>Structured &amp; organised working style</li>
+          <li>Learning new technologies quickly</li>
+          <li>Team communication &amp; collaboration</li>
+          <li>Reliability &amp; ownership</li>
+          <li>Training &amp; onboarding of colleagues</li>
         </ul>
       </section>
     </aside>
 
     <!-- RIGHT MAIN COLUMN -->
     <section class="resume-main">
-      <!-- Experience -->
-      <section class="card">
+            <!-- Experience -->
+      <section class="card experience-card" id="experience">
         <h2>Professional Experience</h2>
-        <div class="timeline">
-          <article class="timeline-item">
-            <div class="timeline-header">
-              <h3>Warehouse Teamlead &amp; Sales Associate</h3>
-              <span class="timeline-company">Heinrich Reiter GmbH · Vienna</span>
-              <span class="timeline-dates">2017 – Present</span>
-            </div>
-            <ul>
-                <li>Lead a small warehouse team and plan shifts for daily operations.</li>
-                <li>Reorganised storage and picking processes so that stock takes are
-                    around 25% faster and better structured.</li>
-                <li>Reduced shipping errors by about 15% through clearer labelling and
-                    simple double-check routines.</li>
-                <li>Worked with stock and order data every day and kept information
-                    up to date and reliable for colleagues and customers.</li>
-                <li>Supported the in-house retail area and advised customers on suitable
-                    products and solutions.</li>
-            </ul>
-          </article>
 
-          <article class="timeline-item">
-            <div class="timeline-header">
-              <h3>Sales Associate – Fruit &amp; Vegetables</h3>
-              <span class="timeline-company">Interspar · Vienna</span>
-              <span class="timeline-dates">2014 – 2017</span>
-            </div>
-            <ul>
-                <li>Worked in the fruit &amp; vegetable department with responsibility
-                    for product quality, freshness and presentation.</li>
-                <li>Advised customers and handled questions and smaller complaints at
-                    the store in a friendly and solution-oriented way.</li>
-                <li>Supported inventory and ordering processes during regular stock
-                    checks and busy periods.</li>
-                <li>Completed internal “Top Salesperson” training with recognition from
-                    the company.</li>
-            </ul>
-          </article>
+        <!-- Heinrich Reiter GmbH -->
+        <article class="experience-job experience-job-reiter">
+          <header class="experience-job-header">
+            <h3>Warehouse Teamlead &amp; Sales Support</h3>
+            <p class="experience-job-meta">
+              Heinrich Reiter GmbH · Vienna · 2017–present
+            </p>
+          </header>
 
-          <article class="timeline-item">
-            <div class="timeline-header">
-              <h3>Crew Trainer</h3>
-              <span class="timeline-company">McDonald's · Deutsch-Wagram</span>
-              <span class="timeline-dates">2009 – 2010 &amp; 2012 – 2014</span>
-            </div>
-            <ul>
-                <li>Trained new team members on standards, workflows and hygiene rules
-                    as a crew trainer.</li>
-                <li>Worked early and late shifts and supported a smooth operation during
-                    peak hours.</li>
-                <li>Learned to stay calm, friendly and reliable when the restaurant was
-                    full and the workload was high.</li>
-            </ul>
-          </article>
-        </div>
+          <ul class="experience-bullets">
+            <li>Lead a small warehouse team and plan shifts for daily operations.</li>
+            <li>Reorganised storage and picking processes so that stock takes are around 25% faster and better structured.</li>
+            <li>Reduced shipping errors by about 15% through clearer labelling and simple double-check routines.</li>
+            <li>Worked with stock and order data every day and kept information up to date and reliable for colleagues and customers.</li>
+            <li>Supported the in-house retail area and advised customers on suitable products and solutions.</li>
+          </ul>
+
+          <!-- Mobile: direct button (no hover on small screens) -->
+          <a
+            href="/reiter"
+            class="btn-secondary experience-more-button experience-more-mobile"
+          >
+            More details about this job
+          </a>
+
+          <!-- Desktop / Tablet: hover panel with more context -->
+          <div class="experience-hover-panel">
+            <h4>More about my role at Heinrich Reiter</h4>
+            <p>
+              At Heinrich Reiter I started as a mix of warehouse and retail support and over
+              time became one of two team leads for the whole warehouse. I learned every
+              area from picking and storage to customer orders, helped connect the different
+              teams and worked on making daily work smoother and more cooperative. These
+              experiences help me as a future software developer because I understand
+              real-world logistics problems, think in systems and processes, and can
+              translate between non-technical colleagues and structured data or tools.
+            </p>
+            <a href="/reiter" class="btn-secondary experience-more-button">
+              More details about this job
+            </a>
+          </div>
+        </article>
+
+        <!-- Interspar -->
+        <article class="experience-job experience-job-interspar">
+          <header class="experience-job-header">
+            <h3>Sales Associate – Fruit &amp; Vegetables</h3>
+            <p class="experience-job-meta">
+              Interspar · Vienna · 2014–2017
+            </p>
+          </header>
+
+          <ul class="experience-bullets">
+            <li>Worked in the fruit &amp; vegetables department with responsibility for product quality, freshness and presentation.</li>
+            <li>Advised customers and handled questions and smaller complaints at the store in a friendly and solution-oriented way.</li>
+            <li>Supported inventory and ordering processes during regular stock checks and busy periods.</li>
+            <li>Completed internal “Top Salesperson” training with recognition from the company.</li>
+          </ul>
+
+          <!-- Mobile: direct button -->
+          <a
+            href="/interspar"
+            class="btn-secondary experience-more-button experience-more-mobile"
+          >
+            More details about this job
+          </a>
+
+          <!-- Desktop / Tablet: hover panel -->
+          <div class="experience-hover-panel">
+            <h4>More about my role at Interspar</h4>
+            <p>
+              At Interspar I worked in the fruit and vegetables department and grew into
+              an assistant department lead. I learned to handle heavy workload, plan for
+              peak times, support colleagues and stay professional even when customers
+              were difficult. This helps me as a future software developer because I am
+              used to pressure, understand how retail and operations work in reality,
+              and can think in processes and improvements instead of only in theory.
+            </p>
+            <a href="/interspar" class="btn-secondary experience-more-button">
+              More details about this job
+            </a>
+          </div>
+        </article>
+
+        <!-- McDonald's -->
+        <article class="experience-job experience-job-mcdonalds">
+          <header class="experience-job-header">
+            <h3>Crew Trainer</h3>
+            <p class="experience-job-meta">
+              McDonald’s · Vienna · 2009–2014 (in several periods)
+            </p>
+          </header>
+
+          <ul class="experience-bullets">
+            <li>Trained new team members on standards, workflows and hygiene rules as a crew trainer.</li>
+            <li>Worked early and late shifts and supported a smooth operation during peak hours.</li>
+            <li>Learned to stay calm, friendly and reliable when the restaurant was full and the workload was high.</li>
+          </ul>
+
+          <!-- Mobile: direct button -->
+          <a
+            href="/mcdonalds"
+            class="btn-secondary experience-more-button experience-more-mobile"
+          >
+            More details about this job
+          </a>
+
+          <!-- Desktop / Tablet: hover panel -->
+          <div class="experience-hover-panel">
+            <h4>More about my role at McDonald’s</h4>
+            <p>
+              At McDonald’s I worked in several periods as crew member and later as crew
+              trainer, often in early and night shifts. I learned to handle fast-paced
+              work, support my team, train new people and stay friendly even under
+              pressure. This helps me as a future software developer because I can work
+              reliably in stressful situations, communicate clearly with others and think
+              about how processes and tools can make everyday work easier for a whole team.
+            </p>
+            <a href="/mcdonalds" class="btn-secondary experience-more-button">
+              More details about this job
+            </a>
+          </div>
+        </article>
       </section>
 
       <!-- Education & languages -->
@@ -160,19 +247,39 @@
           <h2>Education &amp; Training</h2>
           <ul class="simple-list">
             <li>
-              <strong>B.Sc. Software Development (ongoing)</strong>
+              <strong
+                class="edu-hover-trigger"
+                data-img="/images/junior.jpg"
+              >
+                B.Sc. Software Development (ongoing)
+              </strong>
               <span>BYU–Idaho (online) · April 2024 – present · focus on programming and web/backend development</span>
             </li>
             <li>
-              <strong>Certified Trainer (ISO 17024)</strong>
+              <strong
+                class="edu-hover-trigger"
+                data-img="/images/trainer.jpg"
+              >
+                Certified Trainer (ISO 17024)
+              </strong>
               <span>2018</span>
             </li>
             <li>
-              <strong>Business Services Clerk</strong>
+              <strong
+                class="edu-hover-trigger"
+                data-img="/images/betrieb.jpg"
+              >
+                Business Services Clerk
+              </strong>
               <span>2010</span>
             </li>
             <li>
-              <strong>Qualified Rural Household Worker</strong>
+              <strong
+                class="edu-hover-trigger"
+                data-img="/images/fachbrief.jpg"
+              >
+                Qualified Rural Household Worker
+              </strong>
               <span>2010</span>
             </li>
             <li>
@@ -198,6 +305,14 @@
       </section>
     </section>
   </section>
+
+  <!-- Floating hover image for Education items -->
+  <div id="edu-hover-image" class="edu-hover-image">
+    <img src="" alt="Education preview" />
+  </div>
 </main>
 
 <%- include("partials/footer") %>
+
+<!-- Education hover logic (positions the floating image on hover) -->
+<script src="/js/education-hover.js" defer></script>
