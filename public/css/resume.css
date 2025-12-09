@@ -729,6 +729,11 @@
     width: 0; /* no side bridge needed when panel is below */
     pointer-events: none;
   }
+
+   /* Fix: remove empty hover-panel space on mobile */
+  .experience-hover-panel {
+    display: none !important; /* prevents invisible panel from reserving space */
+  }
 }
 
 /* ==========================================================================
