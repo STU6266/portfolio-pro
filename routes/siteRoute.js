@@ -66,6 +66,12 @@ router.get("/filament/add", handleErrors(siteController.buildFilamentAdd));
  */
 router.get("/hangman", handleErrors(siteController.buildHangman));
 
+// Speed Dungeon
+router.get(
+  "/speedDungeon",
+  handleErrors(siteController.buildSpeedDungeon)
+);
+
 // ---------------------------------------------------------------------------
 // About & detailed experience pages
 // ---------------------------------------------------------------------------

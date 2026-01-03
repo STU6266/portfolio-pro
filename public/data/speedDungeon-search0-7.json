@@ -1,0 +1,474 @@
+{
+  "0_7": [
+    {
+      "id": "group1_1",
+      "src": "/images/speedDungeon/searchinggame/image_room_group1b.webp",
+      "alt": "Image hunt scene group 1 #1",
+      "targets": [
+        {
+          "id": 1,
+          "name": "object 1",
+          "x": 15,
+          "y": 20,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 2,
+          "name": "object 2",
+          "x": 60,
+          "y": 25,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 3,
+          "name": "object 3",
+          "x": 30,
+          "y": 60,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 4,
+          "name": "object 4",
+          "x": 75,
+          "y": 70,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 5,
+          "name": "object 5",
+          "x": 45,
+          "y": 40,
+          "width": 8,
+          "height": 8
+        }
+      ]
+    },
+    {
+      "id": "group1_2",
+      "src": "/images/speedDungeon/searchinggame/image_room_group1c.webp",
+      "alt": "Image hunt scene group 1 #2",
+      "targets": [
+        {
+          "id": 1,
+          "name": "object 1",
+          "x": 15,
+          "y": 20,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 2,
+          "name": "object 2",
+          "x": 60,
+          "y": 25,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 3,
+          "name": "object 3",
+          "x": 30,
+          "y": 60,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 4,
+          "name": "object 4",
+          "x": 75,
+          "y": 70,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 5,
+          "name": "object 5",
+          "x": 45,
+          "y": 40,
+          "width": 8,
+          "height": 8
+        }
+      ]
+    },
+    {
+      "id": "group1_3",
+      "src": "/images/speedDungeon/searchinggame/image_room_group1d.webp",
+      "alt": "Image hunt scene group 1 #3",
+      "targets": [
+        {
+          "id": 1,
+          "name": "object 1",
+          "x": 15,
+          "y": 20,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 2,
+          "name": "object 2",
+          "x": 60,
+          "y": 25,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 3,
+          "name": "object 3",
+          "x": 30,
+          "y": 60,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 4,
+          "name": "object 4",
+          "x": 75,
+          "y": 70,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 5,
+          "name": "object 5",
+          "x": 45,
+          "y": 40,
+          "width": 8,
+          "height": 8
+        }
+      ]
+    },
+    {
+      "id": "group1_4",
+      "src": "/images/speedDungeon/searchinggame/image_room_group1e.webp",
+      "alt": "Image hunt scene group 1 #4",
+      "targets": [
+        {
+          "id": 1,
+          "name": "object 1",
+          "x": 15,
+          "y": 20,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 2,
+          "name": "object 2",
+          "x": 60,
+          "y": 25,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 3,
+          "name": "object 3",
+          "x": 30,
+          "y": 60,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 4,
+          "name": "object 4",
+          "x": 75,
+          "y": 70,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 5,
+          "name": "object 5",
+          "x": 45,
+          "y": 40,
+          "width": 8,
+          "height": 8
+        }
+      ]
+    },
+    {
+      "id": "group1_5",
+      "src": "/images/speedDungeon/searchinggame/image_room_group1f.webp",
+      "alt": "Image hunt scene group 1 #5",
+      "targets": [
+        {
+          "id": 1,
+          "name": "object 1",
+          "x": 15,
+          "y": 20,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 2,
+          "name": "object 2",
+          "x": 60,
+          "y": 25,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 3,
+          "name": "object 3",
+          "x": 30,
+          "y": 60,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 4,
+          "name": "object 4",
+          "x": 75,
+          "y": 70,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 5,
+          "name": "object 5",
+          "x": 45,
+          "y": 40,
+          "width": 8,
+          "height": 8
+        }
+      ]
+    },
+    {
+      "id": "group1_6",
+      "src": "/images/speedDungeon/searchinggame/image_room_group1g.webp",
+      "alt": "Image hunt scene group 1 #6",
+      "targets": [
+        {
+          "id": 1,
+          "name": "object 1",
+          "x": 15,
+          "y": 20,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 2,
+          "name": "object 2",
+          "x": 60,
+          "y": 25,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 3,
+          "name": "object 3",
+          "x": 30,
+          "y": 60,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 4,
+          "name": "object 4",
+          "x": 75,
+          "y": 70,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 5,
+          "name": "object 5",
+          "x": 45,
+          "y": 40,
+          "width": 8,
+          "height": 8
+        }
+      ]
+    },
+    {
+      "id": "group1_7",
+      "src": "/images/speedDungeon/searchinggame/image_room_group1h.webp",
+      "alt": "Image hunt scene group 1 #7",
+      "targets": [
+        {
+          "id": 1,
+          "name": "object 1",
+          "x": 15,
+          "y": 20,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 2,
+          "name": "object 2",
+          "x": 60,
+          "y": 25,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 3,
+          "name": "object 3",
+          "x": 30,
+          "y": 60,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 4,
+          "name": "object 4",
+          "x": 75,
+          "y": 70,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 5,
+          "name": "object 5",
+          "x": 45,
+          "y": 40,
+          "width": 8,
+          "height": 8
+        }
+      ]
+    },
+    {
+      "id": "group1_8",
+      "src": "/images/speedDungeon/searchinggame/image_room_group1i.webp",
+      "alt": "Image hunt scene group 1 #8",
+      "targets": [
+        {
+          "id": 1,
+          "name": "object 1",
+          "x": 15,
+          "y": 20,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 2,
+          "name": "object 2",
+          "x": 60,
+          "y": 25,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 3,
+          "name": "object 3",
+          "x": 30,
+          "y": 60,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 4,
+          "name": "object 4",
+          "x": 75,
+          "y": 70,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 5,
+          "name": "object 5",
+          "x": 45,
+          "y": 40,
+          "width": 8,
+          "height": 8
+        }
+      ]
+    },
+    {
+      "id": "group1_9",
+      "src": "/images/speedDungeon/searchinggame/image_room_group1j.webp",
+      "alt": "Image hunt scene group 1 #9",
+      "targets": [
+        {
+          "id": 1,
+          "name": "object 1",
+          "x": 15,
+          "y": 20,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 2,
+          "name": "object 2",
+          "x": 60,
+          "y": 25,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 3,
+          "name": "object 3",
+          "x": 30,
+          "y": 60,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 4,
+          "name": "object 4",
+          "x": 75,
+          "y": 70,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 5,
+          "name": "object 5",
+          "x": 45,
+          "y": 40,
+          "width": 8,
+          "height": 8
+        }
+      ]
+    },
+    {
+      "id": "group1_10",
+      "src": "/images/speedDungeon/searchinggame/image_room_group1a.webp",
+      "alt": "Image hunt scene group 1 #10",
+      "targets": [
+        {
+          "id": 1,
+          "name": "object 1",
+          "x": 15,
+          "y": 20,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 2,
+          "name": "object 2",
+          "x": 60,
+          "y": 25,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 3,
+          "name": "object 3",
+          "x": 30,
+          "y": 60,
+          "width": 8,
+          "height": 8
+        },
+        {
+          "id": 4,
+          "name": "object 4",
+          "x": 75,
+          "y": 70,
+          "width": 8,
+          "height": 8
+        },  
+        {
+          "id": 5,
+          "name": "object 5",
+          "x": 45,
+          "y": 40,
+          "width": 8,
+          "height": 8
+        }
+      ]
+    }
+  ]
+}

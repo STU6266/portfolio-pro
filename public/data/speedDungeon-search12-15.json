@@ -1,0 +1,278 @@
+{
+  "12_15": [
+    {
+      "id": "group3_1",
+      "src": "/images/speedDungeon/searchinggame/image_room_group3a.webp",
+      "alt": "Dungeon room with round shield, helmet, chest, book and spider",
+      "targets": [
+        {
+          "id": 1,
+          "name": "schild",
+          "x": 80,
+          "y": 40,
+          "width": 15,
+          "height": 15
+        },
+        {
+          "id": 2,
+          "name": "helm",
+          "x": 75,
+          "y": 52,
+          "width": 15,
+          "height": 15
+        },
+        {
+          "id": 3,
+          "name": "buch",
+          "x": 63,
+          "y": 75,
+          "width": 30,
+          "height": 16
+        },
+        {
+          "id": 4,
+          "name": "truhe",
+          "x": 2,
+          "y": 65,
+          "width": 25,
+          "height": 18
+        },
+        {
+          "id": 5,
+          "name": "spinne",
+          "x": 86,
+          "y": 8,
+          "width": 8,
+          "height": 13
+        }
+      ]
+    },
+    {
+      "id": "group3_2",
+      "src": "/images/speedDungeon/searchinggame/image_room_group3b.webp",
+      "alt": "Dungeon room with door, spider, helmet, sword and lantern",
+      "targets": [
+        {
+          "id": 1,
+          "name": "spinne",
+          "x": 18,
+          "y": 6,
+          "width": 9,
+          "height": 14
+        },
+        {
+          "id": 2,
+          "name": "schwerd",
+          "x": 74,
+          "y": 34,
+          "width": 10,
+          "height": 32
+        },
+        {
+          "id": 3,
+          "name": "helm",
+          "x": 3,
+          "y": 40,
+          "width": 17,
+          "height": 24
+        },
+        {
+          "id": 4,
+          "name": "laterne",
+          "x": 85,
+          "y": 55,
+          "width": 11,
+          "height": 24
+        }
+      ]
+    },
+    {
+      "id": "group3_3",
+      "src": "/images/speedDungeon/searchinggame/image_room_group3c.webp",
+      "alt": "Dark dungeon room with chest, helmet, keys and skeleton",
+      "targets": [
+        {
+          "id": 1,
+          "name": "eckige truhe",
+          "x": 70,
+          "y": 72,
+          "width": 18,
+          "height": 20
+        },
+        {
+          "id": 2,
+          "name": "helm",
+          "x": 90,
+          "y": 40,
+          "width": 12,
+          "height": 20
+        },
+        {
+          "id": 3,
+          "name": "kerze",
+          "x": 75,
+          "y": 36,
+          "width": 5,
+          "height": 18
+        },
+        {
+          "id": 4,
+          "name": "schlüssel",
+          "x": 45,
+          "y": 78,
+          "width": 15,
+          "height": 15
+        },
+        {
+          "id": 5,
+          "name": "brustkorb",
+          "x": 10,
+          "y": 55,
+          "width": 15,
+          "height": 26
+        }
+      ]
+    },
+    {
+      "id": "group3_4",
+      "src": "/images/speedDungeon/searchinggame/image_room_group3d.webp",
+      "alt": "Dungeon room with portal, helmet, shield, torch and gold",
+      "targets": [
+        {
+          "id": 1,
+          "name": "helm",
+          "x": 15,
+          "y": 32,
+          "width": 16,
+          "height": 22
+        },
+        {
+          "id": 2,
+          "name": "Fakel",
+          "x": 80,
+          "y": 18,
+          "width": 8,
+          "height": 26
+        },
+        {
+          "id": 3,
+          "name": "totenkopf",
+          "x": 42,
+          "y": 55,
+          "width": 14,
+          "height": 16
+        },
+        {
+          "id": 4,
+          "name": "goldklumpen",
+          "x": 68,
+          "y": 72,
+          "width": 10,
+          "height": 14
+        },
+        {
+          "id": 5,
+          "name": "schild",
+          "x": 72,
+          "y": 52,
+          "width": 18,
+          "height": 22
+        }
+      ]
+    },
+    {
+      "id": "group3_5",
+      "src": "/images/speedDungeon/searchinggame/image_room_group3e.webp",
+      "alt": "Dungeon room with portal, chests, shield, books and weapons",
+      "targets": [
+        {
+          "id": 1,
+          "name": "blaues Buch",
+          "x": 77,
+          "y": 28,
+          "width": 7,
+          "height": 18
+        },
+        {
+          "id": 2,
+          "name": "goldenes Schild",
+          "x": 79,
+          "y": 80,
+          "width": 12,
+          "height": 16
+        },
+        {
+          "id": 3,
+          "name": "mond",
+          "x": 15,
+          "y": 17,
+          "width": 8,
+          "height": 12
+        },
+        {
+          "id": 4,
+          "name": "grüne Truhe",
+          "x": 49,
+          "y": 48,
+          "width": 24,
+          "height": 25
+        },
+        {
+          "id": 5,
+          "name": "kleine axt",
+          "x": 30,
+          "y": 55,
+          "width": 10,
+          "height": 24
+        }
+      ]
+    },
+    {
+      "id": "group3_6",
+      "src": "/images/speedDungeon/searchinggame/image_room_group3f.webp",
+      "alt": "Dungeon room with statue, crown, sun shield, book and keys",
+      "targets": [
+        {
+          "id": 1,
+          "name": "statue",
+          "x": 22,
+          "y": 22,
+          "width": 15,
+          "height": 52
+        },
+        {
+          "id": 2,
+          "name": "schlüssel",
+          "x": 85,
+          "y": 55,
+          "width": 11,
+          "height": 26
+        },
+        {
+          "id": 3,
+          "name": "krone",
+          "x": 15,
+          "y": 61,
+          "width": 18,
+          "height": 31
+        },
+        {
+          "id": 4,
+          "name": "sonnenschild",
+          "x": 15,
+          "y": 1,
+          "width": 18,
+          "height": 34
+        },
+        {
+          "id": 5,
+          "name": "buch",
+          "x": 63,
+          "y": 40,
+          "width": 24,
+          "height": 30
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,237 @@
+<%- include("partials/head") %>
+<%- include("partials/header") %>
+<%- include("partials/nav") %>
+
+<!--
+  speedDungeon.ejs
+  ---------------------------------------------------------------------------
+  Renders the "Speed Dungeon" prototype page.
+  - Shows an intro.
+  - Provides age selection and HUD (rooms + power + run timer).
+  - Contains five prototype rooms:
+    * Corridor room (lane run with obstacles)
+    * Fight room (A/D reaction test)
+    * Lock room (math combination puzzle)
+    * Image room (object search)
+    * Riddle room (logic & wordplay)
+-->
+
+<main class="resume-layout">
+  <%- include("partials/contactModal") %>
+
+  <!-- Intro header -->
+  <section class="projects-header speed-dungeon-header">
+    <h2>Speed Dungeon (prototype)</h2>
+    <p>
+      A fast reaction dungeon game concept. This prototype showcases multiple
+      rooms: a corridor lane run, a reaction-based fight room, a math-based
+      lock room, an image hunt room, and a riddle room. All rooms are adapted
+      to different age groups and are played within a limited run time.
+    </p>
+  </section>
+
+  <!-- Layout: sidebar (HUD) + main game area -->
+  <section class="speed-dungeon-layout">
+    <!-- Sidebar: age selection + global HUD -->
+    <aside class="speed-dungeon-sidebar" aria-label="Game settings and stats">
+      <form id="sd-age-form" class="sd-age-form">
+        <fieldset>
+          <legend>Choose age group</legend>
+          <label>
+            <input type="radio" name="sd-age" value="0_7" checked />
+            0–7 years
+          </label>
+          <label>
+            <input type="radio" name="sd-age" value="8_11" />
+            8–11 years
+          </label>
+          <label>
+            <input type="radio" name="sd-age" value="12_15" />
+            12–15 years
+          </label>
+          <label>
+            <input type="radio" name="sd-age" value="16_plus" />
+            16+ years
+          </label>
+        </fieldset>
+      </form>
+
+      <div class="sd-hud card">
+        <h3 class="sd-hud-title">Run stats</h3>
+        <dl class="sd-hud-list">
+          <div class="sd-hud-row">
+            <dt>Rooms cleared</dt>
+            <dd id="sd-rooms">0</dd>
+          </div>
+          <div class="sd-hud-row">
+            <dt>Power points</dt>
+            <dd id="sd-power">0</dd>
+          </div>
+          <div class="sd-hud-row">
+            <dt>Run time left</dt>
+            <dd id="sd-timer">05:00</dd>
+          </div>
+        </dl>
+
+        <div class="sd-actions">
+          <button id="sd-start-corridor-btn" class="btn primary sd-start-btn">
+            Start Corridor
+          </button>
+          <button id="sd-start-fight-btn" class="btn sd-start-btn">
+            Start Fight Room
+          </button>
+          <button id="sd-start-lock-btn" class="btn sd-start-btn">
+            Start Lock Room
+          </button>
+          <button id="sd-start-image-btn" class="btn sd-start-btn">
+            Start Image Room
+          </button>
+          <button id="sd-start-riddle-btn" class="btn sd-start-btn">
+            Start Riddle Room
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main game area -->
+    <section class="speed-dungeon-main" aria-label="Current room">
+      <div id="speed-dungeon-root" class="speed-dungeon-root card">
+        <p id="sd-status" class="sd-status">
+          Choose an age group and start a room to begin.
+        </p>
+
+        <!-- Corridor room UI -->
+        <div
+          id="sd-corridor-container"
+          class="sd-room sd-room-corridor is-hidden"
+        >
+          <h3 class="sd-room-title">Corridor (lane run)</h3>
+
+          <div class="sd-room-visual">
+            <div class="sd-room-visual-inner">
+              <div class="sd-corridor-wrapper">
+                <p id="sd-corridor-info" class="sd-corridor-info">
+                  Start the corridor to run and dodge obstacles.
+                </p>
+
+                <!-- Track: Player + Hindernisse werden per JS eingefügt -->
+                <div id="sd-corridor-track" class="sd-corridor-track">
+                  <!-- JS erstellt hier .sd-corridor-player und .sd-corridor-obstacle Elemente -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fight room UI -->
+        <div id="sd-fight-container" class="sd-room sd-room-fight is-hidden">
+          <h3 class="sd-room-title">Fight Room (reaction)</h3>
+
+          <!-- großes Bild + A/D im Vordergrund -->
+          <div class="sd-fight-ui">
+            <div class="sd-target-box">
+              <p class="sd-label">Target key</p>
+              <p id="sd-target" class="sd-target-key">–</p>
+            </div>
+
+            <!-- Debug-Infos bleiben versteckt (display:none in CSS) -->
+            <div class="sd-info-box">
+              <p id="sd-hits" class="sd-info-line">Hits: 0 / 0</p>
+              <p id="sd-time" class="sd-info-line">Time limit: – ms</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lock room UI -->
+        <div
+          id="sd-lock-container"
+          class="sd-room sd-room-lock is-hidden"
+        >
+          <h3 class="sd-room-title">Lock Room (number combination)</h3>
+
+          <!-- gemeinsamer großer Bildbereich wie beim Fight -->
+          <div class="sd-room-visual">
+            <div class="sd-room-visual-inner">
+              <div id="sd-lock-area" class="sd-lock-area">
+                <div class="sd-lock-overlay">
+                  <p id="sd-lock-question" class="sd-lock-question">
+                    Start the lock room to see a math question.
+                  </p>
+
+                  <div
+                    id="sd-lock-answers"
+                    class="sd-lock-answers"
+                    role="group"
+                  >
+                    <!-- answer buttons injected by JS -->
+                  </div>
+
+                  <p class="sd-lock-combo-label">Current combination:</p>
+                  <p id="sd-lock-combo" class="sd-lock-combo">–</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image hunt room UI -->
+        <div
+          id="sd-image-container"
+          class="sd-room sd-room-image is-hidden"
+        >
+          <h3 class="sd-room-title">Image Room (object search)</h3>
+
+          <div class="sd-room-visual">
+            <div class="sd-room-visual-inner">
+              <p id="sd-image-instruction" class="sd-image-instruction">
+                Start the image room to see a picture and an object to find.
+              </p>
+
+              <div class="sd-image-wrapper">
+                <img
+                  id="sd-image"
+                  src=""
+                  alt=""
+                  class="sd-image"
+                  draggable="false"
+                />
+                <div id="sd-image-hotspots" class="sd-image-hotspots"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Riddle room UI -->
+        <div
+          id="sd-riddle-container"
+          class="sd-room sd-room-riddle is-hidden"
+        >
+          <h3 class="sd-room-title">Riddle Room (logic &amp; wordplay)</h3>
+
+          <div class="sd-riddle-area">
+            <div class="sd-riddle-overlay">
+              <p class="sd-riddle-speaker">Smart Cat asks:</p>
+
+              <p id="sd-riddle-question" class="sd-riddle-question">
+                Start the riddle room to see a question.
+              </p>
+
+              <div
+                id="sd-riddle-answers"
+                class="sd-riddle-answers"
+                role="group"
+              >
+                <!-- answer buttons injected by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </section>
+  </section>
+</main>
+
+<%- include("partials/footer") %>
+
+<!-- Page-specific JavaScript -->
+<script src="/js/speedDungeon/speedDungeon.js" defer></script>
