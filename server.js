@@ -60,6 +60,11 @@ const { notFoundHandler, errorHandler } = require("./utilities/handleErrors");
 // Main pages and demos (resume, projects, filament, hangman, about, ...).
 app.use("/", siteRoute);
 
+// Health check endpoint for UptimeRobot (keeps Render from sleeping)
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
+
 // ---------------------------------------------------------------------------
 // API: POST /api/filaments
 // ---------------------------------------------------------------------------
