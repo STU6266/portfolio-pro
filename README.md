@@ -204,5 +204,4 @@ cd portfolio-pro
 npm install
 node server.js
 ```
-
 Open `http://localhost:3000`
