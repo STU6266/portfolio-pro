@@ -12,6 +12,18 @@ The goal of this project is to practise real-world web development basics in a w
 
 ---
 
+## Run locally
+
+```bash
+git clone https://github.com/STU6266/portfolio-pro
+cd portfolio-pro
+npm install
+node server.js
+```
+Open `http://localhost:3000`
+
+---
+
 ## Features
 
 ### 1. Interactive Resume
@@ -195,13 +207,3 @@ portfolio-pro/
    └─ handleErrors.js        # Error wrapper + 404 & error handlers
 
 ---
-
-## Run locally
-
-```bash
-git clone https://github.com/STU6266/portfolio-pro
-cd portfolio-pro
-npm install
-node server.js
-```
-Open `http://localhost:3000`
