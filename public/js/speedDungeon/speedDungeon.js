@@ -1243,17 +1243,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-
-  function clearRiddleUi() {
-    if (riddleQuestionEl) {
-      riddleQuestionEl.textContent =
-        "Start the riddle room to see a question.";
-    }
-    if (riddleAnswersEl) {
-      riddleAnswersEl.innerHTML = "";
-    }
-  }
-
   function pickNextRiddleForAge(ageKey) {
     if (!riddleState.data) return null;
     const list = riddleState.data[ageKey];
