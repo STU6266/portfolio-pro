@@ -141,6 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const runState = {
     ageKey: "0_7",
     roomsCleared: 0,
+    lastRoomType: null,
     powerPoints: 0,
     currentRoomType: "none", // "none" | "fight" | "lock" | "image" | "riddle" | "corridor"
     runStarted: false,
@@ -573,7 +574,9 @@ document.addEventListener("DOMContentLoaded", () => {
         "In the full game, a corridor run would follow next."
     );
 
-    if (startFightBtn && !runState.runEnded) startFightBtn.disabled = false;
+    window.setTimeout(() => {
+      if (!runState.runEnded) startCorridorRoom();
+    }, 1500);
   }
 
   function flashFightFeedback(type) {
@@ -922,7 +925,9 @@ document.addEventListener("DOMContentLoaded", () => {
         : "Lock room cleared perfectly! Rooms and power updated with a small bonus."
     );
 
-    if (startLockBtn && !runState.runEnded) startLockBtn.disabled = false;
+    window.setTimeout(() => {
+      if (!runState.runEnded) startCorridorRoom();
+    }, 1500);
   }
 
   // ---------------------------------------------------------------------------
@@ -1126,9 +1131,11 @@ document.addEventListener("DOMContentLoaded", () => {
       setStatus(
         "Correct object! Image room cleared – rooms and power updated."
       );
-      if (startImageBtn && !runState.runEnded) {
-        startImageBtn.disabled = false;
-      }
+
+      window.setTimeout(() => {
+        if (!runState.runEnded) startCorridorRoom();
+      }, 1500);
+
     } else {
       setStatus("That is not the correct object. Try again.");
     }
@@ -1355,9 +1362,10 @@ document.addEventListener("DOMContentLoaded", () => {
           : "Riddle solved perfectly! Rooms and power updated with a small bonus."
       );
 
-      if (startRiddleBtn && !runState.runEnded) {
-        startRiddleBtn.disabled = false;
-      }
+      window.setTimeout(() => {
+      if (!runState.runEnded) startCorridorRoom();
+    }, 1500);
+    
     } else {
       riddleState.hadWrongChoice = true;
       setStatus(
@@ -1500,6 +1508,17 @@ document.addEventListener("DOMContentLoaded", () => {
     runState.roomsCleared += 1;
     runState.powerPoints += gain;
     updateHud();
+  }
+
+  function pickNextRoom() {
+    const rooms = ["fight", "lock", "image", "riddle"];
+    const available = rooms.filter(r => r !== runState.lastRoomType);
+    const picked = available[randomInt(0, available.length - 1)];
+    runState.lastRoomType = picked;
+    if (picked === "fight") startFightRoom();
+    else if (picked === "lock") startLockRoom();
+    else if (picked === "image") startImageRoom();
+    else if (picked === "riddle") startRiddleRoom();
   }
 
   function startCorridorRoom() {
@@ -1733,12 +1752,12 @@ function spawnCorridorRow() {
     if (corridorState.elapsedMs >= corridorState.durationMs) {
       corridorState.active = false;
       applyCorridorRoomReward();
-      setStatus(
-        "Corridor finished! Rooms and power updated. In the full game, a new room would follow now."
-      );
-      if (startCorridorBtn && !runState.runEnded) {
-        startCorridorBtn.disabled = false;
-      }
+
+      setStatus("Corridor finished! Starting next room...");
+      window.setTimeout(() => {
+        if (!runState.runEnded) pickNextRoom();
+      }, 1000);
+      
       return;
     }
 
