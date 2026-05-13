@@ -101,6 +101,15 @@ The goal of this project is to practise real-world web development basics in a w
     - Builds a `mailto:` URL with subject + body
     - Redirects to the mailto link (`window.location.href = mailtoUrl`)
     - No server-side email sending (no SMTP, no passwords)
+   
+    ### 6. Speed Dungeon
+
+    - Page at **`/speedDungeon`**
+      - A browser-based dungeon game with age-based difficulty (0–7, 8–11, 12–15, 16+)
+      - Players have 5 minutes to clear as many rooms as possible and earn Power Points
+      - 5 room types: Fight, Lock, Riddle, Image Search, Corridor runner
+      - Game data in `public/data/speedDungeon-*.json`
+      - Game logic in `public/js/speedDungeon/speedDungeon.js` (~1,900 lines)
 
 ---
 
@@ -184,3 +193,16 @@ portfolio-pro/
 │  └─ siteRoute.js           # All main routes
 └─ utilities/
    └─ handleErrors.js        # Error wrapper + 404 & error handlers
+
+---
+
+## Run locally
+
+```bash
+git clone https://github.com/STU6266/portfolio-pro
+cd portfolio-pro
+npm install
+node server.js
+```
+
+Open `http://localhost:3000`
