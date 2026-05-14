@@ -1,2 +1,240 @@
 
-  
+  {
+  "16_plus": [
+    {
+      "id": "group4_1",
+      "src": "/images/speedDungeon/searchinggame/image_room_group4a.webp",
+      "alt": "Dungeon room with ghost, well, big skull, red flame and round door",
+      "targets": [
+        {
+          "id": 1,
+          "name": "Geist",
+          "x": 3,
+          "y": 54,
+          "width": 6,
+          "height": 16
+        },
+        {
+          "id": 2,
+          "name": "Brunnen",
+          "x": 46,
+          "y": 32,
+          "width": 11,
+          "height": 13
+        },
+        {
+          "id": 3,
+          "name": "großer Totenkopf",
+          "x": 29,
+          "y": 87,
+          "width": 6,
+          "height": 7
+        },
+        {
+          "id": 4,
+          "name": "rote Flamme",
+          "x": 48,
+          "y": 54,
+          "width": 3,
+          "height": 6
+        },
+        {
+          "id": 5,
+          "name": "runde Tür",
+          "x": 4,
+          "y": 9,
+          "width": 7,
+          "height": 11
+        }
+      ]
+    },
+    {
+      "id": "group4_2",
+      "src": "/images/speedDungeon/searchinggame/image_room_group4b.webp",
+      "alt": "Dungeon room with chandelier, skeleton, red flag, map and treasure chest",
+      "targets": [
+        {
+          "id": 1,
+          "name": "Kronleuchter",
+          "x": 41,
+          "y": 1,
+          "width": 17,
+          "height": 13
+        },
+        {
+          "id": 2,
+          "name": "Skelett",
+          "x": 7,
+          "y": 36,
+          "width": 11,
+          "height": 32
+        },
+        {
+          "id": 3,
+          "name": "rote Flagge",
+          "x": 61,
+          "y": 15,
+          "width": 7,
+          "height": 16
+        },
+        {
+          "id": 4,
+          "name": "Landkarte",
+          "x": 88,
+          "y": 19,
+          "width": 11,
+          "height": 25
+        },
+        {
+          "id": 5,
+          "name": "Schatztruhe",
+          "x": 82,
+          "y": 79,
+          "width": 16,
+          "height": 19
+        }
+      ]
+    },
+    {
+      "id": "group4_3",
+      "src": "/images/speedDungeon/searchinggame/image_room_group4c.webp",
+      "alt": "Dark dungeon room with hanging Dungeon, gargoyle, map, treasure chest and skull",
+      "targets": [
+        {
+          "id": 1,
+          "name": "hängender Kerker",
+          "x": 9,
+          "y": 12,
+          "width": 10,
+          "height": 25
+        },
+        {
+          "id": 2,
+          "name": "Gargoyle",
+          "x": 47,
+          "y": 37,
+          "width": 6,
+          "height": 12
+        },
+        {
+          "id": 3,
+          "name": "Schatztruhe",
+          "x": 7,
+          "y": 70,
+          "width": 16,
+          "height": 24
+        },
+        {
+          "id": 4,
+          "name": "Totenkopf",
+          "x": 25,
+          "y": 64,
+          "width": 4,
+          "height": 8
+        },
+        {
+          "id": 5,
+          "name": "Schatzkarte",
+          "x": 27,
+          "y": 74,
+          "width": 13,
+          "height": 17
+        }
+      ]
+    },
+    {
+      "id": "group4_5",
+      "src": "/images/speedDungeon/searchinggame/image_room_group4e.webp",
+      "alt": "Dungeon room with angel, globe, red flag, gargoyle and turquiose potion",
+      "targets": [
+        {
+          "id": 1,
+          "name": "Engel",
+          "x": 58,
+          "y": 71,
+          "width": 12,
+          "height": 19
+        },
+        {
+          "id": 2,
+          "name": "Globus",
+          "x": 83,
+          "y": 24,
+          "width": 10,
+          "height": 13
+        },
+        {
+          "id": 3,
+          "name": "rote Flagge",
+          "x": 11,
+          "y": 5,
+          "width": 9,
+          "height": 25
+        },
+        {
+          "id": 4,
+          "name": "Gargoyle",
+          "x": 93,
+          "y": 62,
+          "width": 7,
+          "height": 34
+        },
+        {
+          "id": 5,
+          "name": "türkis Zaubertrank",
+          "x": 9,
+          "y": 53,
+          "width": 4,
+          "height": 8
+        }
+      ]
+    },
+    {
+      "id": "group4_6",
+      "src": "/images/speedDungeon/searchinggame/image_room_group4f.webp",
+      "alt": "Dungeon room with hanging dungeon, skul, blue light, skelett and wood door",
+      "targets": [
+        {
+          "id": 1,
+          "name": "hängender Kerker",
+          "x": 70,
+          "y": 64,
+          "width": 6,
+          "height": 9
+        },
+        {
+          "id": 2,
+          "name": "Totenkopf",
+          "x": 21,
+          "y": 77,
+          "width": 5,
+          "height": 9
+        },
+        {
+          "id": 3,
+          "name": "blaues licht",
+          "x": 84,
+          "y": 18,
+          "width": 4,
+          "height": 5
+        },
+        {
+          "id": 4,
+          "name": "Skelett",
+          "x": 94,
+          "y": 43,
+          "width": 5,
+          "height": 22
+        },
+        {
+          "id": 5,
+          "name": "Holztür",
+          "x": 39,
+          "y": 24,
+          "width": 6,
+          "height": 13
+        }
+      ]
+    }
+  ]
+}

@@ -311,6 +311,23 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------------------------------------------------------------------------
   // Run timer
   // ---------------------------------------------------------------------------
+  
+  // NUR ZUM TESTEN – Stop-Button
+  const stopBtn = document.getElementById("sd-stop-btn");
+  if (stopBtn) {
+    stopBtn.addEventListener("click", () => {
+      runState.runEnded = true;
+      runState.runStarted = false;
+      corridorState.active = false;
+      fightState.active = false;
+      lockState.active = false;
+      imageState.active = false;
+      riddleState.active = false;
+      stopRunTimer();
+      setStatus("⛔ Spiel gestoppt (Test-Modus). Seite neu laden zum Neustart.");
+    });
+  }
+  
   function startRunIfNeeded() {
     if (runState.runStarted || runState.runEnded) return;
 
@@ -994,12 +1011,6 @@ document.addEventListener("DOMContentLoaded", () => {
         "16_plus": data16_plus
       };
 
-      console.log("[ImageRoom] loaded sets:", {
-        "0_7": data0_7.length,
-        "8_11": data8_11.length,
-        "12_15": data12_15.length,
-        "16_plus": data16_plus.length
-      });
     } catch (err) {
       console.error("Failed to load image hunt data (unexpected error):", err);
       imageState.data = {
@@ -1365,7 +1376,7 @@ document.addEventListener("DOMContentLoaded", () => {
       window.setTimeout(() => {
       if (!runState.runEnded) startCorridorRoom();
     }, 1500);
-    
+
     } else {
       riddleState.hadWrongChoice = true;
       setStatus(
@@ -1484,10 +1495,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // DEBUG: prüfen, ob die Funktion überhaupt läuft
-    console.log(
-      "[Corridor] render, obstacles length =",
-      corridorState.obstacles.length
-    );
 
     const old = corridorTrackEl.querySelectorAll(".sd-corridor-obstacle");
     old.forEach((el) => el.remove());
@@ -1649,8 +1656,10 @@ function spawnCorridorRow() {
     corridorState.lastTimestamp = timestamp;
     const deltaSec = deltaMs / 1000;
 
-    // Gesamtzeit hochzählen
-    corridorState.elapsedMs += deltaMs;
+    // Gesamtzeit hochzählen – nur wenn Spieler nicht feststeckt
+    if (!corridorState.stuck) {
+      corridorState.elapsedMs += deltaMs;
+    }
 
     // Erst nach der sicheren Startphase (1,5–2 Sekunden) Hindernisse bewegen/spawnen
     if (corridorState.elapsedMs > corridorState.startDelayMs) {
