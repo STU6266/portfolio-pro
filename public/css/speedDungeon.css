@@ -99,7 +99,6 @@
   overflow: hidden;
 
   /* Hintergrundbild */
-  background-image: url("/images/speedDungeon/fightinggame/böse.jpg");
   background-size: cover;
   background-position: center;
   min-height: 400px; /* größerer Bildbereich */
@@ -210,14 +209,13 @@
 
 .sd-image-hotspot-btn {
   position: absolute;
-  border: 2px solid rgba(0, 255, 0, 0.9);
-  background: rgba(0, 255, 0, 0.25); /* halbtransparentes Grün */
+  border: none;
+  background: transparent;
   border-radius: 8px;
   padding: 0;
   cursor: pointer;
   pointer-events: auto;
 }
-
 
 /* Riddle room -------------------------------------------------------------- */
 
@@ -415,11 +413,7 @@
   border-radius: 1.5rem;
   background: radial-gradient(circle at top, #1f2937 0, #020617 70%);
   overflow: hidden;
-
-  /* DEBUG: damit du die Bahn wirklich siehst */
-  border: 2px solid #38bdf8;
 }
-
 .sd-corridor-player {
   position: absolute;
   width: 72px;
@@ -467,10 +461,10 @@
   overflow: hidden;
 
   /* das eigentliche Türbild setzen wir per JS mit background-image */
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 280px;
+  min-height: 400px;
 
   display: flex;
   align-items: stretch;

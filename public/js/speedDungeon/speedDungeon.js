@@ -290,6 +290,13 @@ document.addEventListener("DOMContentLoaded", () => {
     corridorContainer?.classList.add("is-hidden");
   }
 
+  const RIDDLE_BACKGROUNDS = {
+    "0_7":     "smartcat_1",
+    "8_11":    "owl_2",
+    "12_15":   "orc_3",
+    "16_plus": "wizard_4"
+  };
+
   function showRiddleUi() {
     runState.currentRoomType = "riddle";
     riddleContainer?.classList.remove("is-hidden");
@@ -297,6 +304,11 @@ document.addEventListener("DOMContentLoaded", () => {
     lockContainer?.classList.add("is-hidden");
     imageContainer?.classList.add("is-hidden");
     corridorContainer?.classList.add("is-hidden");
+    const bgFile = RIDDLE_BACKGROUNDS[runState.ageKey];
+    const riddleAreaEl = riddleContainer?.querySelector('.sd-riddle-area');
+    if (riddleAreaEl && bgFile) {
+      riddleAreaEl.style.backgroundImage = `url('/images/speedDungeon/riddlegame/${bgFile}.webp')`;
+    }
   }
 
   function showCorridorUi() {
@@ -473,12 +485,27 @@ document.addEventListener("DOMContentLoaded", () => {
     updateHud();
   }
 
+  const FIGHT_BACKGROUNDS = {
+    "0_7":     ["fight_1a","fight_1b","fight_1c","fight_1d","fight_1e"],
+    "8_11":    ["fight_2a","fight_2b","fight_2c","fight_2d","fight_2e"],
+    "12_15":   ["fight_3a","fight_3b","fight_3c","fight_3d","fight_3e"],
+    "16_plus": ["fight_4a","fight_4b","fight_4c","fight_4d","fight_4e"]
+  };
+
   function startFightRoom() {
     if (runState.runEnded) return;
 
     runState.ageKey = getSelectedAgeKey();
     const cfg = AGE_CONFIG_FIGHT[runState.ageKey];
     if (!cfg) return;
+
+    const bgList = FIGHT_BACKGROUNDS[runState.ageKey];
+    const bgFile = bgList[randomInt(0, bgList.length - 1)];
+
+    const fightUiEl = fightContainer?.querySelector('.sd-fight-ui');
+    if (fightUiEl) {
+      fightUiEl.style.backgroundImage = `url('/images/speedDungeon/fightinggame/${bgFile}.webp')`;
+    }
 
     lockState.active = false;
     imageState.active = false;
