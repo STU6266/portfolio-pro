@@ -64,6 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const startImageBtn = document.getElementById("sd-start-image-btn");
   const startRiddleBtn = document.getElementById("sd-start-riddle-btn");
   const startCorridorBtn = document.getElementById("sd-start-corridor-btn");
+  const startBossBtn = document.getElementById("sd-start-boss-btn");
 
   const roomsEl = document.getElementById("sd-rooms");
   const powerEl = document.getElementById("sd-power");
@@ -173,7 +174,11 @@ document.addEventListener("DOMContentLoaded", () => {
     sameKeyCount: 0,
     countdownActive: false,
     countdownRemaining: 0,
-    countdownIntervalId: null
+    countdownIntervalId: null,
+
+    // input during current fight round
+    roundSuccess: false,
+    roundFailed: false
   };
 
 
@@ -434,12 +439,22 @@ document.addEventListener("DOMContentLoaded", () => {
     phase: "idle",      // idle | attack | open
     phaseTimeoutId: null,
     countdownId: null,
+    roundTimeoutId: null,
     currentDodgeKey: null,
     powerPoints: 0,
-    bgFile: null
+    bgFile: null,
+
+    // input during current boss round
+    roundSuccess: false,
+    roundFailed: false
   };
 
   function startBossCountdown() {
+    if (runState.runEnded) return;
+
+    runState.ageKey = getSelectedAgeKey();
+    runState.currentRoomType = "boss";
+
     hideAllRooms();
     if (bossContainer) bossContainer.classList.remove("is-hidden");
 
@@ -523,41 +538,93 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function startBossRound() {
     if (!bossState.active) return;
+
     clearBossRoundTimeout();
     stopBossProgressBar();
 
     const cfg = BOSS_CONFIG[runState.ageKey];
     const key = pickBossKey();
 
+    bossState.roundSuccess = false;
+    bossState.roundFailed = false;
+
     if (key === "W") {
       bossState.phase = "open";
       bossState.currentDodgeKey = null;
-      if (bossPromptEl) bossPromptEl.textContent = "!";
-      if (bossHintEl) bossHintEl.textContent = cfg.showHint ? "Attack! Press W" : "";
+
+      // Group 1 and 2 show W.
+      // Group 3 and 4 show no symbol, only the time bar.
+      if (bossPromptEl) {
+        if (runState.ageKey === "0_7" || runState.ageKey === "8_11") {
+          bossPromptEl.textContent = "W";
+        } else {
+          bossPromptEl.textContent = "";
+        }
+      }
+
+      if (bossHintEl) {
+        bossHintEl.textContent = cfg.showHint ? "Attack! Press W" : "";
+      }
+
       startBossProgressBar(cfg.timeMs, false);
 
       bossState.roundTimeoutId = window.setTimeout(() => {
         if (!bossState.active) return;
+
+        // W window:
+        // - W pressed = damage boss
+        // - no key pressed = no damage to player
+        // - wrong key pressed = damage player
+        if (bossState.roundFailed) {
+          applyBossDamage();
+        } else if (bossState.roundSuccess && bossState.active) {
+          applyPlayerAttack();
+        }
+
         bossState.phase = "idle";
+        bossState.currentDodgeKey = null;
+        bossState.roundSuccess = false;
+        bossState.roundFailed = false;
+
         if (bossPromptEl) bossPromptEl.textContent = "–";
         if (bossHintEl) bossHintEl.textContent = cfg.showHint ? "Dodge A/S/D · Attack W" : "";
-        startBossRound();
+
+        stopBossProgressBar();
+
+        if (bossState.active) startBossRound();
       }, cfg.timeMs);
 
     } else {
       bossState.phase = "attack";
       bossState.currentDodgeKey = key;
+
       if (bossPromptEl) bossPromptEl.textContent = key;
       if (bossHintEl) bossHintEl.textContent = cfg.showHint ? "Dodge!" : "";
+
       startBossProgressBar(cfg.timeMs, true);
 
       bossState.roundTimeoutId = window.setTimeout(() => {
         if (!bossState.active) return;
-        applyBossDamage();
+
+        // Damage only if:
+        // 1. player pressed a wrong key, OR
+        // 2. player never pressed the correct key
+        if (bossState.roundFailed || !bossState.roundSuccess) {
+          applyBossDamage();
+        } else {
+          flashBossPrompt("hit");
+        }
+
         bossState.phase = "idle";
         bossState.currentDodgeKey = null;
+        bossState.roundSuccess = false;
+        bossState.roundFailed = false;
+
         if (bossPromptEl) bossPromptEl.textContent = "–";
         if (bossHintEl) bossHintEl.textContent = cfg.showHint ? "Dodge A/S/D · Attack W" : "";
+
+        stopBossProgressBar();
+
         if (bossState.active) startBossRound();
       }, cfg.timeMs);
     }
@@ -639,34 +706,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function handleBossKey(key) {
     if (!bossState.active) return;
-    // Ignore if phase is idle (between rounds)
+
+    const pressedKey = key.toUpperCase();
+
+    // Only boss keys are relevant
+    if (!["A", "S", "D", "W"].includes(pressedKey)) return;
+
+    // Ignore input between rounds
     if (bossState.phase === "idle") return;
 
+    // Dodge phase: shown key must be pressed.
+    // Correct key can be pressed multiple times.
+    // Any other boss key marks the round as failed.
     if (bossState.phase === "attack") {
-      if (key === bossState.currentDodgeKey) {
-        // Correct dodge – immediately clear timeout so damage cannot fire
-        clearBossRoundTimeout();
-        bossState.phase = "idle";
-        bossState.currentDodgeKey = null;
-        if (bossPromptEl) bossPromptEl.textContent = "–";
-        stopBossProgressBar();
-        const cfg = BOSS_CONFIG[runState.ageKey];
-        if (bossHintEl) bossHintEl.textContent = cfg.showHint ? "Dodge A/S/D · Attack W" : "";
+      if (pressedKey === bossState.currentDodgeKey) {
+        bossState.roundSuccess = true;
         flashBossPrompt("hit");
-        window.setTimeout(() => { if (bossState.active) startBossRound(); }, 300);
+      } else {
+        bossState.roundFailed = true;
+        flashBossPrompt("miss");
       }
-      // wrong key or W during attack = ignore
 
-    } else if (bossState.phase === "open") {
-      if (key === "W") {
-        clearBossRoundTimeout();
-        bossState.phase = "idle";
-        if (bossPromptEl) bossPromptEl.textContent = "–";
-        stopBossProgressBar();
-        const cfg = BOSS_CONFIG[runState.ageKey];
-        if (bossHintEl) bossHintEl.textContent = cfg.showHint ? "Dodge A/S/D · Attack W" : "";
-        applyPlayerAttack();
-        if (bossState.active) window.setTimeout(() => { if (bossState.active) startBossRound(); }, 300);
+      return;
+    }
+
+    // Open phase: W must be pressed.
+    // For older groups this is hidden, so they must notice the bar.
+    if (bossState.phase === "open") {
+      if (pressedKey === "W") {
+        bossState.roundSuccess = true;
+        flashBossPrompt("hit");
+      } else {
+        bossState.roundFailed = true;
+        flashBossPrompt("miss");
       }
     }
   }
@@ -769,6 +841,35 @@ document.addEventListener("DOMContentLoaded", () => {
     runState.roomsCleared += 1;
     runState.powerPoints += gain;
     updateHud();
+  }
+
+  function startFightProgressBar(durationMs) {
+    const bar = document.getElementById("sd-fight-progress-bar");
+    const track = document.getElementById("sd-fight-progress-track");
+
+    if (!bar || !track) return;
+
+    track.style.display = "block";
+    bar.style.transition = "none";
+    bar.style.width = "100%";
+    bar.style.background = "#ef4444";
+
+    // force browser to apply width before animation starts
+    bar.offsetWidth;
+
+    bar.style.transition = `width ${durationMs}ms linear`;
+    bar.style.width = "0%";
+  }
+
+  function stopFightProgressBar() {
+    const bar = document.getElementById("sd-fight-progress-bar");
+    const track = document.getElementById("sd-fight-progress-track");
+
+    if (!bar || !track) return;
+
+    track.style.display = "none";
+    bar.style.transition = "none";
+    bar.style.width = "100%";
   }
 
   const FIGHT_BACKGROUNDS = {
@@ -877,24 +978,57 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!fightState.active || runState.runEnded) return;
 
     clearFightRoundTimeout();
+    stopFightProgressBar();
 
     fightState.currentTarget = pickRandomFightKeyWithLimit();
+    fightState.roundSuccess = false;
+    fightState.roundFailed = false;
+
     updateFightUi();
     setStatus(`Hit the key: ${fightState.currentTarget}`);
 
+    startFightProgressBar(fightState.timeLimitMs);
+
     fightState.roundTimeoutId = window.setTimeout(() => {
       if (!fightState.active || runState.runEnded) return;
-      setStatus(
-        `Too slow! Target was ${fightState.currentTarget}. New key…`
-      );
-      startFightRound();
+
+      if (fightState.roundSuccess && !fightState.roundFailed) {
+        fightState.currentHits++;
+        flashFightFeedback("hit");
+        setStatus(`Good! ${fightState.currentTarget} was pressed in time.`);
+      } else if (fightState.roundFailed) {
+        flashFightFeedback("miss");
+        setStatus(`Wrong key! Target was ${fightState.currentTarget}.`);
+      } else {
+        flashFightFeedback("miss");
+        setStatus(`Too slow! Target was ${fightState.currentTarget}.`);
+      }
+
+      stopFightProgressBar();
+
+      if (fightState.currentHits >= fightState.requiredHits) {
+        finishFightRoom();
+      } else {
+        fightState.currentTarget = null;
+        updateFightUi();
+
+        window.setTimeout(() => {
+          if (fightState.active && !runState.runEnded) {
+            startFightRound();
+          }
+        }, 250);
+      }
     }, fightState.timeLimitMs);
   }
 
   function finishFightRoom() {
     clearFightRoundTimeout();
+    stopFightProgressBar();
+
     fightState.active = false;
     fightState.currentTarget = null;
+    fightState.roundSuccess = false;
+    fightState.roundFailed = false;
     updateFightUi();
 
     applyFightRoomReward();
@@ -930,24 +1064,24 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!fightState.currentTarget) return;
 
     const upper = key.toUpperCase();
+
+    // Only A and D matter in the normal fight room
     if (upper !== "A" && upper !== "D") return;
 
-    clearFightRoundTimeout();
-
+    // Correct key may be pressed multiple times.
+    // It only saves success for this round.
     if (upper === fightState.currentTarget) {
-      fightState.currentHits++;
+      fightState.roundSuccess = true;
       flashFightFeedback("hit");
     } else {
+      fightState.roundFailed = true;
       flashFightFeedback("miss");
     }
 
-    if (fightState.currentHits >= fightState.requiredHits) {
-      finishFightRoom();
-    } else {
-      window.setTimeout(startFightRound, 300);
-    }
-
-    updateFightUi();
+    // Important:
+    // Do NOT clear the timeout here.
+    // Do NOT start the next round here.
+    // The time bar must always finish first.
   }
 
   // ---------------------------------------------------------------------------
@@ -2176,7 +2310,24 @@ function spawnCorridorRow() {
     });
   }
 
+  if (startBossBtn) {
+    startBossBtn.addEventListener("click", () => {
+      startBossCountdown();
+    });
+  }
+
   window.addEventListener("keydown", (event) => {
+    const key = event.key.toUpperCase();
+
+    // Boss-Raum: A/S/D ausweichen, W angreifen
+    if (runState.currentRoomType === "boss" || bossState.active) {
+      if (["A", "S", "D", "W"].includes(key)) {
+        event.preventDefault();
+        handleBossKey(key);
+      }
+      return;
+    }
+
     // Fight-Raum: A/D drücken
     if (runState.currentRoomType === "fight") {
       handleFightKeyPress(event.key);
@@ -2186,9 +2337,8 @@ function spawnCorridorRow() {
     // Korridor: Pfeiltasten, Seite soll NICHT scrollen
     if (runState.currentRoomType === "corridor") {
       if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
-        event.preventDefault(); // verhindert, dass die Seite hin- und herscrollt
+        event.preventDefault();
         handleCorridorKey(event.key);
-        // Falls der Loop kurz hängt, sofort neu zeichnen:
         updateCorridorPlayerPosition();
       }
     }
