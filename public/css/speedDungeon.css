@@ -539,3 +539,145 @@
     Consolas, "Liberation Mono", "Courier New", monospace;
   letter-spacing: 0.2em;
 }
+
+/* Boss Fight ---------------------------------------------------------------- */
+
+.sd-room-boss {
+  margin-top: 1.5rem;
+}
+
+.sd-boss-ui {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* HP Bars */
+.sd-boss-hpbar-wrapper,
+.sd-player-hpbar-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sd-boss-hpbar-label,
+.sd-player-hpbar-label {
+  font-size: 0.85rem;
+  min-width: 60px;
+  opacity: 0.85;
+}
+
+.sd-boss-hpbar-track,
+.sd-player-hpbar-track {
+  flex: 1;
+  height: 14px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.sd-boss-hpbar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to right, #ef4444, #b91c1c);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.sd-player-hpbar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(to right, #22c55e, #15803d);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+/* Boss Arena */
+.sd-boss-arena {
+  margin-top: 0.5rem;
+}
+
+.sd-boss-bg {
+  position: relative;
+  min-height: 420px;
+  border-radius: 1.75rem;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sd-boss-overlay {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sd-boss-prompt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  min-width: 0;
+  min-height: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: clamp(8rem, 16vw, 14rem);
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: #f9fafb;
+  text-shadow:
+    0 0 10px rgba(15, 23, 42, 0.9),
+    0 0 30px rgba(15, 23, 42, 0.95);
+  margin: 0;
+  transition:
+    color 0.12s linear,
+    text-shadow 0.12s linear,
+    transform 0.12s linear;
+}
+
+.sd-boss-prompt--hit {
+  color: #bbf7d0;
+  text-shadow:
+    0 0 10px rgba(34, 197, 94, 0.9),
+    0 0 30px rgba(34, 197, 94, 1),
+    0 0 60px rgba(34, 197, 94, 0.9);
+  transform: scale(1.1);
+}
+
+.sd-boss-prompt--miss {
+  color: #fecaca;
+  text-shadow:
+    0 0 10px rgba(239, 68, 68, 0.9),
+    0 0 30px rgba(239, 68, 68, 1),
+    0 0 60px rgba(239, 68, 68, 0.9);
+  transform: scale(0.9);
+}
+
+.sd-boss-hint {
+  font-size: 1rem;
+  color: #f9fafb;
+  opacity: 0.85;
+  margin: 0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px rgba(15,23,42,0.9);
+}
+
+/* End Screen */
+.sd-boss-endscreen {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(1,6,20,0.85);
+  border-radius: 1.75rem;
+  margin-top: 1rem;
+}

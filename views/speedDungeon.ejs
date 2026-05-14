@@ -89,6 +89,9 @@
           <button id="sd-start-riddle-btn" class="btn sd-start-btn">
             Start Riddle Room
           </button>
+          <button id="sd-start-boss-btn" class="btn sd-start-btn" style="background:purple; color:white;">
+            👹 Start Boss (Test)
+          </button>
           <button id="sd-stop-btn" style="background:darkred; color:white; padding:8px 16px; margin:8px; cursor:pointer;">
             ⛔ Stop (nur zum Testen)
           </button>
@@ -226,6 +229,45 @@
               >
                 <!-- answer buttons injected by JS -->
               </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Boss Fight UI -->
+        <div id="sd-boss-container" class="sd-room sd-room-boss is-hidden">
+          <h3 class="sd-room-title">Boss Fight</h3>
+
+          <div class="sd-boss-ui">
+            <div class="sd-boss-hpbar-wrapper">
+              <span class="sd-boss-hpbar-label">Boss HP</span>
+              <div class="sd-boss-hpbar-track">
+                <div id="sd-boss-hpbar" class="sd-boss-hpbar"></div>
+              </div>
+            </div>
+
+            <div class="sd-player-hpbar-wrapper">
+              <span class="sd-player-hpbar-label">Your HP</span>
+              <div class="sd-player-hpbar-track">
+                <div id="sd-player-hpbar" class="sd-player-hpbar"></div>
+              </div>
+            </div>
+
+            <div class="sd-boss-arena">
+              <div id="sd-boss-bg" class="sd-fight-ui">
+                <div class="sd-target-box">
+                  <p class="sd-label">Boss</p>
+                  <p id="sd-boss-prompt" class="sd-target-key">–</p>
+                  <div id="sd-boss-progress-track" style="width:280px; height:8px; background:rgba(255,255,255,0.15); border-radius:999px; margin-top:0.5rem; display:none;">
+                    <div id="sd-boss-progress-bar" style="height:100%; width:100%; border-radius:999px; background:#ef4444;"></div>
+                  </div>
+                  <p id="sd-boss-hint" class="sd-boss-hint"></p>
+                </div>
+              </div>
+            </div>
+
+            <div id="sd-boss-endscreen" class="sd-boss-endscreen is-hidden">
+              <h2 id="sd-boss-result-title"></h2>
+              <p id="sd-boss-result-text"></p>
             </div>
           </div>
         </div>

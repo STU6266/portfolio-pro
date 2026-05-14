@@ -48,6 +48,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const riddleAnswersEl = document.getElementById("sd-riddle-answers");
 
   const corridorTrackEl = document.getElementById("sd-corridor-track");
+  const bossContainer = document.getElementById("sd-boss-container");
+  const bossBgEl = document.getElementById("sd-boss-bg");
+  const bossPromptEl = document.getElementById("sd-boss-prompt");
+  const bossHintEl = document.getElementById("sd-boss-hint");
+  const bossHpBarEl = document.getElementById("sd-boss-hpbar");
+  const playerHpBarEl = document.getElementById("sd-player-hpbar");
+  const bossEndscreenEl = document.getElementById("sd-boss-endscreen");
+  const bossResultTitleEl = document.getElementById("sd-boss-result-title");
+  const bossResultTextEl = document.getElementById("sd-boss-result-text");
   const corridorInfoEl = document.getElementById("sd-corridor-info");
 
   const startFightBtn = document.getElementById("sd-start-fight-btn");
@@ -263,6 +272,15 @@ document.addEventListener("DOMContentLoaded", () => {
     updateHudTimer();
   }
 
+  function hideAllRooms() {
+    fightContainer?.classList.add("is-hidden");
+    lockContainer?.classList.add("is-hidden");
+    imageContainer?.classList.add("is-hidden");
+    riddleContainer?.classList.add("is-hidden");
+    corridorContainer?.classList.add("is-hidden");
+    if (bossContainer) bossContainer.classList.add("is-hidden");
+  }
+
   function showFightUi() {
     runState.currentRoomType = "fight";
     fightContainer?.classList.remove("is-hidden");
@@ -387,6 +405,273 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 
+  // ---------------------------------------------------------------------------
+  // Boss Fight
+  // ---------------------------------------------------------------------------
+
+
+
+  const BOSS_BACKGROUNDS = {
+    "0_7":     ["endboss_1a","endboss_1b","endboss_1c"],
+    "8_11":    ["endboss_2a","endboss_2b","endboss_2c"],
+    "12_15":   ["endboss_3a","endboss_3b","endboss_3c"],
+    "16_plus": ["endboss_4a","endboss_4b","endboss_4c"]
+  };
+
+  const BOSS_CONFIG = {
+    "0_7":     { bossHp: 500, playerHp: 100, bossDmg: 15, timeMs: 1200, showHint: true  },
+    "8_11":    { bossHp: 500, playerHp: 100, bossDmg: 20, timeMs: 900,  showHint: true  },
+    "12_15":   { bossHp: 500, playerHp: 100, bossDmg: 25, timeMs: 700,  showHint: false },
+    "16_plus": { bossHp: 500, playerHp: 100, bossDmg: 30, timeMs: 550,  showHint: false }
+  };
+
+  const bossState = {
+    active: false,
+    bossHp: 500,
+    bossHpMax: 500,
+    playerHp: 100,
+    playerHpMax: 100,
+    phase: "idle",      // idle | attack | open
+    phaseTimeoutId: null,
+    countdownId: null,
+    currentDodgeKey: null,
+    powerPoints: 0,
+    bgFile: null
+  };
+
+  function startBossCountdown() {
+    hideAllRooms();
+    if (bossContainer) bossContainer.classList.remove("is-hidden");
+
+    const cfg = BOSS_CONFIG[runState.ageKey];
+    bossState.active = false;
+    bossState.bossHp = cfg.bossHp;
+    bossState.bossHpMax = cfg.bossHp;
+    bossState.playerHp = cfg.playerHp;
+    bossState.playerHpMax = cfg.playerHp;
+    bossState.powerPoints = runState.powerPoints;
+    bossState.phase = "idle";
+    bossState.currentDodgeKey = null;
+    bossState.roundTimeoutId = null;
+    bossState.lastKey = null;
+    bossState.sameKeyCount = 0;
+
+    // Pick random boss background
+    const bgList = BOSS_BACKGROUNDS[runState.ageKey];
+    bossState.bgFile = bgList[randomInt(0, bgList.length - 1)];
+    if (bossBgEl) {
+      bossBgEl.style.backgroundImage = `url('/images/speedDungeon/endboss/${bossState.bgFile}.webp')`;
+    }
+
+    updateBossHpBars();
+    if (bossEndscreenEl) bossEndscreenEl.classList.add("is-hidden");
+    if (bossPromptEl) bossPromptEl.textContent = "3";
+    if (bossHintEl) bossHintEl.textContent = "Boss fight starting...";
+
+    // 3-second countdown like fight room
+    let count = 3;
+    bossState.countdownId = window.setInterval(() => {
+      count -= 1;
+      if (count <= 0) {
+        clearInterval(bossState.countdownId);
+        bossState.countdownId = null;
+        startBossFight();
+      } else {
+        if (bossPromptEl) bossPromptEl.textContent = count;
+      }
+    }, 1000);
+  }
+
+  function startBossFight() {
+    bossState.active = true;
+    const cfg = BOSS_CONFIG[runState.ageKey];
+    setStatus("Boss Fight! Dodge A/S/D — Attack with W when you see !");
+    if (bossHintEl) bossHintEl.textContent = cfg.showHint ? "Dodge A/S/D · Attack W" : "";
+    startBossRound();
+  }
+
+  function clearBossRoundTimeout() {
+    if (bossState.roundTimeoutId !== null) {
+      clearTimeout(bossState.roundTimeoutId);
+      bossState.roundTimeoutId = null;
+    }
+  }
+
+  function pickBossKey() {
+    // 60% attack (A/S/D), 40% open (W window shown as "!")
+    const isAttack = Math.random() < 0.60;
+    if (isAttack) {
+      const keys = ["A", "S", "D"];
+      // avoid same key 3x in a row
+      let k;
+      let tries = 0;
+      do {
+        k = keys[randomInt(0, keys.length - 1)];
+        tries++;
+      } while (k === bossState.lastKey && bossState.sameKeyCount >= 3 && tries < 10);
+      if (k === bossState.lastKey) {
+        bossState.sameKeyCount++;
+      } else {
+        bossState.lastKey = k;
+        bossState.sameKeyCount = 1;
+      }
+      return k;
+    } else {
+      return "W";
+    }
+  }
+
+  function startBossRound() {
+    if (!bossState.active) return;
+    clearBossRoundTimeout();
+    stopBossProgressBar();
+
+    const cfg = BOSS_CONFIG[runState.ageKey];
+    const key = pickBossKey();
+
+    if (key === "W") {
+      bossState.phase = "open";
+      bossState.currentDodgeKey = null;
+      if (bossPromptEl) bossPromptEl.textContent = "!";
+      if (bossHintEl) bossHintEl.textContent = cfg.showHint ? "Attack! Press W" : "";
+      startBossProgressBar(cfg.timeMs, false);
+
+      bossState.roundTimeoutId = window.setTimeout(() => {
+        if (!bossState.active) return;
+        bossState.phase = "idle";
+        if (bossPromptEl) bossPromptEl.textContent = "–";
+        if (bossHintEl) bossHintEl.textContent = cfg.showHint ? "Dodge A/S/D · Attack W" : "";
+        startBossRound();
+      }, cfg.timeMs);
+
+    } else {
+      bossState.phase = "attack";
+      bossState.currentDodgeKey = key;
+      if (bossPromptEl) bossPromptEl.textContent = key;
+      if (bossHintEl) bossHintEl.textContent = cfg.showHint ? "Dodge!" : "";
+      startBossProgressBar(cfg.timeMs, true);
+
+      bossState.roundTimeoutId = window.setTimeout(() => {
+        if (!bossState.active) return;
+        applyBossDamage();
+        bossState.phase = "idle";
+        bossState.currentDodgeKey = null;
+        if (bossPromptEl) bossPromptEl.textContent = "–";
+        if (bossHintEl) bossHintEl.textContent = cfg.showHint ? "Dodge A/S/D · Attack W" : "";
+        if (bossState.active) startBossRound();
+      }, cfg.timeMs);
+    }
+  }
+
+  // Progress bar
+  function startBossProgressBar(durationMs, isDanger) {
+    const bar = document.getElementById("sd-boss-progress-bar");
+    const track = document.getElementById("sd-boss-progress-track");
+    if (!bar || !track) return;
+    track.style.display = "block";
+    bar.style.transition = "none";
+    bar.style.width = "100%";
+    bar.style.background = isDanger ? "#ef4444" : "#22c55e";
+    // force reflow
+    bar.offsetWidth;
+    bar.style.transition = `width ${durationMs}ms linear`;
+    bar.style.width = "0%";
+  }
+
+  function stopBossProgressBar() {
+    const bar = document.getElementById("sd-boss-progress-bar");
+    const track = document.getElementById("sd-boss-progress-track");
+    if (!bar || !track) return;
+    track.style.display = "none";
+    bar.style.transition = "none";
+    bar.style.width = "100%";
+  }
+
+  function applyBossDamage() {
+    const cfg = BOSS_CONFIG[runState.ageKey];
+    bossState.playerHp = Math.max(0, bossState.playerHp - cfg.bossDmg);
+    updateBossHpBars();
+    flashBossPrompt("miss");
+    if (bossState.playerHp <= 0) endBossFight("lose");
+  }
+
+  function applyPlayerAttack() {
+    const dmg = 10 + bossState.powerPoints;
+    bossState.bossHp = Math.max(0, bossState.bossHp - dmg);
+    updateBossHpBars();
+    flashBossPrompt("hit");
+    if (bossState.bossHp <= 0) endBossFight("win");
+  }
+
+  function updateBossHpBars() {
+    if (bossHpBarEl) {
+      bossHpBarEl.style.width = (bossState.bossHp / bossState.bossHpMax * 100) + "%";
+    }
+    if (playerHpBarEl) {
+      playerHpBarEl.style.width = (bossState.playerHp / bossState.playerHpMax * 100) + "%";
+    }
+  }
+
+  function flashBossPrompt(type) {
+    if (!bossPromptEl) return;
+    bossPromptEl.classList.remove("sd-target-key--hit", "sd-target-key--miss");
+    const cls = type === "hit" ? "sd-target-key--hit" : "sd-target-key--miss";
+    bossPromptEl.classList.add(cls);
+    window.setTimeout(() => bossPromptEl.classList.remove(cls), 200);
+  }
+
+  function endBossFight(result) {
+    bossState.active = false;
+    clearBossRoundTimeout();
+    if (bossState.countdownId) clearInterval(bossState.countdownId);
+    if (bossPromptEl) bossPromptEl.textContent = result === "win" ? "🏆" : "💀";
+    if (bossHintEl) bossHintEl.textContent = "";
+
+    if (bossEndscreenEl) bossEndscreenEl.classList.remove("is-hidden");
+    if (result === "win") {
+      if (bossResultTitleEl) bossResultTitleEl.textContent = "You won!";
+      if (bossResultTextEl) bossResultTextEl.textContent = `Boss defeated! You had ${bossState.powerPoints} power points.`;
+    } else {
+      if (bossResultTitleEl) bossResultTitleEl.textContent = "Game Over";
+      if (bossResultTextEl) bossResultTextEl.textContent = "The boss was too powerful. Try again!";
+    }
+  }
+
+  function handleBossKey(key) {
+    if (!bossState.active) return;
+    // Ignore if phase is idle (between rounds)
+    if (bossState.phase === "idle") return;
+
+    if (bossState.phase === "attack") {
+      if (key === bossState.currentDodgeKey) {
+        // Correct dodge – immediately clear timeout so damage cannot fire
+        clearBossRoundTimeout();
+        bossState.phase = "idle";
+        bossState.currentDodgeKey = null;
+        if (bossPromptEl) bossPromptEl.textContent = "–";
+        stopBossProgressBar();
+        const cfg = BOSS_CONFIG[runState.ageKey];
+        if (bossHintEl) bossHintEl.textContent = cfg.showHint ? "Dodge A/S/D · Attack W" : "";
+        flashBossPrompt("hit");
+        window.setTimeout(() => { if (bossState.active) startBossRound(); }, 300);
+      }
+      // wrong key or W during attack = ignore
+
+    } else if (bossState.phase === "open") {
+      if (key === "W") {
+        clearBossRoundTimeout();
+        bossState.phase = "idle";
+        if (bossPromptEl) bossPromptEl.textContent = "–";
+        stopBossProgressBar();
+        const cfg = BOSS_CONFIG[runState.ageKey];
+        if (bossHintEl) bossHintEl.textContent = cfg.showHint ? "Dodge A/S/D · Attack W" : "";
+        applyPlayerAttack();
+        if (bossState.active) window.setTimeout(() => { if (bossState.active) startBossRound(); }, 300);
+      }
+    }
+  }
+
+
   function endRun() {
     if (runState.runEnded) return;
     runState.runEnded = true;
@@ -413,9 +698,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (startRiddleBtn) startRiddleBtn.disabled = true;
     if (startCorridorBtn) startCorridorBtn.disabled = true;
 
-    setStatus(
-      "Run time is over. In the full game, the boss fight would start now."
-    );
+    setStatus("Run time is over! Prepare for the Boss Fight...");
+    window.setTimeout(() => {
+      startBossCountdown();
+    }, 1000);
   }
 
   // ---------------------------------------------------------------------------
