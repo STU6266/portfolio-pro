@@ -103,7 +103,8 @@
     <section class="speed-dungeon-main" aria-label="Current room">
       <div id="speed-dungeon-root" class="speed-dungeon-root card">
         <p id="sd-status" class="sd-status">
-          Choose an age group and start a room to begin.
+          A lone adventurer enters the Speed Dungeon. Each room hides a new challenge: dodge dungeon walls, react in battle, unlock sealed doors, find hidden objects, and solve riddles. 
+          Clear as many rooms as you can before time runs out. The power you collect will decide how strong you are against the final boss.
         </p>
 
         <!-- Corridor room UI -->
@@ -134,7 +135,15 @@
           <h3 class="sd-room-title">Fight Room (reaction)</h3>
 
           <!-- großes Bild + A/D im Vordergrund -->
-          <div class="sd-fight-ui">
+          <div class="sd-fight-ui sd-picture-room">
+            <img
+              id="sd-fight-image"
+              src=""
+              alt=""
+              class="sd-picture-room-img"
+              draggable="false"
+            />
+
             <div class="sd-target-box">
               <p class="sd-label">Target key</p>
               <p id="sd-target" class="sd-target-key">–</p>
@@ -162,7 +171,15 @@
           <!-- gemeinsamer großer Bildbereich wie beim Fight -->
           <div class="sd-room-visual">
             <div class="sd-room-visual-inner">
-              <div id="sd-lock-area" class="sd-lock-area">
+              <div id="sd-lock-area" class="sd-lock-area sd-picture-room">
+                <img
+                  id="sd-lock-image"
+                  src=""
+                  alt=""
+                  class="sd-picture-room-img"
+                  draggable="false"
+                />
+
                 <div class="sd-lock-overlay">
                   <p id="sd-lock-question" class="sd-lock-question">
                     Start the lock room to see a math question.
@@ -218,7 +235,15 @@
         >
           <h3 class="sd-room-title">Riddle Room (logic &amp; wordplay)</h3>
 
-          <div class="sd-riddle-area">
+          <div class="sd-riddle-area sd-picture-room">
+            <img
+              id="sd-riddle-image"
+              src=""
+              alt=""
+              class="sd-picture-room-img"
+              draggable="false"
+            />
+
             <div class="sd-riddle-overlay">
               <p class="sd-riddle-speaker">Smart Cat asks:</p>
 
@@ -257,7 +282,15 @@
             </div>
 
             <div class="sd-boss-arena">
-              <div id="sd-boss-bg" class="sd-boss-bg">
+              <div id="sd-boss-bg" class="sd-boss-bg sd-picture-room">
+                <img
+                  id="sd-boss-image"
+                  src=""
+                  alt=""
+                  class="sd-picture-room-img"
+                  draggable="false"
+                />
+
                 <div class="sd-target-box">
                   <p class="sd-label">Boss</p>
                   <p id="sd-boss-prompt" class="sd-target-key">–</p>

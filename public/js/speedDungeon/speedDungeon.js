@@ -34,6 +34,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const hitsEl = document.getElementById("sd-hits");
   const timeEl = document.getElementById("sd-time");
 
+  const fightImageEl = document.getElementById("sd-fight-image");
+  const lockImageEl = document.getElementById("sd-lock-image");
+  const riddleImageEl = document.getElementById("sd-riddle-image");
+  const bossImageEl = document.getElementById("sd-boss-image");
+
   const lockQuestionEl = document.getElementById("sd-lock-question");
   const lockAnswersEl = document.getElementById("sd-lock-answers");
   const lockComboEl = document.getElementById("sd-lock-combo");
@@ -328,9 +333,10 @@ document.addEventListener("DOMContentLoaded", () => {
     imageContainer?.classList.add("is-hidden");
     corridorContainer?.classList.add("is-hidden");
     const bgFile = RIDDLE_BACKGROUNDS[runState.ageKey];
-    const riddleAreaEl = riddleContainer?.querySelector('.sd-riddle-area');
-    if (riddleAreaEl && bgFile) {
-      riddleAreaEl.style.backgroundImage = `url('/images/speedDungeon/riddlegame/${bgFile}.webp')`;
+
+    if (riddleImageEl && bgFile) {
+      riddleImageEl.src = `/images/speedDungeon/riddlegame/${bgFile}.webp`;
+      riddleImageEl.alt = "Dungeon riddle room background";
     }
   }
 
@@ -484,8 +490,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Pick random boss background
     const bgList = BOSS_BACKGROUNDS[runState.ageKey];
     bossState.bgFile = bgList[randomInt(0, bgList.length - 1)];
-    if (bossBgEl) {
-      bossBgEl.style.backgroundImage = `url('/images/speedDungeon/endboss/${bossState.bgFile}.webp')`;
+    if (bossImageEl) {
+      bossImageEl.src = `/images/speedDungeon/endboss/${bossState.bgFile}.webp`;
+      bossImageEl.alt = "Dungeon boss background";
     }
 
     updateBossHpBars();
@@ -562,14 +569,8 @@ document.addEventListener("DOMContentLoaded", () => {
       bossState.phase = "open";
       bossState.currentDodgeKey = null;
 
-      // Group 1 and 2 show W.
-      // Group 3 and 4 show no symbol, only the time bar.
       if (bossPromptEl) {
-        if (runState.ageKey === "0_7" || runState.ageKey === "8_11") {
-          bossPromptEl.textContent = "W";
-        } else {
-          bossPromptEl.textContent = "";
-        }
+        bossPromptEl.textContent = "W";
       }
 
       if (bossHintEl) {
@@ -583,11 +584,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // W window:
         // - W pressed = damage boss
-        // - no key pressed = no damage to player
-        // - wrong key pressed = damage player
-        if (bossState.roundFailed) {
-          applyBossDamage();
-        } else if (bossState.roundSuccess && bossState.active) {
+        // - no key pressed = no damage
+        // - wrong key pressed = ignored
+        if (bossState.roundSuccess && bossState.active) {
           applyPlayerAttack();
         }
 
@@ -740,16 +739,16 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Open phase: W must be pressed.
-    // For older groups this is hidden, so they must notice the bar.
+    // Open phase: W is the attack window.
+    // W pressed = damage boss later when the bar ends.
+    // Wrong key = ignored, no player damage.
     if (bossState.phase === "open") {
       if (pressedKey === "W") {
         bossState.roundSuccess = true;
         flashBossPrompt("hit");
-      } else {
-        bossState.roundFailed = true;
-        flashBossPrompt("miss");
       }
+
+      return;
     }
   }
 
@@ -899,9 +898,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const bgList = FIGHT_BACKGROUNDS[runState.ageKey];
     const bgFile = bgList[randomInt(0, bgList.length - 1)];
 
-    const fightUiEl = fightContainer?.querySelector('.sd-fight-ui');
-    if (fightUiEl) {
-      fightUiEl.style.backgroundImage = `url('/images/speedDungeon/fightinggame/${bgFile}.webp')`;
+    if (fightImageEl) {
+      fightImageEl.src = `/images/speedDungeon/fightinggame/${bgFile}.webp`;
+      fightImageEl.alt = "Dungeon fight room background";
     }
 
     lockState.active = false;
@@ -1265,8 +1264,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       if (lockAnswersEl) lockAnswersEl.innerHTML = "";
       if (lockComboEl) lockComboEl.textContent = "–";
-      if (lockAreaEl) {
-        lockAreaEl.style.backgroundImage = "";
+      if (lockImageEl) {
+        lockImageEl.src = "";
+        lockImageEl.alt = "";
       }
       return;
     }
@@ -1333,10 +1333,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // passende Türbilder-Liste nach Kombination (3 / 4 / 5 Zahlen)
     const doorList = LOCK_DOOR_IMAGES[lockState.comboLength];
-    if (lockAreaEl && Array.isArray(doorList) && doorList.length > 0) {
+    if (Array.isArray(doorList) && doorList.length > 0) {
       const chosen = doorList[randomInt(0, doorList.length - 1)];
       lockState.doorImage = chosen;
-      lockAreaEl.style.backgroundImage = `url("${chosen}")`;
+
+      if (lockImageEl) {
+        lockImageEl.src = chosen;
+        lockImageEl.alt = "Dungeon lock door";
+      }
     }
 
     lockState.active = true;
@@ -2352,5 +2356,5 @@ function spawnCorridorRow() {
   updateImageUi();
   clearRiddleUi();
   clearCorridorUi();
-  setStatus("Choose an age group and start a room to begin.");
+  setStatus("A lone adventurer enters the Speed Dungeon. Each room hides a new challenge: dodge dungeon walls, react in battle, unlock sealed doors, find hidden objects, and solve riddles. Clear as many rooms as you can before time runs out. The power you collect will decide how strong you are against the final boss.");
 });
