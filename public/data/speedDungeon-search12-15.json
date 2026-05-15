@@ -48,53 +48,6 @@
       ]
     },
     {
-      "id": "group3_2",
-      "src": "/images/speedDungeon/searchinggame/image_room_group3b.webp",
-      "alt": "Dungeon room with door, spider, helmet, sword and lantern",
-      "targets": [
-        {
-          "id": 1,
-          "name": "Schild",
-          "x": 5,
-          "y": 19,
-          "width": 15,
-          "height": 15
-        },
-        {
-          "id": 2,
-          "name": "Helm",
-          "x": 3,
-          "y": 40,
-          "width": 13,
-          "height": 15
-        },
-        {
-          "id": 3,
-          "name": "Schwert",
-          "x": 77,
-          "y": 36,
-          "width": 5,
-          "height": 22
-        },
-        {
-          "id": 4,
-          "name": "Spinne",
-          "x": 17,
-          "y": 12,
-          "width": 7,
-          "height": 7
-        },
-        {
-          "id": 5,
-          "name": "Laterne",
-          "x": 85,
-          "y": 55,
-          "width": 11,
-          "height": 21
-        }
-      ]
-    },
-    {
       "id": "group3_3",
       "src": "/images/speedDungeon/searchinggame/image_room_group3c.webp",
       "alt": "Dark dungeon room with chest, helmet, keys and skeleton",

@@ -99,10 +99,12 @@
   overflow: hidden;
 
   /* Hintergrundbild */
-  background-size: cover;
+  background-size: contain;
   background-position: center;
-  min-height: 400px; /* größerer Bildbereich */
-}
+  background-repeat: no-repeat;
+  background-color: #020617;
+  min-height: 400px;
+  }
 
 /* Overlay bleibt, damit A/D gut lesbar ist */
 .sd-fight-ui::before {
@@ -217,6 +219,35 @@
   pointer-events: auto;
 }
 
+.sd-image-instruction {
+  margin: 0 0 0.9rem;
+  text-align: center;
+}
+
+.sd-image-find-label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fde68a;
+}
+
+.sd-image-find-target {
+  display: inline-block;
+  margin-top: 0.35rem;
+  padding: 0.45rem 0.9rem;
+  border: 2px solid rgba(253, 230, 138, 0.9);
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.86);
+  color: #ffffff;
+  font-size: clamp(1.3rem, 4vw, 2.4rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 14px rgba(0, 0, 0, 0.9);
+}
+
 /* Riddle room -------------------------------------------------------------- */
 
 .sd-room-riddle {
@@ -229,13 +260,11 @@
   overflow: hidden;
 
   /* gleiches Prinzip wie Fight room */
-  background-image: url("/images/speedDungeon/riddlegame/smartcat.webp");
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-
-  /* Höhe an Fight-Room angepasst (Fight hat min-height: 280px) */
-  min-height: 280px;
+  background-color: #020617;
+  min-height: 400px;
 
   display: flex;
   align-items: stretch;
@@ -602,9 +631,10 @@
   min-height: 420px;
   border-radius: 1.75rem;
   overflow: hidden;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  background-color: #020617;
   display: flex;
   align-items: center;
   justify-content: center;

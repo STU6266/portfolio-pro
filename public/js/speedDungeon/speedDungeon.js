@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------------------------------------------------------------------------
   // Configuration
   // ---------------------------------------------------------------------------
-  const TOTAL_RUN_TIME_MS = 5 * 60 * 1000; // 5 minutes
+  const TOTAL_RUN_TIME_MS = 3 * 60 * 1000; // 5 minutes
 
   const AGE_CONFIG_FIGHT = {
     "0_7": { minMs: 700, maxMs: 900, hitsMin: 3, hitsMax: 5 },
@@ -424,10 +424,10 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const BOSS_CONFIG = {
-    "0_7":     { bossHp: 500, playerHp: 100, bossDmg: 15, timeMs: 1200, showHint: true  },
-    "8_11":    { bossHp: 500, playerHp: 100, bossDmg: 20, timeMs: 900,  showHint: true  },
-    "12_15":   { bossHp: 500, playerHp: 100, bossDmg: 25, timeMs: 700,  showHint: false },
-    "16_plus": { bossHp: 500, playerHp: 100, bossDmg: 30, timeMs: 550,  showHint: false }
+    "0_7":     { bossHp: 500, playerHp: 100, bossDmg: 15, timeMs: 1800, showHint: true  },
+    "8_11":    { bossHp: 500, playerHp: 100, bossDmg: 20, timeMs: 1500,  showHint: true  },
+    "12_15":   { bossHp: 500, playerHp: 100, bossDmg: 25, timeMs: 1200,  showHint: false },
+    "16_plus": { bossHp: 500, playerHp: 100, bossDmg: 30, timeMs: 950,  showHint: false }
   };
 
   const bossState = {
@@ -450,10 +450,20 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   function startBossCountdown() {
-    if (runState.runEnded) return;
+    if (bossState.active || bossState.countdownId !== null) return;
 
     runState.ageKey = getSelectedAgeKey();
     runState.currentRoomType = "boss";
+
+    fightState.active = false;
+    lockState.active = false;
+    imageState.active = false;
+    riddleState.active = false;
+    corridorState.active = false;
+
+    clearFightRoundTimeout();
+    clearImageHotspots();
+    clearCorridorUi();
 
     hideAllRooms();
     if (bossContainer) bossContainer.classList.remove("is-hidden");
@@ -1038,9 +1048,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "In the full game, a corridor run would follow next."
     );
 
-    window.setTimeout(() => {
-      if (!runState.runEnded) startCorridorRoom();
-    }, 1500);
+    if (!runState.runEnded) startCorridorRoom();
   }
 
   function flashFightFeedback(type) {
@@ -1389,9 +1397,7 @@ document.addEventListener("DOMContentLoaded", () => {
         : "Lock room cleared perfectly! Rooms and power updated with a small bonus."
     );
 
-    window.setTimeout(() => {
-      if (!runState.runEnded) startCorridorRoom();
-    }, 1500);
+    if (!runState.runEnded) startCorridorRoom();
   }
 
   // ---------------------------------------------------------------------------
@@ -1545,7 +1551,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (imageInstructionEl) {
-      imageInstructionEl.textContent = `Find and click on: ${target.name}`;
+      imageInstructionEl.innerHTML = `
+        <span class="sd-image-find-label">Find this object:</span>
+        <strong class="sd-image-find-target">${target.name}</strong>
+      `;
     }
 
     if (imageEl) {
@@ -1590,9 +1599,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Correct object! Image room cleared – rooms and power updated."
       );
 
-      window.setTimeout(() => {
-        if (!runState.runEnded) startCorridorRoom();
-      }, 1500);
+      if (!runState.runEnded) startCorridorRoom();
 
     } else {
       setStatus("That is not the correct object. Try again.");
@@ -1820,9 +1827,7 @@ document.addEventListener("DOMContentLoaded", () => {
           : "Riddle solved perfectly! Rooms and power updated with a small bonus."
       );
 
-      window.setTimeout(() => {
       if (!runState.runEnded) startCorridorRoom();
-    }, 1500);
 
     } else {
       riddleState.hadWrongChoice = true;
@@ -2209,10 +2214,7 @@ function spawnCorridorRow() {
       corridorState.active = false;
       applyCorridorRoomReward();
 
-      setStatus("Corridor finished! Starting next room...");
-      window.setTimeout(() => {
-        if (!runState.runEnded) pickNextRoom();
-      }, 1000);
+      if (!runState.runEnded) pickNextRoom();
       
       return;
     }
