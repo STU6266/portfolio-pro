@@ -73,6 +73,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const startDungeonBtn = document.getElementById("sd-start-dungeon-btn");
   const startPanel = document.getElementById("sd-start-panel");
 
+  const mobileControlsEl = document.getElementById("sd-mobile-controls");
+  const mobileCorridorControlsEl = document.getElementById("sd-mobile-corridor-controls");
+  const mobileFightControlsEl = document.getElementById("sd-mobile-fight-controls");
+  const mobileBossControlsEl = document.getElementById("sd-mobile-boss-controls");
+  const mobileControlButtons = document.querySelectorAll("[data-sd-mobile-key]");
+
   const roomsEl = document.getElementById("sd-rooms");
   const powerEl = document.getElementById("sd-power");
   const timerEl = document.getElementById("sd-timer");
@@ -285,6 +291,53 @@ document.addEventListener("DOMContentLoaded", () => {
     updateHudTimer();
   }
 
+  function isMobileControlScreen() {
+    return window.matchMedia("(max-width: 800px)").matches;
+  }
+
+  function hideMobileControls() {
+    mobileControlsEl?.classList.add("is-hidden");
+    mobileCorridorControlsEl?.classList.add("is-hidden");
+    mobileFightControlsEl?.classList.add("is-hidden");
+    mobileBossControlsEl?.classList.add("is-hidden");
+  }
+
+  function updateMobileControls(roomType = runState.currentRoomType) {
+    hideMobileControls();
+
+    if (!isMobileControlScreen()) return;
+
+    if (roomType === "corridor") {
+      mobileControlsEl?.classList.remove("is-hidden");
+      mobileCorridorControlsEl?.classList.remove("is-hidden");
+    } else if (roomType === "fight") {
+      mobileControlsEl?.classList.remove("is-hidden");
+      mobileFightControlsEl?.classList.remove("is-hidden");
+    } else if (roomType === "boss") {
+      mobileControlsEl?.classList.remove("is-hidden");
+      mobileBossControlsEl?.classList.remove("is-hidden");
+    }
+  }
+
+  function handleMobileControlKey(key) {
+    if (!key) return;
+
+    if (runState.currentRoomType === "corridor") {
+      handleCorridorKey(key);
+      updateCorridorPlayerPosition();
+      return;
+    }
+
+    if (runState.currentRoomType === "fight") {
+      handleFightKeyPress(key);
+      return;
+    }
+
+    if (runState.currentRoomType === "boss" || bossState.active) {
+      handleBossKey(key);
+    }
+  }
+
   function hideAllRooms() {
     fightContainer?.classList.add("is-hidden");
     lockContainer?.classList.add("is-hidden");
@@ -292,6 +345,7 @@ document.addEventListener("DOMContentLoaded", () => {
     riddleContainer?.classList.add("is-hidden");
     corridorContainer?.classList.add("is-hidden");
     if (bossContainer) bossContainer.classList.add("is-hidden");
+    hideMobileControls();
   }
 
   function showFightUi() {
@@ -301,6 +355,7 @@ document.addEventListener("DOMContentLoaded", () => {
     imageContainer?.classList.add("is-hidden");
     riddleContainer?.classList.add("is-hidden");
     corridorContainer?.classList.add("is-hidden");
+    updateMobileControls("fight");
   }
 
   function showLockUi() {
@@ -310,6 +365,7 @@ document.addEventListener("DOMContentLoaded", () => {
     imageContainer?.classList.add("is-hidden");
     riddleContainer?.classList.add("is-hidden");
     corridorContainer?.classList.add("is-hidden");
+    hideMobileControls();
   }
 
   function showImageUi() {
@@ -319,6 +375,7 @@ document.addEventListener("DOMContentLoaded", () => {
     lockContainer?.classList.add("is-hidden");
     riddleContainer?.classList.add("is-hidden");
     corridorContainer?.classList.add("is-hidden");
+    hideMobileControls();
   }
 
   const RIDDLE_BACKGROUNDS = [
@@ -344,7 +401,9 @@ document.addEventListener("DOMContentLoaded", () => {
       riddleImageEl.src = `/images/speedDungeon/riddlegame/${bgFile}`;
       riddleImageEl.alt = "Dungeon riddle room background";
     }
-    }
+
+    hideMobileControls();
+  }
     
   function showCorridorUi() {
     runState.currentRoomType = "corridor";
@@ -353,6 +412,7 @@ document.addEventListener("DOMContentLoaded", () => {
     lockContainer?.classList.add("is-hidden");
     imageContainer?.classList.add("is-hidden");
     riddleContainer?.classList.add("is-hidden");
+    updateMobileControls("corridor");
   }
 
   // ---------------------------------------------------------------------------
@@ -479,6 +539,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     hideAllRooms();
     if (bossContainer) bossContainer.classList.remove("is-hidden");
+    updateMobileControls("boss");
 
     const cfg = BOSS_CONFIG[runState.ageKey];
     bossState.active = false;
@@ -703,6 +764,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function endBossFight(result) {
     bossState.active = false;
+    hideMobileControls();
     clearBossRoundTimeout();
     if (bossState.countdownId) clearInterval(bossState.countdownId);
     if (bossPromptEl) bossPromptEl.textContent = result === "win" ? "🏆" : "💀";
@@ -2410,6 +2472,17 @@ function handleRiddleKeyboard(key) {
     });
   }
 
+  mobileControlButtons.forEach((button) => {
+    button.addEventListener("pointerdown", (event) => {
+      event.preventDefault();
+      handleMobileControlKey(button.dataset.sdMobileKey);
+    });
+  });
+
+  window.addEventListener("resize", () => {
+    updateMobileControls();
+  });
+
   window.addEventListener("keydown", (event) => {
     const key = event.key.toUpperCase();
 
@@ -2462,6 +2535,7 @@ function handleRiddleKeyboard(key) {
   updateImageUi();
   clearRiddleUi();
   clearCorridorUi();
+  hideMobileControls();
   setStatus(
     "A brave adventurer enters the Speed Dungeon. You must move from room to room and survive as many challenges as possible before time runs out. In the corridor, dodge the dungeon walls with A and D. In other rooms, you may need to find a hidden object, crack a number lock by solving math problems, react quickly against dangerous creatures, or answer a riddle to move forward.\n\n" +
     "Each cleared room gives you power for the final battle. If you complete a room without mistakes, you earn extra power. After 3 minutes, the final boss appears. Dodge its attacks with A, S, and D, then wait for an opening and strike with W. The stronger you became in the dungeon, the better your chance to defeat the boss."

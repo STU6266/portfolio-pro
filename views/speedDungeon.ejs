@@ -130,7 +130,7 @@
             <div class="sd-room-visual-inner">
               <div class="sd-corridor-wrapper">
                 <p id="sd-corridor-info" class="sd-corridor-info">
-                  Start the corridor to run through 3 lanes and dodge obstacles with A and D.;
+                  Start the corridor to run through 3 lanes and dodge obstacles with A and D.
                 </p>
 
                 <!-- Track: Player + Hindernisse werden per JS eingefügt -->
@@ -321,6 +321,28 @@
           </div>
         </div>
 
+
+        <!-- Mobile touch controls: shown only on small screens and only in rooms that need them -->
+        <div id="sd-mobile-controls" class="sd-mobile-controls is-hidden" aria-label="Mobile touch controls">
+          <div id="sd-mobile-corridor-controls" class="sd-mobile-control-set is-hidden" aria-label="Corridor controls">
+            <button type="button" class="sd-mobile-control-btn" data-sd-mobile-key="A" aria-label="Move left">←</button>
+            <button type="button" class="sd-mobile-control-btn" data-sd-mobile-key="D" aria-label="Move right">→</button>
+          </div>
+
+          <div id="sd-mobile-fight-controls" class="sd-mobile-control-set is-hidden" aria-label="Fight controls">
+            <button type="button" class="sd-mobile-control-btn" data-sd-mobile-key="A" aria-label="Press A">A</button>
+            <button type="button" class="sd-mobile-control-btn" data-sd-mobile-key="D" aria-label="Press D">D</button>
+          </div>
+
+          <div id="sd-mobile-boss-controls" class="sd-mobile-control-set sd-mobile-control-set--boss is-hidden" aria-label="Boss fight controls">
+            <button type="button" class="sd-mobile-control-btn" data-sd-mobile-key="A" aria-label="Press A">A</button>
+            <button type="button" class="sd-mobile-control-btn" data-sd-mobile-key="S" aria-label="Press S">S</button>
+            <button type="button" class="sd-mobile-control-btn" data-sd-mobile-key="D" aria-label="Press D">D</button>
+            <button type="button" class="sd-mobile-control-btn sd-mobile-control-btn--attack" data-sd-mobile-key="W" aria-label="Press W to attack">W</button>
+          </div>
+        </div>
+
+      </div>
     </section>
   </section>
 </main>
