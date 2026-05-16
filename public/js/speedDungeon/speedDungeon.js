@@ -70,6 +70,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const startRiddleBtn = document.getElementById("sd-start-riddle-btn");
   const startCorridorBtn = document.getElementById("sd-start-corridor-btn");
   const startBossBtn = document.getElementById("sd-start-boss-btn");
+  const startDungeonBtn = document.getElementById("sd-start-dungeon-btn");
+  const startPanel = document.getElementById("sd-start-panel");
 
   const roomsEl = document.getElementById("sd-rooms");
   const powerEl = document.getElementById("sd-power");
@@ -116,10 +118,10 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const POWER_GAIN_PER_ROOM = {
-    "0_7": 3,
-    "8_11": 2,
-    "12_15": 1,
-    "16_plus": 1
+    "0_7": 3.5,
+    "8_11": 3,
+    "12_15": 2.5,
+    "16_plus": 2
   };
 
   // Corridor difficulty per age group
@@ -197,9 +199,9 @@ document.addEventListener("DOMContentLoaded", () => {
     values: [],
     hadWrongChoice: false,
     currentEquation: null,
-    doorImage: null
+    doorImage: null,
+    selectedAnswerIndex: 0
   };
-
   // ---------------------------------------------------------------------------
   // Image room state
   // ---------------------------------------------------------------------------
@@ -219,7 +221,8 @@ document.addEventListener("DOMContentLoaded", () => {
     data: null,
     currentRiddle: null,
     hadWrongChoice: false,
-    usedIdsByAge: {}
+    usedIdsByAge: {},
+    selectedAnswerIndex: 0
   };
 
   // ---------------------------------------------------------------------------
@@ -430,10 +433,10 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const BOSS_CONFIG = {
-    "0_7":     { bossHp: 500, playerHp: 100, bossDmg: 15, timeMs: 1800, showHint: true  },
-    "8_11":    { bossHp: 500, playerHp: 100, bossDmg: 20, timeMs: 1500,  showHint: true  },
-    "12_15":   { bossHp: 500, playerHp: 100, bossDmg: 25, timeMs: 1200,  showHint: false },
-    "16_plus": { bossHp: 500, playerHp: 100, bossDmg: 30, timeMs: 950,  showHint: false }
+    "0_7":     { bossHp: 500, playerHp: 100, bossDmg: 15, timeMs: 1900,  showHint: true  },
+    "8_11":    { bossHp: 500, playerHp: 100, bossDmg: 20, timeMs: 1600,  showHint: true  },
+    "12_15":   { bossHp: 500, playerHp: 100, bossDmg: 25, timeMs: 1250,  showHint: true },
+    "16_plus": { bossHp: 500, playerHp: 100, bossDmg: 30, timeMs: 1000,  showHint: true }
   };
 
   const bossState = {
@@ -497,11 +500,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateBossHpBars();
     if (bossEndscreenEl) bossEndscreenEl.classList.add("is-hidden");
-    if (bossPromptEl) bossPromptEl.textContent = "3";
-    if (bossHintEl) bossHintEl.textContent = "Boss fight starting...";
+    if (bossPromptEl) bossPromptEl.textContent = "5";
+    if (bossHintEl) bossHintEl.textContent = "Final battle: Dodge with A, S, and D. When W appears, press W to attack.";
 
     // 3-second countdown like fight room
-    let count = 3;
+    let count = 5;
     bossState.countdownId = window.setInterval(() => {
       count -= 1;
       if (count <= 0) {
@@ -530,27 +533,26 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function pickBossKey() {
-    // 60% attack (A/S/D), 40% open (W window shown as "!")
-    const isAttack = Math.random() < 0.60;
-    if (isAttack) {
-      const keys = ["A", "S", "D"];
-      // avoid same key 3x in a row
-      let k;
-      let tries = 0;
-      do {
-        k = keys[randomInt(0, keys.length - 1)];
-        tries++;
-      } while (k === bossState.lastKey && bossState.sameKeyCount >= 3 && tries < 10);
-      if (k === bossState.lastKey) {
-        bossState.sameKeyCount++;
-      } else {
-        bossState.lastKey = k;
-        bossState.sameKeyCount = 1;
-      }
-      return k;
-    } else {
-      return "W";
+    // Weighted pool:
+    // A/S/D together = about 60%
+    // W = about 40%
+    // But no key may appear more than 2 times in a row.
+    let pool = ["A", "S", "D", "W", "W"];
+
+    if (bossState.lastKey && bossState.sameKeyCount >= 2) {
+      pool = pool.filter((key) => key !== bossState.lastKey);
     }
+
+    const picked = pool[randomInt(0, pool.length - 1)];
+
+    if (picked === bossState.lastKey) {
+      bossState.sameKeyCount++;
+    } else {
+      bossState.lastKey = picked;
+      bossState.sameKeyCount = 1;
+    }
+
+    return picked;
   }
 
   function startBossRound() {
@@ -1247,8 +1249,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let bonus = 0;
 
     if (!hadWrongChoice) {
-      if (runState.ageKey === "0_7") bonus = 2;
-      else bonus = 1;
+      bonus = 2;
     }
 
     runState.roomsCleared += 1;
@@ -1281,10 +1282,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (lockAnswersEl) {
       lockAnswersEl.innerHTML = "";
       if (eq) {
-        eq.choices.forEach((value) => {
+        eq.choices.forEach((value, index) => {
           const btn = document.createElement("button");
           btn.type = "button";
           btn.className = "sd-lock-answer-btn";
+
+          if (index === lockState.selectedAnswerIndex) {
+            btn.classList.add("sd-answer-btn--selected");
+          }
+
           btn.textContent = String(value);
           btn.addEventListener("click", () => handleLockAnswerClick(value));
           lockAnswersEl.appendChild(btn);
@@ -1330,6 +1336,7 @@ document.addEventListener("DOMContentLoaded", () => {
     lockState.currentIndex = 0;
     lockState.values = [];
     lockState.hadWrongChoice = false;
+    lockState.selectedAnswerIndex = 0;
 
     // passende Türbilder-Liste nach Kombination (3 / 4 / 5 Zahlen)
     const doorList = LOCK_DOOR_IMAGES[lockState.comboLength];
@@ -1378,6 +1385,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "Correct! The number was added to the combination. Next equation…"
         );
         lockState.currentEquation = generateLockEquation(runState.ageKey);
+        lockState.selectedAnswerIndex = 0;
         updateLockUi();
       }
     } else {
@@ -1791,6 +1799,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "sd-riddle-answer-btn";
+
+      if (index === riddleState.selectedAnswerIndex) {
+        btn.classList.add("sd-answer-btn--selected");
+      }
+
       btn.textContent = opt;
       btn.addEventListener("click", () =>
         handleRiddleAnswerClick(index)
@@ -1804,8 +1817,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let bonus = 0;
 
     if (!hadWrongChoice) {
-      if (runState.ageKey === "8_11") bonus = 2;
-      else bonus = 1;
+      bonus = 2;
     }
 
     runState.roomsCleared += 1;
@@ -1885,6 +1897,7 @@ document.addEventListener("DOMContentLoaded", () => {
     riddleState.active = true;
     riddleState.currentRiddle = next;
     riddleState.hadWrongChoice = false;
+    riddleState.selectedAnswerIndex = 0;
 
     if (startRiddleBtn) startRiddleBtn.disabled = true;
     if (startFightBtn && !runState.runEnded) startFightBtn.disabled = false;
@@ -1910,7 +1923,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (corridorInfoEl) {
       corridorInfoEl.textContent =
-        "Start the corridor to run through 3 lanes and dodge obstacles with the arrow keys.";
+        "Start the corridor to run through 3 lanes and dodge dungeon walls with A and D.";
     }
     corridorState.lastTimestamp = null;
     corridorState.obstacles = [];
@@ -1974,7 +1987,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function pickNextRoom() {
-    const rooms = ["fight", "lock", "image", "riddle"];
+    let rooms = ["fight", "lock", "image", "riddle"];
+
+    // 0–7 currently does not use the riddle room.
+    if (runState.ageKey === "0_7") {
+      rooms = rooms.filter((room) => room !== "riddle");
+    }
+
     const available = rooms.filter(r => r !== runState.lastRoomType);
     const picked = available[randomInt(0, available.length - 1)];
     runState.lastRoomType = picked;
@@ -2046,7 +2065,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCorridorObstacles();
 
   setStatus(
-    "Corridor started. Use the left/right arrow keys to dodge obstacles."
+    "Corridor started. Use A and D to dodge the dungeon walls."
   );
 
   // Animationsschleife starten
@@ -2203,13 +2222,13 @@ function spawnCorridorRow() {
     if (corridorInfoEl) {
       if (corridorState.elapsedMs < corridorState.startDelayMs) {
         corridorInfoEl.textContent =
-          "Get ready… no obstacles for the first moments.";
+          "Get ready… no walls for the first moments.";
       } else if (corridorState.stuck) {
         corridorInfoEl.textContent =
-          "You are blocked! Move to another lane with the arrow keys.";
+          "You are blocked! Move to another lane with A or D.";
       } else {
         corridorInfoEl.textContent =
-          "Run forward and dodge obstacles with the arrow keys.";
+          "Run forward and dodge the dungeon walls with A and D.";
       }
     }
 
@@ -2243,9 +2262,9 @@ function spawnCorridorRow() {
 
   let targetLane = corridorState.playerLane;
 
-  if (key === "ArrowLeft") {
+  if (key === "A") {
     targetLane = Math.max(0, corridorState.playerLane - 1);
-  } else if (key === "ArrowRight") {
+  } else if (key === "D") {
     targetLane = Math.min(
       corridorState.lanes - 1,
       corridorState.playerLane + 1
@@ -2276,6 +2295,58 @@ function spawnCorridorRow() {
   }
 }
 
+function handleLockKeyboard(key) {
+  if (!lockState.active || runState.currentRoomType !== "lock") return;
+  if (!lockState.currentEquation) return;
+
+  const choices = lockState.currentEquation.choices;
+  if (!Array.isArray(choices) || choices.length === 0) return;
+
+  if (key === "A" || key === "ARROWLEFT") {
+    lockState.selectedAnswerIndex =
+      (lockState.selectedAnswerIndex - 1 + choices.length) % choices.length;
+    updateLockUi();
+    return;
+  }
+
+  if (key === "D" || key === "ARROWRIGHT") {
+    lockState.selectedAnswerIndex =
+      (lockState.selectedAnswerIndex + 1) % choices.length;
+    updateLockUi();
+    return;
+  }
+
+  if (key === "ENTER") {
+    const value = choices[lockState.selectedAnswerIndex];
+    handleLockAnswerClick(value);
+  }
+}
+
+function handleRiddleKeyboard(key) {
+  if (!riddleState.active || runState.currentRoomType !== "riddle") return;
+  if (!riddleState.currentRiddle) return;
+
+  const options = riddleState.currentRiddle.options;
+  if (!Array.isArray(options) || options.length === 0) return;
+
+  if (key === "A" || key === "ARROWLEFT") {
+    riddleState.selectedAnswerIndex =
+      (riddleState.selectedAnswerIndex - 1 + options.length) % options.length;
+    updateRiddleUi();
+    return;
+  }
+
+  if (key === "D" || key === "ARROWRIGHT") {
+    riddleState.selectedAnswerIndex =
+      (riddleState.selectedAnswerIndex + 1) % options.length;
+    updateRiddleUi();
+    return;
+  }
+
+  if (key === "ENTER") {
+    handleRiddleAnswerClick(riddleState.selectedAnswerIndex);
+  }
+}
 
   // ---------------------------------------------------------------------------
   // Event wiring & init
@@ -2316,6 +2387,20 @@ function spawnCorridorRow() {
     });
   }
 
+  if (startDungeonBtn) {
+    startDungeonBtn.addEventListener("click", () => {
+      if (runState.runStarted || runState.runEnded) return;
+
+      runState.ageKey = getSelectedAgeKey();
+
+      if (startPanel) {
+        startPanel.classList.add("is-hidden");
+      }
+
+      startCorridorRoom();
+    });
+  }
+
   if (startBossBtn) {
     startBossBtn.addEventListener("click", () => {
       startBossCountdown();
@@ -2340,11 +2425,29 @@ function spawnCorridorRow() {
       return;
     }
 
-    // Korridor: Pfeiltasten, Seite soll NICHT scrollen
-    if (runState.currentRoomType === "corridor") {
-      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+    // Lock Room: Antwort mit A/D oder Pfeiltasten wählen, Enter bestätigt
+    if (runState.currentRoomType === "lock") {
+      if (["A", "D", "ARROWLEFT", "ARROWRIGHT", "ENTER"].includes(key)) {
         event.preventDefault();
-        handleCorridorKey(event.key);
+        handleLockKeyboard(key);
+      }
+      return;
+    }
+
+    // Riddle Room: Antwort mit A/D oder Pfeiltasten wählen, Enter bestätigt
+    if (runState.currentRoomType === "riddle") {
+      if (["A", "D", "ARROWLEFT", "ARROWRIGHT", "ENTER"].includes(key)) {
+        event.preventDefault();
+        handleRiddleKeyboard(key);
+      }
+      return;
+    }
+
+    // Korridor: A/D zum Ausweichen
+    if (runState.currentRoomType === "corridor") {
+      if (key === "A" || key === "D") {
+        event.preventDefault();
+        handleCorridorKey(key);
         updateCorridorPlayerPosition();
       }
     }
@@ -2356,5 +2459,8 @@ function spawnCorridorRow() {
   updateImageUi();
   clearRiddleUi();
   clearCorridorUi();
-  setStatus("A lone adventurer enters the Speed Dungeon. Each room hides a new challenge: dodge dungeon walls, react in battle, unlock sealed doors, find hidden objects, and solve riddles. Clear as many rooms as you can before time runs out. The power you collect will decide how strong you are against the final boss.");
+  setStatus(
+    "A brave adventurer enters the Speed Dungeon. You must move from room to room and survive as many challenges as possible before time runs out. In the corridor, dodge the dungeon walls with A and D. In other rooms, you may need to find a hidden object, crack a number lock by solving math problems, react quickly against dangerous creatures, or answer a riddle to move forward.\n\n" +
+    "Each cleared room gives you power for the final battle. If you complete a room without mistakes, you earn extra power. After 3 minutes, the final boss appears. Dodge its attacks with A, S, and D, then wait for an opening and strike with W. The stronger you became in the dungeon, the better your chance to defeat the boss."
+  );
 });

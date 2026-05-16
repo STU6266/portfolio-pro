@@ -34,28 +34,7 @@
   <section class="speed-dungeon-layout">
     <!-- Sidebar: age selection + global HUD -->
     <aside class="speed-dungeon-sidebar" aria-label="Game settings and stats">
-      <form id="sd-age-form" class="sd-age-form">
-        <fieldset>
-          <legend>Choose age group</legend>
-          <label>
-            <input type="radio" name="sd-age" value="0_7" checked />
-            0–7 years
-          </label>
-          <label>
-            <input type="radio" name="sd-age" value="8_11" />
-            8–11 years
-          </label>
-          <label>
-            <input type="radio" name="sd-age" value="12_15" />
-            12–15 years
-          </label>
-          <label>
-            <input type="radio" name="sd-age" value="16_plus" />
-            16+ years
-          </label>
-        </fieldset>
-      </form>
-
+      
       <div class="sd-hud card">
         <h3 class="sd-hud-title">Run stats</h3>
         <dl class="sd-hud-list">
@@ -69,11 +48,11 @@
           </div>
           <div class="sd-hud-row">
             <dt>Run time left</dt>
-            <dd id="sd-timer">05:00</dd>
+            <dd id="sd-timer">03:00</dd>
           </div>
         </dl>
 
-        <div class="sd-actions">
+        <div class="sd-actions sd-test-actions is-hidden">
           <button id="sd-start-corridor-btn" class="btn primary sd-start-btn">
             Start Corridor
           </button>
@@ -102,10 +81,43 @@
     <!-- Main game area -->
     <section class="speed-dungeon-main" aria-label="Current room">
       <div id="speed-dungeon-root" class="speed-dungeon-root card">
-        <p id="sd-status" class="sd-status">
-          A lone adventurer enters the Speed Dungeon. Each room hides a new challenge: dodge dungeon walls, react in battle, unlock sealed doors, find hidden objects, and solve riddles. 
-          Clear as many rooms as you can before time runs out. The power you collect will decide how strong you are against the final boss.
-        </p>
+        <div id="sd-start-panel" class="sd-start-panel">
+          <p id="sd-status" class="sd-status">
+            A brave adventurer enters the Speed Dungeon. You must move from room to room and survive as many challenges as possible before time runs out. In the corridor, dodge the dungeon walls with A and D. In other rooms, you may need to find a hidden object, crack a number lock by solving math problems, react quickly against dangerous creatures, or answer a riddle to move forward.
+            <br><br>
+            Each cleared room gives you power for the final battle. If you complete a room without mistakes, you earn extra power. After 3 minutes, the final boss appears. Dodge its attacks with A, S, and D, then wait for an opening and strike with W. The stronger you became in the dungeon, the better your chance to defeat the boss.
+          </p>
+
+          <form id="sd-age-form" class="sd-age-form sd-age-form-main">
+            <fieldset>
+              <legend>Choose your age group</legend>
+
+              <label>
+                <input type="radio" name="sd-age" value="0_7" checked />
+                0–7 years
+              </label>
+
+              <label>
+                <input type="radio" name="sd-age" value="8_11" />
+                8–11 years
+              </label>
+
+              <label>
+                <input type="radio" name="sd-age" value="12_15" />
+                12–15 years
+              </label>
+
+              <label>
+                <input type="radio" name="sd-age" value="16_plus" />
+                16+ years
+              </label>
+            </fieldset>
+          </form>
+
+          <button id="sd-start-dungeon-btn" class="btn primary sd-start-dungeon-btn" type="button">
+            Start Dungeon
+          </button>
+        </div>
 
         <!-- Corridor room UI -->
         <div
@@ -118,7 +130,7 @@
             <div class="sd-room-visual-inner">
               <div class="sd-corridor-wrapper">
                 <p id="sd-corridor-info" class="sd-corridor-info">
-                  Start the corridor to run and dodge obstacles.
+                  Start the corridor to run through 3 lanes and dodge obstacles with A and D.;
                 </p>
 
                 <!-- Track: Player + Hindernisse werden per JS eingefügt -->
