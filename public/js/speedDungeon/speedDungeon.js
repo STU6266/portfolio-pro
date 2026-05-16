@@ -321,12 +321,13 @@ document.addEventListener("DOMContentLoaded", () => {
     corridorContainer?.classList.add("is-hidden");
   }
 
-  const RIDDLE_BACKGROUNDS = {
-    "0_7":     "smartcat_1",
-    "8_11":    "owl_2",
-    "12_15":   "orc_3",
-    "16_plus": "wizard_4"
-  };
+  const RIDDLE_BACKGROUNDS = [
+    "riddle1.webp",
+    "riddle2.webp",
+    "riddle3.webp",
+    "riddle4.webp",
+    "riddle5.webp"
+  ];
 
   function showRiddleUi() {
     runState.currentRoomType = "riddle";
@@ -335,14 +336,16 @@ document.addEventListener("DOMContentLoaded", () => {
     lockContainer?.classList.add("is-hidden");
     imageContainer?.classList.add("is-hidden");
     corridorContainer?.classList.add("is-hidden");
-    const bgFile = RIDDLE_BACKGROUNDS[runState.ageKey];
+    const bgFile = RIDDLE_BACKGROUNDS[
+      randomInt(0, RIDDLE_BACKGROUNDS.length - 1)
+    ];
 
     if (riddleImageEl && bgFile) {
-      riddleImageEl.src = `/images/speedDungeon/riddlegame/${bgFile}.webp`;
+      riddleImageEl.src = `/images/speedDungeon/riddlegame/${bgFile}`;
       riddleImageEl.alt = "Dungeon riddle room background";
     }
-  }
-
+    }
+    
   function showCorridorUi() {
     runState.currentRoomType = "corridor";
     corridorContainer?.classList.remove("is-hidden");
