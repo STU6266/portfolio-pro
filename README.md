@@ -114,14 +114,19 @@ Open `http://localhost:3000`
     - Redirects to the mailto link (`window.location.href = mailtoUrl`)
     - No server-side email sending (no SMTP, no passwords)
    
-    ### 6. Speed Dungeon
+    ### Speed Dungeon
 
-    - Page at **`/speedDungeon`**
-      - A browser-based dungeon game with age-based difficulty (0–7, 8–11, 12–15, 16+)
-      - Players have 5 minutes to clear as many rooms as possible and earn Power Points
-      - 5 room types: Fight, Lock, Riddle, Image Search, Corridor runner
-      - Game data in `public/data/speedDungeon-*.json`
-      - Game logic in `public/js/speedDungeon/speedDungeon.js` (~1,900 lines)
+    - Browser-based JavaScript dungeon game inside the portfolio
+    - Age-based difficulty groups: 0–7, 8–11, 12–15, 16+
+    - 3-minute dungeon run with multiple room types:
+      - Corridor runner
+      - Reaction fight
+      - Math lock room
+      - Image search room
+      - Riddle room
+    - Power Points are earned by clearing rooms and increase final boss damage
+    - Mobile touch controls are shown only in rooms where keyboard input is needed
+    - Built with vanilla JavaScript, EJS, CSS and JSON data files
 
 ---
 

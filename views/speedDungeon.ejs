@@ -21,7 +21,7 @@
 
   <!-- Intro header -->
   <section class="projects-header speed-dungeon-header">
-    <h2>Speed Dungeon (prototype)</h2>
+    <h2>Speed Dungeon – JavaScript Browser Game</h2>
     <p>
       A fast reaction dungeon game concept. This prototype showcases multiple
       rooms: a corridor lane run, a reaction-based fight room, a math-based
@@ -51,9 +51,10 @@
             <dd id="sd-timer">03:00</dd>
           </div>
         </dl>
-
+        
+        <!-- Developer test controls. Hidden in normal portfolio view. -->
         <div class="sd-actions sd-test-actions is-hidden">
-          <button id="sd-start-corridor-btn" class="btn primary sd-start-btn">
+          <button id="sd-start-corridor-btn" class="btn primary sd-start-btn" type="button">
             Start Corridor
           </button>
           <button id="sd-start-fight-btn" class="btn sd-start-btn">
@@ -82,7 +83,7 @@
     <section class="speed-dungeon-main" aria-label="Current room">
       <div id="speed-dungeon-root" class="speed-dungeon-root card">
         <div id="sd-start-panel" class="sd-start-panel">
-          <p id="sd-status" class="sd-status">
+          <p id="sd-status" class="sd-status" aria-live="polite">
             A brave adventurer enters the Speed Dungeon. You must move from room to room and survive as many challenges as possible before time runs out. In the corridor, dodge the dungeon walls with A and D. In other rooms, you may need to find a hidden object, crack a number lock by solving math problems, react quickly against dangerous creatures, or answer a riddle to move forward.
             <br><br>
             Each cleared room gives you power for the final battle. If you complete a room without mistakes, you earn extra power. After 3 minutes, the final boss appears. Dodge its attacks with A, S, and D, then wait for an opening and strike with W. The stronger you became in the dungeon, the better your chance to defeat the boss.

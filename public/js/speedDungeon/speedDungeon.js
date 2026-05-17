@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------------------------------------------------------------------------
   // Configuration
   // ---------------------------------------------------------------------------
-  const TOTAL_RUN_TIME_MS = 3 * 60 * 1000; // 5 minutes
+  const TOTAL_RUN_TIME_MS = 3 * 60 * 1000; // 3 minutes
 
   const AGE_CONFIG_FIGHT = {
     "0_7": { minMs: 700, maxMs: 900, hitsMin: 3, hitsMax: 5 },
@@ -584,7 +584,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function startBossFight() {
     bossState.active = true;
     const cfg = BOSS_CONFIG[runState.ageKey];
-    setStatus("Boss Fight! Dodge A/S/D — Attack with W when you see !");
+    setStatus("Boss Fight! Dodge with A/S/D. Attack with W when W appears!");
     if (bossHintEl) bossHintEl.textContent = cfg.showHint ? "Dodge A/S/D · Attack W" : "";
     startBossRound();
   }
@@ -1109,10 +1109,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     applyFightRoomReward();
 
-    setStatus(
-      "Fight room cleared! Rooms and power have been updated. " +
-        "In the full game, a corridor run would follow next."
-    );
+    setStatus("Fight room cleared! Rooms and power have been updated. Moving back to the corridor...");
 
     if (!runState.runEnded) startCorridorRoom();
   }
