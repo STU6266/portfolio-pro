@@ -5,7 +5,7 @@
 <!--
   projects.ejs
   ---------------------------------------------------------------------------
-  Renders the project overview page with 4 project cards.
+  Renders the project overview page with featured software project cards.
   - Each card shows tag line, title, description, tech stack and links.
   - Layout and styling are handled by projects.css.
 -->
@@ -25,22 +25,105 @@
 
   <!-- Project grid -->
   <section class="projects-grid">
-    <!-- Project 1: Portfolio / Resume Page -->
-    <article class="card project-card">
+
+    <!-- Featured Project: unrealDice -->
+    <article class="card project-card project-card-featured">
       <div class="project-header">
-        <span class="project-tag">Web · HTML / CSS</span>
-        <h3 class="project-title">Portfolio &amp; Resume Page</h3>
+        <span class="project-tag">PWA · React / TypeScript</span>
+        <h3 class="project-title">unrealDice &ndash; Offline Dice App</h3>
         <p class="project-description">
-          A personal portfolio and resume website that presents work
-          experience, skills and background. It was one of the first steps
-          into building a web presence.
+          An installable offline-capable dice application for tabletop games and
+          quick decisions. Users can create custom dice groups and combinations,
+          lock individual dice during play, review roll history and export or
+          import local backups. The app includes automated testing, validated
+          data handling and optional remotely managed Quick Start templates.
         </p>
       </div>
 
       <div class="project-meta">
         <span class="project-tech-label">Tech:</span>
         <span class="project-tech-list">
-          HTML, CSS, basic JavaScript
+          React, TypeScript, Vite, PWA, Vitest, localStorage, Supabase
+        </span>
+      </div>
+
+      <div class="project-links">
+        <a
+          href="PASTE_UNREALDICE_GITHUB_URL_HERE"
+          class="project-link project-link-primary"
+          target="_blank"
+          rel="noopener"
+        >
+          View code on GitHub
+        </a>
+        <a
+          href="PASTE_UNREALDICE_LIVE_URL_HERE"
+          class="project-link project-link-secondary"
+          target="_blank"
+          rel="noopener"
+        >
+          Open unrealDice
+        </a>
+      </div>
+    </article>
+
+    <!-- Project: Board Game Intelligence API -->
+    <article class="card project-card">
+      <div class="project-header">
+        <span class="project-tag">Backend · Python / FastAPI / PostgreSQL</span>
+        <h3 class="project-title">Board Game Intelligence API</h3>
+        <p class="project-description">
+          A backend and data integration API that processes board game XML data,
+          validates and synchronizes relational records, tracks import results and
+          exposes analytical endpoints for family-friendly and accessible
+          high-rated game recommendations.
+        </p>
+      </div>
+
+      <div class="project-meta">
+        <span class="project-tech-label">Tech:</span>
+        <span class="project-tech-list">
+          Python, FastAPI, PostgreSQL, SQLAlchemy, Alembic, Docker, Pytest, HTTPX
+        </span>
+      </div>
+
+      <div class="project-links">
+        <a
+          href="https://github.com/STU6266/board-game-intelligence-api"
+          class="project-link project-link-primary"
+          target="_blank"
+          rel="noopener"
+        >
+          View code on GitHub
+        </a>
+        <a
+          href="https://board-game-intelligence-api.onrender.com/docs"
+          class="project-link project-link-secondary"
+          target="_blank"
+          rel="noopener"
+        >
+          View Live API Docs
+        </a>
+      </div>
+    </article>
+
+    <!-- Project: Speed Dungeon -->
+    <article class="card project-card">
+      <div class="project-header">
+        <span class="project-tag">Game · Node.js / JavaScript</span>
+        <h3 class="project-title">Speed Dungeon &ndash; JavaScript Browser Game</h3>
+        <p class="project-description">
+          A browser-based dungeon game built into my portfolio. The game combines
+          timed room rotation, age-based difficulty, keyboard and mobile touch
+          controls, JSON-driven content, scoring logic and a final boss fight
+          where collected Power Points increase player damage.
+        </p>
+      </div>
+
+      <div class="project-meta">
+        <span class="project-tech-label">Tech:</span>
+        <span class="project-tech-list">
+          Node.js, Express, EJS, vanilla JavaScript, JSON, CSS
         </span>
       </div>
 
@@ -53,10 +136,47 @@
         >
           View code on GitHub
         </a>
+        <a href="/speedDungeon" class="project-link project-link-secondary">
+          Play Speed Dungeon
+        </a>
       </div>
     </article>
 
-    <!-- Project 2: Hangman (Web version) -->
+    <!-- Project: Filament Finder -->
+    <article class="card project-card">
+      <div class="project-header">
+        <span class="project-tag">Data · SQL / JSON</span>
+        <h3 class="project-title">Filament Finder (3D Printing)</h3>
+        <p class="project-description">
+          A small data project that uses a SQL-style schema and a static JSON
+          file to explore 3D printing filaments by brand, material and
+          temperature range.
+        </p>
+      </div>
+
+      <div class="project-meta">
+        <span class="project-tech-label">Tech:</span>
+        <span class="project-tech-list">
+          MySQL, ER diagram, JSON, Node.js, Express, vanilla JavaScript
+        </span>
+      </div>
+
+      <div class="project-links">
+        <a
+          href="https://github.com/STU6266/portfolio-pro"
+          class="project-link project-link-primary"
+          target="_blank"
+          rel="noopener"
+        >
+          View code on GitHub
+        </a>
+        <a href="/filament" class="project-link project-link-secondary">
+          Open Filament Finder
+        </a>
+      </div>
+    </article>
+
+    <!-- Project: Hangman -->
     <article class="card project-card">
       <div class="project-header">
         <span class="project-tag">Console · C#</span>
@@ -90,21 +210,22 @@
       </div>
     </article>
 
-    <!-- Project 3: Filament Finder -->
+    <!-- Project: Portfolio / Resume Page -->
     <article class="card project-card">
       <div class="project-header">
-        <span class="project-tag">DATA · SQL / JSON</span>
-        <h3 class="project-title">Filament Finder (3D printing)</h3>
+        <span class="project-tag">Web · HTML / CSS</span>
+        <h3 class="project-title">Portfolio &amp; Resume Page</h3>
         <p class="project-description">
-          A small data project that uses a SQL-style schema and a static JSON file to
-          explore 3D printing filaments by brand, material and temperature range.
+          A personal portfolio and resume website that presents work
+          experience, skills and background. It was one of the first steps
+          into building a web presence.
         </p>
       </div>
 
       <div class="project-meta">
         <span class="project-tech-label">Tech:</span>
         <span class="project-tech-list">
-          MySQL, ER diagram, JSON, Node.js, Express, vanilla JavaScript
+          HTML, CSS, basic JavaScript
         </span>
       </div>
 
@@ -117,87 +238,9 @@
         >
           View code on GitHub
         </a>
-        <a href="/filament" class="project-link project-link-secondary">
-          Open Filament Finder
-        </a>
       </div>
     </article>
 
-    <!-- Project 4: Speed Dungeon -->
-    <article class="card project-card">
-      <div class="project-header">
-        <span class="project-tag">Game · Node.js / JavaScript</span>
-        <h3 class="project-title">Speed Dungeon - JavaScript Browser Game</h3>
-        <p class="project-description">
-          A browser-based dungeon game built into my portfolio. The game combines
-          timed room rotation, age-based difficulty, keyboard and mobile touch controls,
-          JSON-driven content, scoring logic and a final boss fight where collected
-          Power Points increase player damage.
-        </p>
-      </div>
-
-      <div class="project-meta">
-        <span class="project-tech-label">Tech:</span>
-        <span class="project-tech-list">
-          Node.js, Express, EJS, vanilla JavaScript, JSON, CSS
-        </span>
-      </div>
-
-      <div class="project-links"> 
-        <a 
-          href="https://github.com/STU6266/portfolio-pro"
-          class="project-link project-link-primary"
-          target="_blank"
-          rel="noopener"
-        >
-          View code on GitHub
-        </a>
-        <a href="/speedDungeon" class="project-link project-link-secondary">
-          Play Speed Dungeon
-        </a>
-      </div>
-    </article>
-
-        <!-- Project 5: Board Game Intelligence API -->
-    <article class="card project-card">
-      <div class="project-header">
-        <span class="project-tag">Backend · Python / FastAPI / PostgreSQL</span>
-        <h3 class="project-title">Board Game Intelligence API</h3>
-        <p class="project-description">
-          A backend and data integration API that processes board game XML data,
-          validates and synchronizes relational records, tracks import results and
-          exposes analytical endpoints for family-friendly and accessible
-          high-rated game recommendations.
-        </p>
-      </div>
-
-      <div class="project-meta">
-        <span class="project-tech-label">Tech:</span>
-        <span class="project-tech-list">
-          Python, FastAPI, PostgreSQL, SQLAlchemy, Alembic, Docker, Pytest, HTTPX
-        </span>
-      </div>
-
-      <div class="project-links">
-        <a
-          href="https://github.com/STU6266/board-game-intelligence-api"
-          class="project-link project-link-primary"
-          target="_blank"
-          rel="noopener"
-        >
-          View code on GitHub
-        </a>
-
-        <a
-          href="https://board-game-intelligence-api.onrender.com/docs"
-          class="project-link project-link-secondary"
-          target="_blank"
-          rel="noopener"
-        >
-          View Live API Docs
-        </a>
-      </div>
-    </article>
   </section>
 </main>
 
