@@ -7,6 +7,8 @@ The site showcases my background, skills and a few small demo projects:
 - A **Filament Finder** data project for 3D printing filaments
 - A web version of my old **Hangman** console game
 - A simple but robust **contact flow** using a modal + `mailto:`
+- A **Board Game Intelligence API** built with Python, FastAPI and PostgreSQL
+- A browser-based **Speed Dungeon** game with age-based difficulty and mobile controls
 
 The goal of this project is to practise real-world web development basics in a way that is easy to read and understand for junior developers and reviewers.
 
@@ -50,6 +52,8 @@ Open `http://localhost:3000`
   - For interactive projects:
     - **Hangman:** "Play Hangman" → `/hangman`
     - **Filament Finder:** "Open Filament Finder" → `/filament`
+    - **Board Game Intelligence API:** GitHub repository + live Swagger documentation
+    - **Speed Dungeon:** "Play Speed Dungeon" → `/speedDungeon`
 
 ### 3. Filament Finder (3D Printing)
 
@@ -98,7 +102,24 @@ Open `http://localhost:3000`
   - On-screen keyboard (A–Z) implemented in JavaScript
 - Logic is handled in `public/js/hangman.js` and heavily commented in plain English
 
-### 5. Contact Flow
+### 5. Board Game Intelligence API
+
+- Separate backend and data integration project built with Python, FastAPI and PostgreSQL
+- Processes board game XML data into validated relational records
+- Includes:
+  - XML parsing and data quality validation
+  - duplicate-safe synchronization logic
+  - import-run and error tracking
+  - analytical endpoints for family-friendly and low-complexity/high-rating recommendations
+  - Swagger/OpenAPI documentation
+  - automated tests
+- Links:
+  - GitHub repository: `https://github.com/STU6266/board-game-intelligence-api`
+  - Live API documentation: `https://board-game-intelligence-api.onrender.com/docs`
+
+> Note: The live API uses development fixture data for demonstration. Real BoardGameGeek synchronization requires an authorized API token.
+
+### 6. Contact Flow
 
 - Navigation bar contains **"Contact Me"**
   - Basic fallback: `<a href="mailto:stevenkemendics@gmail.com">`
@@ -114,19 +135,19 @@ Open `http://localhost:3000`
     - Redirects to the mailto link (`window.location.href = mailtoUrl`)
     - No server-side email sending (no SMTP, no passwords)
    
-    ### Speed Dungeon
+### 7. Speed Dungeon
 
-    - Browser-based JavaScript dungeon game inside the portfolio
-    - Age-based difficulty groups: 0–7, 8–11, 12–15, 16+
-    - 3-minute dungeon run with multiple room types:
-      - Corridor runner
-      - Reaction fight
-      - Math lock room
-      - Image search room
-      - Riddle room
-    - Power Points are earned by clearing rooms and increase final boss damage
-    - Mobile touch controls are shown only in rooms where keyboard input is needed
-    - Built with vanilla JavaScript, EJS, CSS and JSON data files
+- Browser-based JavaScript dungeon game inside the portfolio
+- Age-based difficulty groups: 0–7, 8–11, 12–15, 16+
+- 3-minute dungeon run with multiple room types:
+  - Corridor runner
+  - Reaction fight
+  - Math lock room
+  - Image search room
+  - Riddle room
+- Power Points are earned by clearing rooms and increase final boss damage
+- Mobile touch controls are shown only in rooms where keyboard input is needed
+- Built with vanilla JavaScript, EJS, CSS and JSON data files
 
 ---
 
