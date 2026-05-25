@@ -281,6 +281,7 @@
 /* The panel is visible as long as either the card OR the panel
    itself is hovered. */
 .profile-summary-card:hover .profile-hover-panel,
+.profile-summary-card:focus-within .profile-hover-panel,
 .profile-hover-panel:hover {
   opacity: 1;
   transform: translateY(-50%) scale(1);
@@ -298,6 +299,7 @@
   }
 
   .profile-summary-card:hover .profile-hover-panel,
+  .profile-summary-card:focus-within .profile-hover-panel,
   .profile-hover-panel:hover {
     transform: translateY(-50%) scale(1);
     pointer-events: auto;
@@ -791,6 +793,7 @@
 /* The panel stays visible as long as either the job or the panel itself
    is hovered. */
 .experience-job:hover .experience-hover-panel,
+.experience-job:focus-within .experience-hover-panel,
 .experience-hover-panel:hover {
   opacity: 1;
   transform: translateY(-50%) scale(1);
@@ -818,6 +821,7 @@
   }
 
   .experience-job:hover .experience-hover-panel,
+  .experience-job:focus-within .experience-hover-panel,
   .experience-hover-panel:hover {
     transform: translateY(-50%) scale(1);
   }
@@ -852,6 +856,7 @@
   }
 
   .experience-job:hover .experience-hover-panel,
+  .experience-job:focus-within .experience-hover-panel,
   .experience-hover-panel:hover {
     opacity: 1;
     transform: scale(1);
