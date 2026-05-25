@@ -322,7 +322,23 @@
    the full width and are aligned to the left. */
 .filament-add-form .filament-actions {
   grid-column: 1 / -1;
+  align-items: center;
   justify-content: flex-start;
+}
+
+.filament-save-status {
+  min-height: 1.25rem;
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.filament-save-status.is-success {
+  color: #86efac;
+}
+
+.filament-save-status.is-error {
+  color: #fca5a5;
 }
 
 /* ==========================================================================

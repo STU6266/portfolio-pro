@@ -1,7 +1,8 @@
 # Portfolio – Steven Kemendics
 
 Personal developer portfolio built with **Node.js**, **Express** and **EJS**.  
-The site showcases my background, skills and a few small demo projects:
+The site presents my resume, technical skills and selected software projects in
+one recruiter-facing platform:
 
 - An interactive **resume** with hover panels and detailed experience pages
 - A **Filament Finder** data project for 3D printing filaments
@@ -10,7 +11,9 @@ The site showcases my background, skills and a few small demo projects:
 - A **Board Game Intelligence API** built with Python, FastAPI and PostgreSQL
 - A linked standalone **Speed Dungeon** browser game
 
-The goal of this project is to practise real-world web development basics in a way that is easy to read and understand for junior developers and reviewers.
+The goal of this project is to show my transition into software development with
+clear project evidence, maintainable structure and a straightforward contact
+flow.
 
 ---
 

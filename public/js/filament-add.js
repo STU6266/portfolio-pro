@@ -27,12 +27,28 @@ document.addEventListener("DOMContentLoaded", () => {
   const specialInput = document.querySelector("#add-special-type");
   const notesInput = document.querySelector("#add-notes");
   const saveButton = document.querySelector("#filament-save");
+  const saveStatus = document.querySelector("#filament-save-status");
 
   // Preview container.
   const previewContainer = document.querySelector("#filament-add-preview");
 
   // Material metadata loaded from JSON.
   let materials = [];
+
+  function setSaveStatus(message, type = "info") {
+    if (!saveStatus) return;
+
+    saveStatus.textContent = message;
+    saveStatus.classList.remove("is-success", "is-error");
+
+    if (type === "success") {
+      saveStatus.classList.add("is-success");
+    }
+
+    if (type === "error") {
+      saveStatus.classList.add("is-error");
+    }
+  }
 
   // ---------------------------------------------------------------------------
   // Data loading
@@ -204,10 +220,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if (saveButton) {
     saveButton.addEventListener("click", async () => {
       const data = getDataForSave();
+      setSaveStatus("");
 
       // Minimal required fields: brand, product name, and material.
       if (!data.brand || !data.product_name || !data.material) {
-        alert("Please fill at least brand, product name and material.");
+        setSaveStatus("Please fill at least brand, product name and material.", "error");
         return;
       }
 
@@ -220,11 +237,14 @@ document.addEventListener("DOMContentLoaded", () => {
       ];
 
       if (nums.some((n) => Number.isNaN(parseInt(n, 10)))) {
-        alert("Please provide numeric values for all temperatures.");
+        setSaveStatus("Please provide numeric values for all temperatures.", "error");
         return;
       }
 
       try {
+        saveButton.disabled = true;
+        setSaveStatus("Saving filament...");
+
         const response = await fetch("/api/filaments", {
           method: "POST",
           headers: {
@@ -236,18 +256,21 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!response.ok) {
           const errData = await response.json().catch(() => ({}));
           const msg = errData.error || "Could not save filament.";
-          alert(msg);
+          setSaveStatus(msg, "error");
           return;
         }
 
-        const result = await response.json();
-        console.log("Saved filament:", result);
+        await response.json();
 
-        alert("Filament saved. It will now appear in the main list.");
-        window.location.href = "/filament";
+        setSaveStatus("Filament saved. Redirecting to the list...", "success");
+        window.setTimeout(() => {
+          window.location.href = "/filament";
+        }, 700);
       } catch (err) {
         console.error(err);
-        alert("Unexpected error while saving. Please try again later.");
+        setSaveStatus("Unexpected error while saving. Please try again later.", "error");
+      } finally {
+        saveButton.disabled = false;
       }
     });
   }
