@@ -40,6 +40,42 @@ router.get("/resume", handleErrors(siteController.buildResume));
  */
 router.get("/projects", handleErrors(siteController.buildProjects));
 
+/**
+ * GET /projects/board-game-intelligence-api
+ * Detail page for the Board Game Intelligence API project.
+ */
+router.get(
+  "/projects/board-game-intelligence-api",
+  handleErrors(siteController.buildBoardGameApiProject)
+);
+
+/**
+ * GET /projects/unrealdice
+ * Detail page for the unrealDice project.
+ */
+router.get(
+  "/projects/unrealdice",
+  handleErrors(siteController.buildUnrealDiceProject)
+);
+
+/**
+ * GET /projects/speed-dungeon
+ * Detail page for the Speed Dungeon browser game.
+ */
+router.get(
+  "/projects/speed-dungeon",
+  handleErrors(siteController.buildSpeedDungeonProject)
+);
+
+/**
+ * GET /projects/handcrafted-haven
+ * Detail page for the Handcrafted Haven school team project.
+ */
+router.get(
+  "/projects/handcrafted-haven",
+  handleErrors(siteController.buildHandcraftedHavenProject)
+);
+
 // ---------------------------------------------------------------------------
 // Filament Finder
 // ---------------------------------------------------------------------------

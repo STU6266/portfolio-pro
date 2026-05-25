@@ -1,0 +1,134 @@
+<%- include("partials/head") %>
+<%- include("partials/header") %>
+<%- include("partials/nav") %>
+
+<main class="resume-layout">
+  <%- include("partials/contactModal") %>
+
+  <article class="project-detail">
+    <header class="card project-detail-hero">
+      <a href="/projects" class="project-back-link">Back to projects</a>
+      <p class="project-tag">React PWA · TypeScript / Vite</p>
+      <h1>unrealDice</h1>
+      <p>
+        A local-first dice management app for tabletop players who need
+        reusable dice setups, safe backups and a tool that still works when the
+        browser has no network connection.
+      </p>
+
+      <div class="project-detail-actions">
+        <a
+          href="https://unrealdice.onrender.com"
+          class="project-link project-link-primary"
+          target="_blank"
+          rel="noopener"
+        >
+          Live Demo
+        </a>
+        <a
+          href="https://github.com/STU6266/unreal-dice.git"
+          class="project-link project-link-secondary"
+          target="_blank"
+          rel="noopener"
+        >
+          GitHub
+        </a>
+      </div>
+    </header>
+
+    <section class="project-detail-media-grid" aria-label="unrealDice visuals">
+      <figure class="project-media-card">
+        <img
+          src="/images/projects/unrealdice/dashboard.png"
+          alt="unrealDice dashboard with Quick Start, Create Group, My Groups, Import Backup, Coin and Random, and Install App options"
+          loading="lazy"
+        />
+        <figcaption>Dashboard and tool navigation</figcaption>
+      </figure>
+
+      <figure class="project-media-card">
+        <img
+          src="/images/projects/unrealdice/quick-start.png"
+          alt="unrealDice Quick Start page showing built-in dice templates with play and copy actions"
+          loading="lazy"
+        />
+        <figcaption>Built-in dice set templates</figcaption>
+      </figure>
+
+      <figure class="project-media-card">
+        <img
+          src="/images/projects/unrealdice/mobile-install.png"
+          alt="Mobile unrealDice install screen with offline app installation instructions"
+          loading="lazy"
+        />
+        <figcaption>Mobile install and offline/PWA view</figcaption>
+      </figure>
+    </section>
+
+    <section class="project-detail-grid">
+      <section class="card project-detail-section">
+        <h2>Overview</h2>
+        <p>
+          unrealDice is not only a dice roller. It is a small product around a
+          repeated user workflow: create dice groups once, reuse them during a
+          game session, keep roll history available and export backups so local
+          browser data is not the only copy.
+        </p>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Tech Stack</h2>
+        <ul>
+          <li>React, TypeScript, Vite, React Router</li>
+          <li>PWA setup with service worker and manifest</li>
+          <li>localStorage-based persistence and JSON backups</li>
+          <li>Vitest, Supabase for optional remote Quick Start templates</li>
+        </ul>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Features</h2>
+        <ul>
+          <li>Reusable dice groups with configurable sets, colors and modifiers</li>
+          <li>Play mode with roll all, combo rolls and temporary dice locks</li>
+          <li>Separate histories for rolls, coin flips and random tools</li>
+          <li>Validated JSON import/export so backups do not overwrite data</li>
+          <li>Installable PWA foundation with offline application shell</li>
+        </ul>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Architecture</h2>
+        <p>
+          The app separates route screens, reusable components, domain helpers,
+          focused hooks and storage services. Saved group definitions are kept
+          apart from temporary play-state such as locked dice and active
+          modifiers, which prevents a game session from accidentally changing a
+          reusable setup.
+        </p>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Challenges</h2>
+        <p>
+          The main challenge was making local-first behavior feel safe. Browser
+          storage can be cleared, so backups matter. Importing a backup also
+          needs guardrails: invalid files should fail clearly, and valid imports
+          should create new IDs instead of overwriting existing groups.
+        </p>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>What I Learned</h2>
+        <p>
+          I practiced TypeScript state modeling, product thinking around repeat
+          use, PWA/offline behavior, validation around user-owned data and the
+          difference between persistent configuration and temporary session
+          state.
+        </p>
+      </section>
+    </section>
+  </article>
+</main>
+
+<%- include("partials/footer") %>

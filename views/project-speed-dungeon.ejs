@@ -1,0 +1,135 @@
+<%- include("partials/head") %>
+<%- include("partials/header") %>
+<%- include("partials/nav") %>
+
+<main class="resume-layout">
+  <%- include("partials/contactModal") %>
+
+  <article class="project-detail">
+    <header class="card project-detail-hero">
+      <a href="/projects" class="project-back-link">Back to projects</a>
+      <p class="project-tag">Browser Game · Vanilla JavaScript / JSON / CSS</p>
+      <h1>Speed Dungeon</h1>
+      <p>
+        A static browser game where the player clears short dungeon rooms,
+        collects Power Points and uses that progress in a final boss fight.
+        The project focuses on game-state logic, age-based content, room
+        transitions, timers, assets and mobile controls.
+      </p>
+
+      <div class="project-detail-actions">
+        <a
+          href="https://speed-dungeon.onrender.com"
+          class="project-link project-link-primary"
+          target="_blank"
+          rel="noopener"
+        >
+          Live Demo
+        </a>
+        <a
+          href="https://github.com/STU6266/speed-dungeon"
+          class="project-link project-link-secondary"
+          target="_blank"
+          rel="noopener"
+        >
+          GitHub
+        </a>
+      </div>
+    </header>
+
+    <section class="project-detail-media-grid" aria-label="Speed Dungeon visuals">
+      <figure class="project-media-card">
+        <img
+          src="/images/projects/speed-dungeon/start-screen.png"
+          alt="Speed Dungeon start screen with age group selection and run stats"
+          loading="lazy"
+        />
+        <figcaption>Start screen with age group selection</figcaption>
+      </figure>
+
+      <figure class="project-media-card">
+        <img
+          src="/images/projects/speed-dungeon/corridor-run.png"
+          alt="Speed Dungeon corridor room showing the player dodging dungeon walls during a timed run"
+          loading="lazy"
+        />
+        <figcaption>Active corridor room during a timed run</figcaption>
+      </figure>
+
+      <figure class="project-media-card">
+        <img
+          src="/images/projects/speed-dungeon/mobile-controls.png"
+          alt="Mobile Speed Dungeon corridor room with touch controls for moving left and right"
+          loading="lazy"
+        />
+        <figcaption>Mobile touch controls for keyboard-style input</figcaption>
+      </figure>
+    </section>
+
+    <section class="project-detail-grid">
+      <section class="card project-detail-section">
+        <h2>Overview</h2>
+        <p>
+          Speed Dungeon is a small arcade-style dungeon run. The player starts a
+          three-minute run, clears room challenges, earns Power Points and then
+          faces a boss where the collected power affects the final fight.
+        </p>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Tech Stack</h2>
+        <ul>
+          <li>HTML, CSS and vanilla JavaScript</li>
+          <li>JSON files for riddle and image-search room content</li>
+          <li>WebP assets for room backgrounds and picture-based rooms</li>
+          <li>Static Render deployment with a build step into <code>dist/</code></li>
+        </ul>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Game Systems</h2>
+        <ul>
+          <li>Age groups: 0-7, 8-11, 12-15 and 16+</li>
+          <li>Room types: corridor, reaction fight, math lock, image search and riddle</li>
+          <li>Global run state for timer, cleared rooms and Power Points</li>
+          <li>Final boss fight with dodge keys and attack timing</li>
+          <li>Mobile touch controls for rooms that normally use keyboard input</li>
+        </ul>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Architecture</h2>
+        <p>
+          The game is served as a static site. <code>index.html</code> provides
+          the game shell, HUD, room containers and mobile controls. The main
+          JavaScript file owns room transitions, timers, input handling, state
+          updates and JSON data loading. CSS is split into focused files for
+          layout, room types, boss fight and mobile controls.
+        </p>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Challenges</h2>
+        <p>
+          The difficult part was making several different mini-games behave like
+          one connected run. The timer, room completion, mistakes, power gain,
+          mobile input and boss transition all need to work together without a
+          backend or framework managing state for me.
+        </p>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Still WIP</h2>
+        <p>
+          This version is playable, but not finished as a polished game. The
+          main JavaScript file is still intentionally kept in one file to avoid
+          changing behavior during cleanup. Future work would be splitting room
+          logic into modules, adding more content/assets and expanding room
+          coverage for the youngest age group.
+        </p>
+      </section>
+    </section>
+  </article>
+</main>
+
+<%- include("partials/footer") %>

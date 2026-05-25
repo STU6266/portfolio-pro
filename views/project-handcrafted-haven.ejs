@@ -1,0 +1,105 @@
+<%- include("partials/head") %>
+<%- include("partials/header") %>
+<%- include("partials/nav") %>
+
+<main class="resume-layout">
+  <%- include("partials/contactModal") %>
+
+  <article class="project-detail">
+    <header class="card project-detail-hero">
+      <a href="/projects" class="project-back-link">Back to projects</a>
+      <p class="project-tag">School Team Project · Next.js / Vercel</p>
+      <h1>Handcrafted Haven</h1>
+      <p>
+        A school team project for a marketplace-style web app where artisans can
+        present handmade products and visitors can browse products, sellers and
+        reviews. My contribution was focused on helping the final version come
+        together, not on claiming the whole app as a solo build.
+      </p>
+
+      <div class="project-detail-actions">
+        <a
+          href="https://handcrafted-haven-blush.vercel.app/"
+          class="project-link project-link-primary"
+          target="_blank"
+          rel="noopener"
+        >
+          Live Demo
+        </a>
+        <a
+          href="https://github.com/STU6266/handcrafted-haven"
+          class="project-link project-link-secondary"
+          target="_blank"
+          rel="noopener"
+        >
+          GitHub
+        </a>
+      </div>
+    </header>
+
+    <section class="project-detail-media-grid project-detail-media-grid--compact" aria-label="Handcrafted Haven visuals">
+      <figure class="project-media-card">
+        <img
+          src="/images/projects/handcrafted-haven/home.png"
+          alt="Handcrafted Haven desktop homepage showing marketplace intro, navigation and how it works cards"
+          loading="lazy"
+        />
+        <figcaption>Desktop homepage and marketplace intro</figcaption>
+      </figure>
+
+      <figure class="project-media-card">
+        <img
+          src="/images/projects/handcrafted-haven/mobile.png"
+          alt="Handcrafted Haven mobile homepage with responsive navigation and marketplace content"
+          loading="lazy"
+        />
+        <figcaption>Mobile responsive homepage</figcaption>
+      </figure>
+    </section>
+
+    <section class="project-detail-grid">
+      <section class="card project-detail-section">
+        <h2>Overview</h2>
+        <p>
+          Handcrafted Haven was built as a school group project. The app
+          presents a handmade-product marketplace concept with product browsing,
+          seller pages, product details, ratings/reviews and seller-only product
+          listing workflows.
+        </p>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Tech Stack</h2>
+        <ul>
+          <li>Next.js, TypeScript and React-style page structure</li>
+          <li>Node.js backend pieces with database-backed project goals</li>
+          <li>MongoDB/Mongoose listed in the project stack</li>
+          <li>Vercel deployment and GitHub Projects for organization</li>
+        </ul>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>My Role</h2>
+        <ul>
+          <li>Team project for school, not a solo fullstack build</li>
+          <li>Helped with integration and Vercel deployment support</li>
+          <li>Worked on cleanup, small bug fixes and final stabilization</li>
+          <li>Supported accessibility/usability improvements and smoke checks</li>
+          <li>Helped with project-board tasks and coordination</li>
+        </ul>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>What It Shows</h2>
+        <p>
+          This project is useful in the portfolio because it shows that I can
+          work inside a team codebase, help organize a project toward delivery,
+          support deployment and improve the quality of a final version without
+          overstating my individual contribution.
+        </p>
+      </section>
+    </section>
+  </article>
+</main>
+
+<%- include("partials/footer") %>

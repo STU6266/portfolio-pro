@@ -1,0 +1,135 @@
+<%- include("partials/head") %>
+<%- include("partials/header") %>
+<%- include("partials/nav") %>
+
+<main class="resume-layout">
+  <%- include("partials/contactModal") %>
+
+  <article class="project-detail">
+    <header class="card project-detail-hero">
+      <a href="/projects" class="project-back-link">Back to projects</a>
+      <p class="project-tag">Backend API · Python / FastAPI / PostgreSQL</p>
+      <h1>Board Game Intelligence API</h1>
+      <p>
+        A backend and data integration API that turns BoardGameGeek-style XML
+        data into validated relational records, tracks import history and
+        exposes documented endpoints for game browsing and recommendation
+        reports.
+      </p>
+
+      <div class="project-detail-actions">
+        <a
+          href="https://board-game-intelligence-api.onrender.com/docs"
+          class="project-link project-link-primary"
+          target="_blank"
+          rel="noopener"
+        >
+          API Docs
+        </a>
+        <a
+          href="https://github.com/STU6266/board-game-intelligence-api"
+          class="project-link project-link-secondary"
+          target="_blank"
+          rel="noopener"
+        >
+          GitHub
+        </a>
+      </div>
+    </header>
+
+    <section class="project-detail-media-grid" aria-label="Board Game Intelligence API visuals">
+      <figure class="project-media-card">
+        <img
+          src="/images/projects/board-game-api/swagger-docs.png"
+          alt="Swagger documentation page showing Board Game Intelligence API endpoints"
+          loading="lazy"
+        />
+        <figcaption>Live Swagger/OpenAPI documentation</figcaption>
+      </figure>
+
+      <figure class="project-media-card">
+        <img
+          src="/images/projects/board-game-api/family-friendly-response.png"
+          alt="JSON response from the family-friendly board game report endpoint"
+          loading="lazy"
+        />
+        <figcaption>Example API response from a report endpoint</figcaption>
+      </figure>
+
+      <figure class="project-media-card">
+        <img
+          src="/images/projects/board-game-api/architecture-flow.png"
+          alt="Architecture diagram showing XML data, parsing, validation, PostgreSQL, FastAPI and reports"
+          loading="lazy"
+        />
+        <figcaption>Architecture flow based on the project README</figcaption>
+      </figure>
+    </section>
+
+    <section class="project-detail-grid">
+      <section class="card project-detail-section">
+        <h2>Overview</h2>
+        <p>
+          I built this project to show backend work beyond simple CRUD. The
+          important part is the data pipeline: fetch or load external XML,
+          parse it, validate it, synchronize it into normalized tables and make
+          the result explorable through a documented API.
+        </p>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Tech Stack</h2>
+        <ul>
+          <li>Python 3.12, FastAPI, Pydantic</li>
+          <li>PostgreSQL, SQLAlchemy, Alembic</li>
+          <li>HTTPX, Docker Compose, Pytest</li>
+          <li>Swagger/OpenAPI documentation, Render deployment</li>
+        </ul>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Features</h2>
+        <ul>
+          <li>BoardGameGeek-style XML parsing into internal data structures</li>
+          <li>Data quality checks before records are saved</li>
+          <li>Update-by-BGG-ID logic to avoid duplicate games</li>
+          <li>Import-run and import-error tracking for reviewable sync results</li>
+          <li>Analytical report endpoints for family-friendly and accessible games</li>
+        </ul>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Architecture</h2>
+        <p>
+          The API is split into endpoints, schemas, SQLAlchemy models,
+          repositories and service classes. Parsing, validation, synchronization
+          and reporting stay in service logic, while repositories handle
+          database access. That separation keeps API handlers small and makes
+          the important backend behavior easier to test.
+        </p>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Challenges</h2>
+        <p>
+          The hardest part was treating external data as unreliable input.
+          Player counts, playtime, ratings and optional fields need validation
+          before storage. Failed imports are stored as data, so problems can be
+          inspected later instead of disappearing into console output.
+        </p>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>What I Learned</h2>
+        <p>
+          This project helped me understand how production-style APIs are built:
+          clear layers, migrations, environment-based configuration, tests for
+          external integrations and defensive data handling before information
+          reaches the database.
+        </p>
+      </section>
+    </section>
+  </article>
+</main>
+
+<%- include("partials/footer") %>

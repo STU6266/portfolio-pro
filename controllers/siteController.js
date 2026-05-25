@@ -38,6 +38,54 @@ module.exports = {
     renderPage(res, "projects", "Projects – Steven Kemendics", "projects"),
 
   /**
+   * GET /projects/board-game-intelligence-api
+   * Detail page for the backend API portfolio project.
+   */
+  buildBoardGameApiProject: (req, res) =>
+    renderPage(
+      res,
+      "project-board-game-api",
+      "Board Game Intelligence API – Steven Kemendics",
+      "projects"
+    ),
+
+  /**
+   * GET /projects/unrealdice
+   * Detail page for the unrealDice PWA project.
+   */
+  buildUnrealDiceProject: (req, res) =>
+    renderPage(
+      res,
+      "project-unrealdice",
+      "unrealDice – Steven Kemendics",
+      "projects"
+    ),
+
+  /**
+   * GET /projects/speed-dungeon
+   * Detail page for the Speed Dungeon browser game.
+   */
+  buildSpeedDungeonProject: (req, res) =>
+    renderPage(
+      res,
+      "project-speed-dungeon",
+      "Speed Dungeon – Steven Kemendics",
+      "projects"
+    ),
+
+  /**
+   * GET /projects/handcrafted-haven
+   * Detail page for the Handcrafted Haven school team project.
+   */
+  buildHandcraftedHavenProject: (req, res) =>
+    renderPage(
+      res,
+      "project-handcrafted-haven",
+      "Handcrafted Haven – Steven Kemendics",
+      "projects"
+    ),
+
+  /**
    * GET /filament
    * Filament Finder main UI. Grouped under "Projects" in the navigation.
    */

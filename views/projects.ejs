@@ -5,244 +5,526 @@
 <!--
   projects.ejs
   ---------------------------------------------------------------------------
-  Renders the project overview page with featured software project cards.
-  - Each card shows tag line, title, description, tech stack and links.
-  - Layout and styling are handled by projects.css.
+  Renders the project overview page with recruiter-facing project cards.
+  Desktop cards reveal stable, clickable overlays on hover/focus. On mobile,
+  important information and actions stay visible without relying on hover.
 -->
 
 <main class="resume-layout">
   <%- include("partials/contactModal") %>
 
-  <!-- Intro header above the project grid -->
   <section class="projects-header">
     <h2>Projects</h2>
     <p>
-      A selection of projects built while developing my software engineering
-      skills, ranging from browser-based applications to backend APIs and data
-      integration systems.
+      A focused selection of projects that show backend APIs, web apps, data
+      work and browser-based game logic. Each project highlights what I built,
+      practiced or helped stabilize.
     </p>
   </section>
 
-  <!-- Project grid -->
-  <section class="projects-grid">
+  <section class="projects-grid" aria-label="Selected software projects">
 
-    <!-- Featured Project: unrealDice -->
+    <!-- Featured Project: Board Game Intelligence API -->
     <article class="card project-card project-card-featured">
-      <div class="project-header">
-        <span class="project-tag">PWA · React / TypeScript</span>
-        <h3 class="project-title">unrealDice &ndash; Offline Dice App</h3>
-        <p class="project-description">
-          An installable offline-capable dice application for tabletop games and
-          quick decisions. Users can create custom dice groups and combinations,
-          lock individual dice during play, review roll history and export or
-          import local backups. The app includes automated testing, validated
-          data handling and optional remotely managed Quick Start templates.
+      <div class="project-card-body">
+        <div class="project-header">
+          <div class="project-card-topline">
+            <span class="project-tag">Backend API</span>
+            <span class="project-status">Live docs</span>
+          </div>
+          <h3 class="project-title">Board Game Intelligence API</h3>
+          <p class="project-description">
+            Backend-focused API for importing board game data, storing it in a
+            structured PostgreSQL database and exposing documented endpoints for
+            useful game recommendations.
+          </p>
+        </div>
+
+        <div class="project-preview project-preview-api" aria-hidden="true">
+          <span>FastAPI</span>
+          <span>PostgreSQL</span>
+          <span>Tests</span>
+        </div>
+
+        <p class="project-meta">
+          <span class="project-tech-label">Tech:</span>
+          <span class="project-tech-list">
+            FastAPI, PostgreSQL, SQLAlchemy, Alembic, Docker, Pytest, Swagger/OpenAPI
+          </span>
         </p>
+
+        <div class="project-mobile-actions" aria-label="Board Game Intelligence API links">
+          <a
+            href="/projects/board-game-intelligence-api"
+            class="project-link project-link-primary"
+          >
+            View Project
+          </a>
+          <a
+            href="https://github.com/STU6266/board-game-intelligence-api"
+            class="project-link project-link-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://board-game-intelligence-api.onrender.com/docs"
+            class="project-link project-link-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            API Docs
+          </a>
+        </div>
       </div>
 
-      <div class="project-meta">
-        <span class="project-tech-label">Tech:</span>
-        <span class="project-tech-list">
-          React, TypeScript, Vite, PWA, Vitest, localStorage, Supabase
-        </span>
-      </div>
-
-      <div class="project-links">
-        <a
-          href="https://github.com/STU6266/unreal-dice.git"
-          class="project-link project-link-primary"
-          target="_blank"
-          rel="noopener"
-        >
-          View code on GitHub
-        </a>
-        <a
-          href="https://unrealdice.onrender.com"
-          class="project-link project-link-secondary"
-          target="_blank"
-          rel="noopener"
-        >
-          Open unrealDice
-        </a>
+      <div class="project-overlay">
+        <div>
+          <p class="project-overlay-label">Key Features</p>
+          <ul class="project-feature-list">
+            <li>External data import with validation and sync logic</li>
+            <li>Relational database structure with migrations</li>
+            <li>Service/repository style backend organization</li>
+            <li>Automated tests and documented Swagger/OpenAPI endpoints</li>
+          </ul>
+        </div>
+        <div class="project-overlay-actions">
+          <a
+            href="/projects/board-game-intelligence-api"
+            class="project-link project-link-primary"
+          >
+            View Project
+          </a>
+          <a
+            href="https://github.com/STU6266/board-game-intelligence-api"
+            class="project-link project-link-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://board-game-intelligence-api.onrender.com/docs"
+            class="project-link project-link-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            API Docs
+          </a>
+        </div>
       </div>
     </article>
 
-    <!-- Project: Board Game Intelligence API -->
+    <!-- Featured Project: unrealDice -->
     <article class="card project-card">
-      <div class="project-header">
-        <span class="project-tag">Backend · Python / FastAPI / PostgreSQL</span>
-        <h3 class="project-title">Board Game Intelligence API</h3>
-        <p class="project-description">
-          A backend and data integration API that processes board game XML data,
-          validates and synchronizes relational records, tracks import results and
-          exposes analytical endpoints for family-friendly and accessible
-          high-rated game recommendations.
+      <div class="project-card-body">
+        <div class="project-header">
+          <div class="project-card-topline">
+            <span class="project-tag">React PWA</span>
+            <span class="project-status">Live app</span>
+          </div>
+          <h3 class="project-title">unrealDice</h3>
+          <p class="project-description">
+            Installable dice management app for tabletop games, with custom dice
+            sets, saved groups, roll history and local backup workflows.
+          </p>
+        </div>
+
+        <div class="project-preview project-preview-pwa" aria-hidden="true">
+          <span>d20</span>
+          <span>d12</span>
+          <span>d6</span>
+        </div>
+
+        <p class="project-meta">
+          <span class="project-tech-label">Tech:</span>
+          <span class="project-tech-list">
+            React, TypeScript, Vite, PWA, Vitest, localStorage, Supabase
+          </span>
         </p>
+
+        <div class="project-mobile-actions" aria-label="unrealDice links">
+          <a
+            href="/projects/unrealdice"
+            class="project-link project-link-primary"
+          >
+            View Project
+          </a>
+          <a
+            href="https://github.com/STU6266/unreal-dice.git"
+            class="project-link project-link-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://unrealdice.onrender.com"
+            class="project-link project-link-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            Live Demo
+          </a>
+        </div>
       </div>
 
-      <div class="project-meta">
-        <span class="project-tech-label">Tech:</span>
-        <span class="project-tech-list">
-          Python, FastAPI, PostgreSQL, SQLAlchemy, Alembic, Docker, Pytest, HTTPX
-        </span>
-      </div>
-
-      <div class="project-links">
-        <a
-          href="https://github.com/STU6266/board-game-intelligence-api"
-          class="project-link project-link-primary"
-          target="_blank"
-          rel="noopener"
-        >
-          View code on GitHub
-        </a>
-        <a
-          href="https://board-game-intelligence-api.onrender.com/docs"
-          class="project-link project-link-secondary"
-          target="_blank"
-          rel="noopener"
-        >
-          View Live API Docs
-        </a>
+      <div class="project-overlay">
+        <div>
+          <p class="project-overlay-label">Key Features</p>
+          <ul class="project-feature-list">
+            <li>Offline-capable PWA with install support</li>
+            <li>Saved dice sets, groups and roll history</li>
+            <li>Import/export flow for local backups</li>
+            <li>Tested TypeScript app structure with practical state handling</li>
+          </ul>
+        </div>
+        <div class="project-overlay-actions">
+          <a
+            href="/projects/unrealdice"
+            class="project-link project-link-primary"
+          >
+            View Project
+          </a>
+          <a
+            href="https://github.com/STU6266/unreal-dice.git"
+            class="project-link project-link-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://unrealdice.onrender.com"
+            class="project-link project-link-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            Live Demo
+          </a>
+        </div>
       </div>
     </article>
 
     <!-- Project: Speed Dungeon -->
     <article class="card project-card">
-      <div class="project-header">
-        <span class="project-tag">Game · Node.js / JavaScript</span>
-        <h3 class="project-title">Speed Dungeon &ndash; JavaScript Browser Game</h3>
-        <p class="project-description">
-          A browser-based dungeon game built into my portfolio. The game combines
-          timed room rotation, age-based difficulty, keyboard and mobile touch
-          controls, JSON-driven content, scoring logic and a final boss fight
-          where collected Power Points increase player damage.
+      <div class="project-card-body">
+        <div class="project-header">
+          <div class="project-card-topline">
+            <span class="project-tag">Browser Game</span>
+            <span class="project-status">Live game</span>
+          </div>
+          <h3 class="project-title">Speed Dungeon</h3>
+          <p class="project-description">
+            Browser-based dungeon game with age-based content, reaction rooms,
+            hidden-object challenges, mobile controls and a final boss fight.
+          </p>
+        </div>
+
+        <div class="project-preview project-preview-game" aria-hidden="true">
+          <span>Rooms</span>
+          <span>Boss</span>
+          <span>State</span>
+        </div>
+
+        <p class="project-meta">
+          <span class="project-tech-label">Tech:</span>
+          <span class="project-tech-list">
+            HTML, CSS, JavaScript, JSON/assets, static Render deployment
+          </span>
         </p>
+
+        <div class="project-mobile-actions" aria-label="Speed Dungeon links">
+          <a
+            href="/projects/speed-dungeon"
+            class="project-link project-link-primary"
+          >
+            View Project
+          </a>
+          <a
+            href="https://github.com/STU6266/speed-dungeon"
+            class="project-link project-link-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://speed-dungeon.onrender.com"
+            class="project-link project-link-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            Live Demo
+          </a>
+        </div>
       </div>
 
-      <div class="project-meta">
-        <span class="project-tech-label">Tech:</span>
-        <span class="project-tech-list">
-          Node.js, Express, EJS, vanilla JavaScript, JSON, CSS
-        </span>
+      <div class="project-overlay">
+        <div>
+          <p class="project-overlay-label">Key Features</p>
+          <ul class="project-feature-list">
+            <li>Age-based content and difficulty decisions</li>
+            <li>Reaction rooms, hidden-object rooms and boss battle</li>
+            <li>Keyboard and mobile touch controls</li>
+            <li>Game state logic for score, damage and room progress</li>
+          </ul>
+        </div>
+        <div class="project-overlay-actions">
+          <a
+            href="/projects/speed-dungeon"
+            class="project-link project-link-primary"
+          >
+            View Project
+          </a>
+          <a
+            href="https://github.com/STU6266/speed-dungeon"
+            class="project-link project-link-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://speed-dungeon.onrender.com"
+            class="project-link project-link-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            Live Demo
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Project: Handcrafted Haven -->
+    <article class="card project-card">
+      <div class="project-card-body">
+        <div class="project-header">
+          <div class="project-card-topline">
+            <span class="project-tag">School Team Project</span>
+            <span class="project-status">Vercel</span>
+          </div>
+          <h3 class="project-title">Handcrafted Haven</h3>
+          <p class="project-description">
+            Marketplace-style school group project for handmade products. My
+            focus was integration, deployment support, cleanup, project-board
+            work, usability/accessibility fixes, smoke checks and stabilization.
+          </p>
+        </div>
+
+        <div class="project-preview project-preview-team" aria-hidden="true">
+          <span>Team</span>
+          <span>Next.js</span>
+          <span>Vercel</span>
+        </div>
+
+        <p class="project-meta">
+          <span class="project-tech-label">Tech:</span>
+          <span class="project-tech-list">
+            Next.js, TypeScript, MongoDB/Mongoose, Vercel, GitHub Projects
+          </span>
+        </p>
+
+        <div class="project-mobile-actions" aria-label="Handcrafted Haven links">
+          <a
+            href="/projects/handcrafted-haven"
+            class="project-link project-link-primary"
+          >
+            View Project
+          </a>
+          <a
+            href="https://github.com/STU6266/handcrafted-haven"
+            class="project-link project-link-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://handcrafted-haven-blush.vercel.app/"
+            class="project-link project-link-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            Live Demo
+          </a>
+        </div>
       </div>
 
-      <div class="project-links">
-        <a
-          href="https://github.com/STU6266/speed-dungeon"
-          class="project-link project-link-primary"
-          target="_blank"
-          rel="noopener"
-        >
-          View code on GitHub
-        </a>
-        <a
-          href="https://speed-dungeon.onrender.com"
-          class="project-link project-link-secondary"
-          target="_blank"
-          rel="noopener"
-        >
-          Play Speed Dungeon
-        </a>
+      <div class="project-overlay">
+        <div>
+          <p class="project-overlay-label">My Role</p>
+          <ul class="project-feature-list">
+            <li>School group project, not a solo build</li>
+            <li>Helped with integration and Vercel deployment support</li>
+            <li>Worked on cleanup, accessibility and usability improvements</li>
+            <li>Supported project board tasks, smoke testing and final stability</li>
+          </ul>
+        </div>
+        <div class="project-overlay-actions">
+          <a
+            href="/projects/handcrafted-haven"
+            class="project-link project-link-primary"
+          >
+            View Project
+          </a>
+          <a
+            href="https://github.com/STU6266/handcrafted-haven"
+            class="project-link project-link-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://handcrafted-haven-blush.vercel.app/"
+            class="project-link project-link-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            Live Demo
+          </a>
+        </div>
       </div>
     </article>
 
     <!-- Project: Filament Finder -->
     <article class="card project-card">
-      <div class="project-header">
-        <span class="project-tag">Data · SQL / JSON</span>
-        <h3 class="project-title">Filament Finder (3D Printing)</h3>
-        <p class="project-description">
-          A small data project that uses a SQL-style schema and a static JSON
-          file to explore 3D printing filaments by brand, material and
-          temperature range.
+      <div class="project-card-body">
+        <div class="project-header">
+          <div class="project-card-topline">
+            <span class="project-tag">Data Tool</span>
+            <span class="project-status">Portfolio demo</span>
+          </div>
+          <h3 class="project-title">Filament Finder</h3>
+          <p class="project-description">
+            3D-printing filament data project for comparing materials, brands
+            and useful printing ranges through a simple filter/search interface.
+          </p>
+        </div>
+
+        <div class="project-preview project-preview-data" aria-hidden="true">
+          <span>PLA</span>
+          <span>PETG</span>
+          <span>ABS</span>
+        </div>
+
+        <p class="project-meta">
+          <span class="project-tech-label">Tech:</span>
+          <span class="project-tech-list">
+            Node.js, Express, EJS, JavaScript, JSON, MySQL-style schema
+          </span>
         </p>
+
+        <div class="project-mobile-actions" aria-label="Filament Finder links">
+          <a href="/filament" class="project-link project-link-primary">
+            View Project
+          </a>
+          <a
+            href="https://github.com/STU6266/portfolio-pro"
+            class="project-link project-link-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            GitHub
+          </a>
+        </div>
       </div>
 
-      <div class="project-meta">
-        <span class="project-tech-label">Tech:</span>
-        <span class="project-tech-list">
-          MySQL, ER diagram, JSON, Node.js, Express, vanilla JavaScript
-        </span>
-      </div>
-
-      <div class="project-links">
-        <a
-          href="https://github.com/STU6266/portfolio-pro"
-          class="project-link project-link-primary"
-          target="_blank"
-          rel="noopener"
-        >
-          View code on GitHub
-        </a>
-        <a href="/filament" class="project-link project-link-secondary">
-          Open Filament Finder
-        </a>
+      <div class="project-overlay">
+        <div>
+          <p class="project-overlay-label">Key Features</p>
+          <ul class="project-feature-list">
+            <li>Material comparison for practical 3D-printing choices</li>
+            <li>Filter and search workflow for filament data</li>
+            <li>Structured JSON data and database-style planning</li>
+            <li>Small demo focused on readable data organization</li>
+          </ul>
+        </div>
+        <div class="project-overlay-actions">
+          <a href="/filament" class="project-link project-link-primary">
+            View Project
+          </a>
+          <a
+            href="https://github.com/STU6266/portfolio-pro"
+            class="project-link project-link-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            GitHub
+          </a>
+        </div>
       </div>
     </article>
 
     <!-- Project: Hangman -->
     <article class="card project-card">
-      <div class="project-header">
-        <span class="project-tag">Console · C#</span>
-        <h3 class="project-title">Hangman Game</h3>
-        <p class="project-description">
-          A browser version of an earlier C# console game. The project shows
-          game-state handling, difficulty settings, keyboard generation and
-          clear UI feedback for wins, losses and repeated guesses.
+      <div class="project-card-body">
+        <div class="project-header">
+          <div class="project-card-topline">
+            <span class="project-tag">Learning Project</span>
+            <span class="project-status">Small demo</span>
+          </div>
+          <h3 class="project-title">Hangman</h3>
+          <p class="project-description">
+            Smaller learning project, first inspired by a C# console game and
+            later recreated as a browser-based JavaScript version.
+          </p>
+        </div>
+
+        <div class="project-preview project-preview-small" aria-hidden="true">
+          <span>C#</span>
+          <span>JS</span>
+          <span>UI</span>
+        </div>
+
+        <p class="project-meta">
+          <span class="project-tech-label">Tech:</span>
+          <span class="project-tech-list">
+            C#, JavaScript, HTML, CSS, browser game-state logic
+          </span>
         </p>
+
+        <div class="project-mobile-actions" aria-label="Hangman links">
+          <a href="/hangman" class="project-link project-link-primary">
+            View Project
+          </a>
+          <a
+            href="https://github.com/STU6266/portfolio-pro"
+            class="project-link project-link-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            GitHub
+          </a>
+        </div>
       </div>
 
-      <div class="project-meta">
-        <span class="project-tech-label">Tech:</span>
-        <span class="project-tech-list">
-          C#, .NET (console application)
-        </span>
-      </div>
-
-      <div class="project-links">
-        <a
-          href="https://github.com/STU6266/portfolio-pro"
-          class="project-link project-link-primary"
-          target="_blank"
-          rel="noopener"
-        >
-          View code on GitHub
-        </a>
-        <a href="/hangman" class="project-link project-link-secondary">
-          Play Hangman
-        </a>
-      </div>
-    </article>
-
-    <!-- Project: Portfolio / Resume Page -->
-    <article class="card project-card">
-      <div class="project-header">
-        <span class="project-tag">Web · HTML / CSS</span>
-        <h3 class="project-title">Portfolio &amp; Resume Page</h3>
-        <p class="project-description">
-          This portfolio itself: a Node.js and EJS site that combines resume
-          content, project demos, contact flow, responsive layouts and a small
-          JSON-backed data demo into one recruiter-facing platform.
-        </p>
-      </div>
-
-      <div class="project-meta">
-        <span class="project-tech-label">Tech:</span>
-        <span class="project-tech-list">
-          Node.js, Express, EJS, HTML, CSS, JavaScript
-        </span>
-      </div>
-
-      <div class="project-links">
-        <a
-          href="https://github.com/STU6266/portfolio-pro"
-          class="project-link project-link-primary"
-          target="_blank"
-          rel="noopener"
-        >
-          View code on GitHub
-        </a>
+      <div class="project-overlay">
+        <div>
+          <p class="project-overlay-label">Key Features</p>
+          <ul class="project-feature-list">
+            <li>Browser version of an earlier C# console exercise</li>
+            <li>Difficulty options and generated on-screen keyboard</li>
+            <li>Feedback for wins, losses and repeated guesses</li>
+            <li>Good secondary project for showing learning progress</li>
+          </ul>
+        </div>
+        <div class="project-overlay-actions">
+          <a href="/hangman" class="project-link project-link-primary">
+            View Project
+          </a>
+          <a
+            href="https://github.com/STU6266/portfolio-pro"
+            class="project-link project-link-secondary"
+            target="_blank"
+            rel="noopener"
+          >
+            GitHub
+          </a>
+        </div>
       </div>
     </article>
 
