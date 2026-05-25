@@ -8,7 +8,7 @@ The site showcases my background, skills and a few small demo projects:
 - A web version of my old **Hangman** console game
 - A simple but robust **contact flow** using a modal + `mailto:`
 - A **Board Game Intelligence API** built with Python, FastAPI and PostgreSQL
-- A browser-based **Speed Dungeon** game with age-based difficulty and mobile controls
+- A linked standalone **Speed Dungeon** browser game
 
 The goal of this project is to practise real-world web development basics in a way that is easy to read and understand for junior developers and reviewers.
 
@@ -23,6 +23,12 @@ npm install
 node server.js
 ```
 Open `http://localhost:3000`
+
+Run a small smoke test:
+
+```bash
+npm test
+```
 
 ---
 
@@ -53,7 +59,7 @@ Open `http://localhost:3000`
     - **Hangman:** "Play Hangman" → `/hangman`
     - **Filament Finder:** "Open Filament Finder" → `/filament`
     - **Board Game Intelligence API:** GitHub repository + live Swagger documentation
-    - **Speed Dungeon:** "Play Speed Dungeon" → `/speedDungeon`
+    - **Speed Dungeon:** standalone GitHub repository + live game link
 
 ### 3. Filament Finder (3D Printing)
 
@@ -85,7 +91,7 @@ Open `http://localhost:3000`
     - Writes the JSON file back to disk
     - Returns the created filament as JSON
 
-> Note: On some hosting providers the filesystem is ephemeral. This feature is meant as a **demo of simple data writing**, not a production database.
+> Note: On some hosting providers the filesystem is ephemeral. This feature is meant as a **demo of simple data writing**, not a production database. In production, writing is disabled by default unless `FILAMENT_WRITE_ENABLED=true` is set.
 
 ### 4. Hangman (Web Version)
 
@@ -135,22 +141,6 @@ Open `http://localhost:3000`
     - Redirects to the mailto link (`window.location.href = mailtoUrl`)
     - No server-side email sending (no SMTP, no passwords)
    
-### 7. Speed Dungeon
-
-- Browser-based JavaScript dungeon game inside the portfolio
-- Age-based difficulty groups: 0–7, 8–11, 12–15, 16+
-- 3-minute dungeon run with multiple room types:
-  - Corridor runner
-  - Reaction fight
-  - Math lock room
-  - Image search room
-  - Riddle room
-- Power Points are earned by clearing rooms and increase final boss damage
-- Mobile touch controls are shown only in rooms where keyboard input is needed
-- Built with vanilla JavaScript, EJS, CSS and JSON data files
-
----
-
 ## Tech Stack
 
 **Backend**
@@ -165,7 +155,6 @@ Open `http://localhost:3000`
 - CSS (split into multiple files for maintainability)
   - `base.css` – reset, typography, color variables
   - `layout.css` – general layout and responsive grid
-  - `style.css` – shared components (cards, buttons, chips, tags)
   - `resume.css` – resume layout and all hover effects
   - `filament.css` – Filament Finder and Add Filament pages
   - `projects.css` – projects overview page
@@ -193,7 +182,6 @@ portfolio-pro/
 │  ├─ css/
 │  │  ├─ base.css
 │  │  ├─ layout.css
-│  │  ├─ style.css
 │  │  ├─ resume.css
 │  │  ├─ filament.css
 │  │  ├─ projects.css

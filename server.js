@@ -21,6 +21,14 @@ const fs = require("fs");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const IS_PUBLIC_HOSTING =
+  process.env.NODE_ENV === "production" ||
+  process.env.RENDER ||
+  process.env.VERCEL ||
+  process.env.RAILWAY_ENVIRONMENT;
+const FILAMENT_WRITE_ENABLED =
+  !IS_PUBLIC_HOSTING ||
+  process.env.FILAMENT_WRITE_ENABLED === "true";
 
 // Path to the filament JSON data file used by the Filament Finder demo.
 const FILAMENT_DATA_PATH = path.join(
@@ -86,6 +94,13 @@ app.get("/health", (req, res) => {
  * - notes (string)
  */
 app.post("/api/filaments", (req, res) => {
+  if (!FILAMENT_WRITE_ENABLED) {
+    return res.status(403).json({
+      error:
+        "Saving filaments is disabled on the public portfolio. The form remains available as a UI demo.",
+    });
+  }
+
   const body = req.body || {};
 
   // Minimal validation for required fields.

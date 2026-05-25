@@ -247,7 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "/filament";
       } catch (err) {
         console.error(err);
-        alert("Unexpected error while saving. See console for details.");
+        alert("Unexpected error while saving. Please try again later.");
       }
     });
   }

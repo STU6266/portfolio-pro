@@ -7,45 +7,54 @@
   - activePage is set by the controller to highlight the current section.
 -->
 
-<nav class="site-nav" role="navigation" aria-label="Primary navigation">
-  <!-- Mobile nav toggle button -->
-  <button
-    class="nav-toggle"
-    id="nav-toggle"
-    aria-expanded="false"
-    aria-controls="primary-nav"
-    aria-label="Open navigation menu"
-  >
-    <span class="nav-toggle-bar"></span>
-    <span class="nav-toggle-bar"></span>
-    <span class="nav-toggle-bar"></span>
-  </button>
+<div class="site-nav-wrapper">
+  <nav class="site-nav" role="navigation" aria-label="Primary navigation">
+    <a class="site-nav-title" href="/resume" aria-label="Steven Kemendics portfolio">
+      Steven <span>Kemendics</span>
+    </a>
 
-  <!-- Main nav list -->
-  <ul id="primary-nav" class="nav-list">
-    <li class="<%= activePage === 'resume' ? 'active' : '' %>">
-      <a href="/resume">Resume</a>
-    </li>
+    <!-- Mobile nav toggle button -->
+    <button
+      class="nav-toggle"
+      id="nav-toggle"
+      aria-expanded="false"
+      aria-controls="primary-nav"
+      aria-label="Open navigation menu"
+      type="button"
+    >
+      <span class="nav-toggle-icon" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
 
-    <li class="<%= activePage === 'projects' ? 'active' : '' %>">
-      <a href="/projects">Projects</a>
-    </li>
+    <!-- Main nav list -->
+    <ul id="primary-nav" class="nav-list">
+      <li class="<%= activePage === 'resume' ? 'active' : '' %>">
+        <a href="/resume">Resume</a>
+      </li>
 
-    <li class="nav-contact">
-      <!--
-        Fallback behaviour:
-        - If JavaScript is disabled or fails to load, this link opens the
-          default mail client with a new message to the portfolio address.
-        Enhanced behaviour:
-        - contact-modal.js intercepts the click on #nav-contact-link,
-          opens the contact modal and builds a mailto: URL with form values.
-      -->
-      <a
-        href="mailto:stevenkemendics@gmail.com"
-        id="nav-contact-link"
-      >
-        Contact Me
-      </a>
-    </li>
-  </ul>
-</nav>
+      <li class="<%= activePage === 'projects' ? 'active' : '' %>">
+        <a href="/projects">Projects</a>
+      </li>
+
+      <li class="nav-contact">
+        <!--
+          Fallback behaviour:
+          - If JavaScript is disabled or fails to load, this link opens the
+            default mail client with a new message to the portfolio address.
+          Enhanced behaviour:
+          - contact-modal.js intercepts the click on #nav-contact-link,
+            opens the contact modal and builds a mailto: URL with form values.
+        -->
+        <a
+          href="mailto:stevenkemendics@gmail.com"
+          id="nav-contact-link"
+        >
+          Contact Me
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

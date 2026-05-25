@@ -2,10 +2,8 @@
   footer.ejs
   ---------------------------------------------------------------------------
   Global footer with basic imprint link and social icons.
-  - The "Impressum" link currently points to a static HTML file
-    in the public folder (public/impressum.html). This can be
-    replaced with an Express route and EJS view later if needed.
-  - Social icons link to external profiles in a new tab.
+  - The "Impressum" link points to the Express route /impressum.
+  - Professional profile links open in a new tab.
 -->
 
 <footer>
@@ -15,30 +13,24 @@
 
     </div>
 
-    <p class="footer-copy">&copy; 2025 Steven Kemendics</p>
+    <p class="footer-copy">&copy; 2026 Steven Kemendics</p>
 
-    <nav class="footer-nav" aria-label="Social links">
+    <nav class="footer-nav" aria-label="Professional links">
       <a
-        href="https://www.facebook.com/steven.kemendics"
+        href="https://github.com/STU6266"
         target="_blank"
         rel="noopener"
+        class="footer-link"
       >
-        <img
-          src="/images/facebook.png"
-          alt="Facebook profile"
-          class="social-icon"
-        />
+        GitHub
       </a>
       <a
         href="https://www.linkedin.com/in/steven-kemendics"
         target="_blank"
         rel="noopener"
+        class="footer-link"
       >
-        <img
-          src="/images/linkedin.png"
-          alt="LinkedIn profile"
-          class="social-icon"
-        />
+        LinkedIn
       </a>
     </nav>
   </div>

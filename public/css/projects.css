@@ -140,7 +140,8 @@
 
 /* Footer row with buttons aligned horizontally; "margin-top: auto" pushes
    it to the bottom of the card when content above grows. */
-.project-actions {
+.project-actions,
+.project-links {
   margin-top: auto;
   display: flex;
   flex-wrap: wrap;
@@ -160,10 +161,6 @@
   text-decoration: none;
   cursor: pointer;
   border: 1px solid transparent;
-  margin-top: 0.8rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
 }
 
 /* Primary link (e.g., "View code on GitHub") with accent gradient background. */

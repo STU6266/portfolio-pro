@@ -68,15 +68,6 @@ module.exports = {
   buildHangman: (req, res) =>
     renderPage(res, "hangman", "Hangman Game – Steven Kemendics", "projects"),
 
-  // Speed Dungeon Seite
-  buildSpeedDungeon: (req, res) =>
-    renderPage(
-      res,
-      "speedDungeon",
-      "Speed Dungeon – Steven Kemendics",
-      "projects"
-    ),
-
   /**
    * GET /about
    * "More about me" page with a longer personal narrative.
