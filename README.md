@@ -9,16 +9,24 @@ The site presents my resume, technical skills and selected software projects in 
 - Resume/profile page with recruiter-facing summary and featured projects
 - Projects overview with stable desktop overlays and mobile-safe direct actions
 - Project detail pages for:
+  - FFKI Alpha
   - Board Game Intelligence API
   - unrealDice
   - Speed Dungeon
-  - Handcrafted Haven
 - Filament Finder data/filtering project
 - Browser Hangman learning project
 - Contact flow using a modal and `mailto:` fallback
 - Lightweight smoke test for important routes
 
 ## Featured Projects
+
+### FFKI Alpha
+
+Private alpha fantasy football web app built from scratch as a broad full-stack foundation.
+
+- Tech: Next.js, TypeScript, PostgreSQL, Prisma, Neon, Render, Docker
+- Scope: auth/session, league setup, managers, draft, rosters, lineups, waivers, trades, scoring, playoffs, admin tools, audit/history and data-provider sync foundations
+- Note: private alpha only; no public signup, no live NFL scoring/stat import and no production AI/LLM calls yet
 
 ### Board Game Intelligence API
 
@@ -44,24 +52,15 @@ Static browser dungeon game with age-based content, room logic, timers, mobile c
 - Live demo: https://speed-dungeon.onrender.com
 - Repo: https://github.com/STU6266/speed-dungeon
 
-### Handcrafted Haven
-
-School team project for a marketplace-style web app.
-
-My contribution focused on integration, deployment/Vercel support, cleanup, accessibility/usability fixes, smoke testing, small bug fixes, project coordination and final stabilization.
-
-- Tech: Next.js, TypeScript, MongoDB/Mongoose, Vercel
-- Repo: https://github.com/STU6266/handcrafted-haven
-
 ## Routes
 
 ```text
 /resume
 /projects
+/projects/ffki-alpha
 /projects/board-game-intelligence-api
 /projects/unrealdice
 /projects/speed-dungeon
-/projects/handcrafted-haven
 /about
 /filament
 /filament/add
@@ -121,10 +120,10 @@ portfolio-pro/
 |   |-- partials/
 |   |-- resume.ejs
 |   |-- projects.ejs
+|   |-- project-ffki-alpha.ejs
 |   |-- project-board-game-api.ejs
 |   |-- project-unrealdice.ejs
 |   |-- project-speed-dungeon.ejs
-|   |-- project-handcrafted-haven.ejs
 |   |-- filament.ejs
 |   |-- filament-add.ejs
 |   |-- hangman.ejs

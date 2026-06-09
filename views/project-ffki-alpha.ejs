@@ -1,0 +1,149 @@
+<%- include("partials/head") %>
+<%- include("partials/header") %>
+<%- include("partials/nav") %>
+
+<main class="resume-layout">
+  <%- include("partials/contactModal") %>
+
+  <article class="project-detail">
+    <header class="card project-detail-hero">
+      <a href="/projects" class="project-back-link">Back to projects</a>
+      <p class="project-tag">Private Alpha · Next.js / TypeScript / PostgreSQL</p>
+      <h1>FFKI Alpha</h1>
+      <p>
+        A controlled private alpha for an AI-powered fantasy football web app.
+        I built it as a broad full-stack foundation with league setup, manager
+        accounts, draft, rosters, lineups, waivers, trades, scoring, playoffs,
+        admin tools, audit/history logs and provider sync foundations.
+      </p>
+
+      <div class="project-detail-actions">
+        <!-- TODO: Add the real Render URL when the private alpha URL should be public on the portfolio. -->
+        <!-- TODO: Add a GitHub link only if the private repository is meant to be shared with reviewers. -->
+        <span class="project-status">Private alpha</span>
+        <span class="project-status">Controlled demo</span>
+      </div>
+    </header>
+
+    <section class="project-detail-grid">
+      <section class="card project-detail-section">
+        <h2>Overview</h2>
+        <p>
+          FFKI Alpha is my strongest current full-stack project. It is not a
+          finished public SaaS product and has no public signup. The goal is a
+          controlled alpha environment for a fantasy football league with human
+          managers, AI manager foundations and one shared demo manager team for
+          private testing.
+        </p>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Tech Stack</h2>
+        <ul>
+          <li>Next.js, TypeScript and server-side app routes</li>
+          <li>PostgreSQL with Prisma data modeling</li>
+          <li>Neon PostgreSQL and Render deployment</li>
+          <li>Docker for local PostgreSQL development</li>
+          <li>GitHub for version control and project work</li>
+        </ul>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Main Features</h2>
+        <ul>
+          <li>Private alpha auth/session foundation and manager accounts</li>
+          <li>10-team league setup with human managers and AI manager foundations</li>
+          <li>Snake draft foundation with roster ownership</li>
+          <li>Lineup slots, waiver claims and trade workflows</li>
+          <li>Scoring, matchups, standings and playoff bracket foundation</li>
+          <li>Admin/commissioner tools with audit logs and league history</li>
+        </ul>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Architecture Decisions</h2>
+        <p>
+          The app follows a modular monolith approach. Separate service areas
+          handle auth, league setup, managers, teams, draft, roster, lineup,
+          waivers, trades, scoring, playoffs, admin tools, audit/history and
+          data providers. This keeps the project broad but still understandable
+          while the alpha grows.
+        </p>
+        <ol class="engineering-flow" aria-label="FFKI Alpha engineering flow">
+          <li>Auth/session</li>
+          <li>League and teams</li>
+          <li>Draft and roster</li>
+          <li>Waivers/trades</li>
+          <li>Scoring/playoffs</li>
+          <li>Admin/audit</li>
+        </ol>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Data Provider Approach</h2>
+        <p>
+          Normal app usage reads from FFKI's internal database. External football
+          data is not read live during normal page/API requests. The provider
+          sync foundation writes player metadata into internal tables first, and
+          the Sleeper player metadata import is currently focused on identity,
+          position, team abbreviation, status and bye week.
+        </p>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Admin and Audit</h2>
+        <p>
+          Admin actions are intentionally traceable. Draft mutations, waiver
+          processing, trade review/execution, scoring changes, playoff generation
+          and guest-control actions write audit/history records so alpha tests
+          can be reviewed instead of disappearing into server output only.
+        </p>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Demo Access</h2>
+        <p>
+          The alpha has a shared demo manager account for one test team. It is
+          meant for controlled testing only; demo changes may be reset. The demo
+          email is <code>demo@ffki-alpha.local</code>. I do not publish the demo
+          password directly on the portfolio page.
+        </p>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Current Limitations</h2>
+        <ul>
+          <li>Private alpha only; no public signup</li>
+          <li>No official NFL/team logos or player images</li>
+          <li>No real live NFL scoring/stat import yet</li>
+          <li>No real production AI/LLM calls yet</li>
+          <li>AI layer is currently proposal/fallback oriented</li>
+          <li>External sync writes into the internal DB before normal app usage</li>
+        </ul>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>What I Learned</h2>
+        <p>
+          FFKI Alpha helped me practice full-stack system thinking: schema
+          design, service boundaries, private alpha auth, admin workflows,
+          database-backed history, provider sync, deployment constraints and the
+          discipline of being honest about what is implemented versus planned.
+        </p>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Next Steps</h2>
+        <ul>
+          <li>More complete manager-facing draft and roster flows</li>
+          <li>More robust guest/demo controls and reset behavior</li>
+          <li>Real scoring/stat import strategy after the alpha foundation is stable</li>
+          <li>AI manager behavior through validated proposals before execution</li>
+          <li>More screenshots once the private alpha UI is ready to show publicly</li>
+        </ul>
+      </section>
+    </section>
+  </article>
+</main>
+
+<%- include("partials/footer") %>

@@ -38,6 +38,18 @@ module.exports = {
     renderPage(res, "projects", "Projects – Steven Kemendics", "projects"),
 
   /**
+   * GET /projects/ffki-alpha
+   * Detail page for the private alpha fantasy football project.
+   */
+  buildFfkiAlphaProject: (req, res) =>
+    renderPage(
+      res,
+      "project-ffki-alpha",
+      "FFKI Alpha – Steven Kemendics",
+      "projects"
+    ),
+
+  /**
    * GET /projects/board-game-intelligence-api
    * Detail page for the backend API portfolio project.
    */
@@ -70,18 +82,6 @@ module.exports = {
       res,
       "project-speed-dungeon",
       "Speed Dungeon – Steven Kemendics",
-      "projects"
-    ),
-
-  /**
-   * GET /projects/handcrafted-haven
-   * Detail page for the Handcrafted Haven school team project.
-   */
-  buildHandcraftedHavenProject: (req, res) =>
-    renderPage(
-      res,
-      "project-handcrafted-haven",
-      "Handcrafted Haven – Steven Kemendics",
       "projects"
     ),
 

@@ -14,6 +14,14 @@ I am currently studying Software Development online while continuing to work in 
 
 ## Featured Projects
 
+### FFKI Alpha
+
+Private alpha fantasy football web app built as a broad full-stack foundation with league, draft, roster, lineup, waivers, trades, scoring, playoffs, admin and audit/history foundations.
+
+- Tech: Next.js, TypeScript, PostgreSQL, Prisma, Neon, Render, Docker
+- Highlights: private alpha auth, manager/team model, draft and roster ownership, admin tools, audit logs, provider sync foundation
+- Note: private alpha only; no public signup, no live NFL scoring/stat import and no production AI/LLM calls yet
+
 ### Board Game Intelligence API
 
 Backend/data integration API that imports BoardGameGeek-style XML data, validates it, stores it in PostgreSQL and exposes documented FastAPI endpoints.
@@ -37,15 +45,6 @@ Static browser dungeon game with age-based content, several room types, timers, 
 - Tech: HTML, CSS, JavaScript, JSON, static deployment
 - Highlights: game state logic, room transitions, JSON content, mobile controls, Render deployment
 - Repo: https://github.com/STU6266/speed-dungeon
-
-### Handcrafted Haven
-
-School team project for a marketplace-style web app.
-
-My contribution focused on integration, Vercel deployment support, cleanup, accessibility/usability improvements, smoke testing, small bug fixes, project coordination and final stabilization.
-
-- Tech: Next.js, TypeScript, MongoDB/Mongoose, Vercel
-- Repo: https://github.com/STU6266/handcrafted-haven
 
 ## Also In My Portfolio
 

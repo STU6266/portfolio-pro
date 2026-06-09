@@ -41,6 +41,15 @@ router.get("/resume", handleErrors(siteController.buildResume));
 router.get("/projects", handleErrors(siteController.buildProjects));
 
 /**
+ * GET /projects/ffki-alpha
+ * Detail page for the FFKI Alpha private alpha project.
+ */
+router.get(
+  "/projects/ffki-alpha",
+  handleErrors(siteController.buildFfkiAlphaProject)
+);
+
+/**
  * GET /projects/board-game-intelligence-api
  * Detail page for the Board Game Intelligence API project.
  */
@@ -65,15 +74,6 @@ router.get(
 router.get(
   "/projects/speed-dungeon",
   handleErrors(siteController.buildSpeedDungeonProject)
-);
-
-/**
- * GET /projects/handcrafted-haven
- * Detail page for the Handcrafted Haven school team project.
- */
-router.get(
-  "/projects/handcrafted-haven",
-  handleErrors(siteController.buildHandcraftedHavenProject)
 );
 
 // ---------------------------------------------------------------------------
