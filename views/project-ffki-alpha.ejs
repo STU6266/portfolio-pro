@@ -12,16 +12,15 @@
       <h1>FFKI Alpha</h1>
       <p>
         A controlled private alpha for an AI-powered fantasy football web app.
-        I built it as a broad full-stack foundation with league setup, manager
+        I built it as a full-stack foundation for league setup, manager
         accounts, draft, rosters, lineups, waivers, trades, scoring, playoffs,
-        admin tools, audit/history logs and provider sync foundations.
+        admin tools, audit/history logs and provider sync.
       </p>
 
       <div class="project-detail-actions">
-        <!-- TODO: Add the real Render URL when the private alpha URL should be public on the portfolio. -->
-        <!-- TODO: Add a GitHub link only if the private repository is meant to be shared with reviewers. -->
         <span class="project-status">Private alpha</span>
-        <span class="project-status">Controlled demo</span>
+        <span class="project-status">Live demo on request</span>
+        <span class="project-status">Private repo</span>
       </div>
     </header>
 
@@ -30,10 +29,20 @@
         <h2>Overview</h2>
         <p>
           FFKI Alpha is my strongest current full-stack project. It is not a
-          finished public SaaS product and has no public signup. The goal is a
+          finished public product and has no public signup. The goal is a
           controlled alpha environment for a fantasy football league with human
           managers, AI manager foundations and one shared demo manager team for
-          private testing.
+          review/testing.
+        </p>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Why I Built It</h2>
+        <p>
+          I wanted a project that forced me to connect many real application
+          concerns in one place: authentication, data modeling, league rules,
+          admin workflows, auditability, deployment and a careful boundary
+          between alpha foundations and future product features.
         </p>
       </section>
 
@@ -103,10 +112,10 @@
       <section class="card project-detail-section">
         <h2>Demo Access</h2>
         <p>
-          The alpha has a shared demo manager account for one test team. It is
-          meant for controlled testing only; demo changes may be reset. The demo
-          email is <code>demo@ffki-alpha.local</code>. I do not publish the demo
-          password directly on the portfolio page.
+          Demo access can be enabled for review. The shared demo account
+          controls one test team, so data may change or be reset. The demo email
+          is <code>demo@ffki-alpha.local</code>. I do not publish the demo
+          password on the portfolio page.
         </p>
       </section>
 
@@ -117,7 +126,8 @@
           <li>No official NFL/team logos or player images</li>
           <li>No real live NFL scoring/stat import yet</li>
           <li>No real production AI/LLM calls yet</li>
-          <li>AI layer is currently proposal/fallback oriented</li>
+          <li>AI layer is currently proposal/foundation/fallback oriented</li>
+          <li>Demo team data can change or be reset during alpha testing</li>
           <li>External sync writes into the internal DB before normal app usage</li>
         </ul>
       </section>
