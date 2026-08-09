@@ -1,0 +1,125 @@
+<%- include("partials/head") %>
+<%- include("partials/header") %>
+<%- include("partials/nav") %>
+
+<main class="resume-layout">
+  <%- include("partials/contactModal") %>
+
+  <article class="project-detail">
+    <header class="card project-detail-hero">
+      <a href="/projects" class="project-back-link">Back to projects</a>
+      <p class="project-tag">Local AI / 3D Printing · Work in Progress</p>
+      <h1>PrintTune</h1>
+      <p>
+        A local-first advisory platform for FDM 3D printers. PrintTune combines
+        structured printer, slicer, filament and calibration data with
+        deterministic diagnostics, local knowledge search and a German-first
+        conversational AI assistant.
+      </p>
+
+      <div class="project-detail-actions">
+        <a
+          href="https://github.com/STU6266/PrintTune"
+          class="project-link project-link-primary"
+          target="_blank"
+          rel="noopener"
+        >
+          GitHub
+        </a>
+        <span class="project-status">Alpha</span>
+        <span class="project-status">Local-first</span>
+        <span class="project-status">No live demo</span>
+      </div>
+    </header>
+
+    <section class="project-detail-grid">
+      <section class="card project-detail-section">
+        <h2>Overview</h2>
+        <p>
+          PrintTune is being built as a desktop advisory system for FDM 3D
+          printers. Its purpose is to collect printer and hardware configuration,
+          slicer information, filament data, calibration results, diagnostic
+          rules and local knowledge so users can get safer, more structured help
+          while tuning and troubleshooting their printer.
+        </p>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Tech Stack</h2>
+        <ul>
+          <li>Desktop/UI: Electron, React, TypeScript, Vite</li>
+          <li>Storage/Data: node:sqlite, SQLite, FTS5</li>
+          <li>Validation: JSON Schema, Ajv, Zod</li>
+          <li>AI: Ollama behind an AIProvider abstraction</li>
+          <li>Testing/Tooling: pnpm workspaces, Vitest, React Testing Library, Playwright</li>
+        </ul>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Architecture Flow</h2>
+        <p>
+          The Alpha is read-only with respect to printer firmware/settings and
+          imported source files. It should explain evidence and guide manual
+          steps, not automatically control the printer.
+        </p>
+        <ol class="engineering-flow" aria-label="PrintTune engineering flow">
+          <li>Printer / slicer / filament / calibration data</li>
+          <li>Validation and domain models</li>
+          <li>Local SQLite storage</li>
+          <li>Rules, knowledge packages and FTS5 search</li>
+          <li>AIProvider / Ollama</li>
+          <li>German advisory UI</li>
+        </ol>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Engineering Decisions</h2>
+        <ul>
+          <li>Local-first design without cloud dependency in the Alpha</li>
+          <li>Framework-independent TypeScript core/domain libraries</li>
+          <li>Repository abstraction around SQLite storage</li>
+          <li>Narrow, validated Electron preload boundary</li>
+          <li>AI integration behind an AIProvider abstraction</li>
+          <li>Declarative knowledge packages that cannot execute code</li>
+          <li>No automatic internet research during Alpha</li>
+        </ul>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Current Alpha Scope</h2>
+        <ul>
+          <li>Project is still under active development</li>
+          <li>Read-only integration for printers, firmware, slicer profiles and imported files</li>
+          <li>Automatic internet research and web scraping are disabled</li>
+          <li>Features and UX are still evolving</li>
+          <li>User-facing AI is German by default</li>
+          <li>Code, schemas, tests and developer documentation use English</li>
+        </ul>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>Safety Boundaries</h2>
+        <p>
+          PrintTune is designed as an explanation and recommendation layer. It
+          must not send G-code, modify printer settings, restart services, change
+          slicer profiles or edit imported source files. When evidence is not
+          sufficient, the assistant should say that reliable recommendations
+          cannot be made.
+        </p>
+      </section>
+
+      <section class="card project-detail-section">
+        <h2>What I Am Learning</h2>
+        <p>
+          This project helps me practice maintainable desktop application
+          architecture, local-first data management, safe local AI integration,
+          framework-independent domain logic, validation across application
+          boundaries, searchable local knowledge systems and testing
+          Electron/React applications.
+        </p>
+      </section>
+    </section>
+  </article>
+</main>
+
+<%- include("partials/footer") %>

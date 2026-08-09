@@ -5,6 +5,7 @@ const BASE_URL = `http://localhost:${PORT}`;
 const pages = [
   "/resume",
   "/projects",
+  "/projects/printtune",
   "/projects/ffki-alpha",
   "/projects/board-game-intelligence-api",
   "/projects/unrealdice",

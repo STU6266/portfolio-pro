@@ -9,8 +9,7 @@ The site presents my resume, technical skills and selected software projects in 
 - Resume/profile page with recruiter-facing summary and featured projects
 - Projects overview with stable desktop overlays and mobile-safe direct actions
 - Project detail pages for:
-  - FFKI Alpha
-  - Board Game Intelligence API
+  - PrintTune
   - unrealDice
   - Speed Dungeon
 - Filament Finder data/filtering project
@@ -20,21 +19,14 @@ The site presents my resume, technical skills and selected software projects in 
 
 ## Featured Projects
 
-### FFKI Alpha
+### PrintTune
 
-Private alpha fantasy football web app built from scratch as a broad full-stack foundation.
+Work-in-progress local-first advisory platform for FDM 3D printers.
 
-- Tech: Next.js, TypeScript, PostgreSQL, Prisma, Neon, Render, Docker
-- Scope: auth/session, league setup, managers, draft, rosters, lineups, waivers, trades, scoring, playoffs, admin tools, audit/history and data-provider sync foundations
-- Note: private alpha only; no public signup, no live NFL scoring/stat import and no production AI/LLM calls yet
-
-### Board Game Intelligence API
-
-Backend/data integration project built with Python, FastAPI and PostgreSQL. It imports BoardGameGeek-style XML data, validates it, stores it in relational tables and exposes documented API endpoints.
-
-- Tech: Python, FastAPI, PostgreSQL, SQLAlchemy, Alembic, Docker, Pytest
-- Live docs: https://board-game-intelligence-api.onrender.com/docs
-- Repo: https://github.com/STU6266/board-game-intelligence-api
+- Tech: Electron, React, TypeScript, SQLite, FTS5, Ollama, JSON Schema, Ajv, Zod
+- Scope: structured printer/slicer/filament/calibration data, deterministic diagnostics, local knowledge search and German-first local AI guidance
+- Note: Alpha/WIP only; read-only with respect to printers, firmware, slicer profiles and imported source files
+- Repo: https://github.com/STU6266/PrintTune
 
 ### unrealDice
 
@@ -57,6 +49,7 @@ Static browser dungeon game with age-based content, room logic, timers, mobile c
 ```text
 /resume
 /projects
+/projects/printtune
 /projects/ffki-alpha
 /projects/board-game-intelligence-api
 /projects/unrealdice
@@ -120,6 +113,7 @@ portfolio-pro/
 |   |-- partials/
 |   |-- resume.ejs
 |   |-- projects.ejs
+|   |-- project-printtune.ejs
 |   |-- project-ffki-alpha.ejs
 |   |-- project-board-game-api.ejs
 |   |-- project-unrealdice.ejs

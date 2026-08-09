@@ -14,21 +14,14 @@ I am currently studying Software Development online while continuing to work in 
 
 ## Featured Projects
 
-### FFKI Alpha
+### PrintTune
 
-Private alpha fantasy football web app built as a broad full-stack foundation with league, draft, roster, lineup, waivers, trades, scoring, playoffs, admin and audit/history foundations.
+Work-in-progress local-first advisory platform for FDM 3D printers.
 
-- Tech: Next.js, TypeScript, PostgreSQL, Prisma, Neon, Render, Docker
-- Highlights: private alpha auth, manager/team model, draft and roster ownership, admin tools, audit logs, provider sync foundation
-- Note: private alpha only; no public signup, no live NFL scoring/stat import and no production AI/LLM calls yet
-
-### Board Game Intelligence API
-
-Backend/data integration API that imports BoardGameGeek-style XML data, validates it, stores it in PostgreSQL and exposes documented FastAPI endpoints.
-
-- Tech: Python, FastAPI, PostgreSQL, SQLAlchemy, Alembic, Docker, Pytest
-- Highlights: XML parsing, validation, sync history, analytical report endpoints, Swagger/OpenAPI docs
-- Repo: https://github.com/STU6266/board-game-intelligence-api
+- Tech: Electron, React, TypeScript, SQLite, FTS5, Ollama, JSON Schema, Ajv, Zod
+- Highlights: local-first desktop architecture, structured 3D printer data, read-only diagnostics, local knowledge search, German-first local AI guidance
+- Note: Alpha/WIP only; no live demo and no automatic internet research during Alpha
+- Repo: https://github.com/STU6266/PrintTune
 
 ### unrealDice
 

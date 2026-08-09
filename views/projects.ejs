@@ -24,50 +24,49 @@
 
   <section class="projects-grid" aria-label="Selected software projects">
 
-    <!-- Featured Project: FFKI Alpha -->
+    <!-- Featured Project: PrintTune -->
     <article class="card project-card project-card-featured">
       <div class="project-card-body">
         <div class="project-header">
           <div class="project-card-topline">
-            <span class="project-tag">Private Alpha</span>
-            <span class="project-status">Full-stack</span>
+            <span class="project-tag">Local AI / 3D Printing</span>
+            <span class="project-status">Work in Progress</span>
           </div>
-          <h3 class="project-title">FFKI Alpha</h3>
+          <h3 class="project-title">PrintTune</h3>
           <p class="project-description">
-            Controlled private alpha for a fantasy football web app built with
-            Next.js, TypeScript, Prisma and PostgreSQL. It focuses on league,
-            draft, roster, lineup, waivers, trades, scoring, playoffs, admin and
-            audit foundations.
+            Local-first advisory platform for FDM 3D printers that combines
+            structured printer, slicer, filament and calibration data with
+            deterministic diagnostics and a local conversational AI assistant.
           </p>
         </div>
 
-        <div class="project-preview project-preview-ffki" aria-hidden="true">
-          <span>Next.js</span>
-          <span>Prisma</span>
+        <div class="project-preview project-preview-printtune" aria-hidden="true">
+          <span>Electron</span>
+          <span>SQLite</span>
           <span>Alpha</span>
         </div>
 
         <p class="project-meta">
           <span class="project-tech-label">Tech:</span>
           <span class="project-tech-list">
-            Next.js, TypeScript, PostgreSQL, Prisma, Neon, Render, Docker
+            Electron, React, TypeScript, SQLite, Ollama, FTS5, Vitest
           </span>
         </p>
 
-        <div class="project-mobile-actions" aria-label="FFKI Alpha links">
+        <div class="project-mobile-actions" aria-label="PrintTune links">
           <a
-            href="/projects/ffki-alpha"
+            href="/projects/printtune"
             class="project-link project-link-primary"
           >
             View Project
           </a>
           <a
-            href="https://ffki-alpha.onrender.com"
+            href="https://github.com/STU6266/PrintTune"
             class="project-link project-link-secondary"
             target="_blank"
             rel="noopener"
           >
-            Live Demo
+            GitHub
           </a>
         </div>
       </div>
@@ -76,124 +75,28 @@
         <div>
           <p class="project-overlay-label">Key Features</p>
           <ul class="project-feature-list">
-            <li>Private alpha auth/session foundation with no public signup</li>
-            <li>10-team league structure with human and AI manager foundations</li>
-            <li>Snake draft, roster ownership and lineup slot foundations</li>
-            <li>Waiver claims and trade flows with admin review/execution paths</li>
-            <li>Scoring, matchups, standings and playoff bracket foundations</li>
-            <li>Admin tools, audit/history logs and controlled demo team access</li>
-            <li>Sleeper player metadata sync into the internal database</li>
+            <li>Local-first desktop architecture for FDM printer advice</li>
+            <li>Structured printer, slicer, filament and calibration data</li>
+            <li>Local AI integration through Ollama and an AIProvider abstraction</li>
+            <li>SQLite FTS5 knowledge search for local knowledge packages</li>
+            <li>Validation with JSON Schema, Ajv and Zod</li>
+            <li>Read-only Alpha: no automatic printer or file modification</li>
           </ul>
         </div>
         <div class="project-overlay-actions">
           <a
-            href="/projects/ffki-alpha"
+            href="/projects/printtune"
             class="project-link project-link-primary"
           >
             View Project
           </a>
           <a
-            href="https://ffki-alpha.onrender.com"
-            class="project-link project-link-secondary"
-            target="_blank"
-            rel="noopener"
-          >
-            Live Demo
-          </a>
-        </div>
-      </div>
-    </article>
-
-    <!-- Featured Project: Board Game Intelligence API -->
-    <article class="card project-card project-card-featured">
-      <div class="project-card-body">
-        <div class="project-header">
-          <div class="project-card-topline">
-            <span class="project-tag">Backend API</span>
-            <span class="project-status">Live docs</span>
-          </div>
-          <h3 class="project-title">Board Game Intelligence API</h3>
-          <p class="project-description">
-            Backend-focused API for importing board game data, storing it in a
-            structured PostgreSQL database and exposing documented endpoints for
-            useful game recommendations.
-          </p>
-        </div>
-
-        <div class="project-preview project-preview-api" aria-hidden="true">
-          <span>FastAPI</span>
-          <span>PostgreSQL</span>
-          <span>Tests</span>
-        </div>
-
-        <p class="project-meta">
-          <span class="project-tech-label">Tech:</span>
-          <span class="project-tech-list">
-            FastAPI, PostgreSQL, SQLAlchemy, Alembic, Docker, Pytest, Swagger/OpenAPI
-          </span>
-        </p>
-
-        <div class="project-mobile-actions" aria-label="Board Game Intelligence API links">
-          <a
-            href="/projects/board-game-intelligence-api"
-            class="project-link project-link-primary"
-          >
-            View Project
-          </a>
-          <a
-            href="https://github.com/STU6266/board-game-intelligence-api"
+            href="https://github.com/STU6266/PrintTune"
             class="project-link project-link-secondary"
             target="_blank"
             rel="noopener"
           >
             GitHub
-          </a>
-          <a
-            href="https://board-game-intelligence-api.onrender.com/docs"
-            class="project-link project-link-secondary"
-            target="_blank"
-            rel="noopener"
-          >
-            API Docs
-          </a>
-        </div>
-      </div>
-
-      <div class="project-overlay">
-        <div>
-          <p class="project-overlay-label">Key Features</p>
-          <ul class="project-feature-list">
-            <li>External XML-style data import with parser and client layer</li>
-            <li>Validation before database writes to handle unreliable input</li>
-            <li>PostgreSQL schema with SQLAlchemy models and Alembic migrations</li>
-            <li>Duplicate-safe sync by external BoardGameGeek ID</li>
-            <li>Import-run and error tracking for reviewable sync results</li>
-            <li>Report endpoints for family-friendly and accessible games</li>
-            <li>Automated tests plus live Swagger/OpenAPI documentation</li>
-          </ul>
-        </div>
-        <div class="project-overlay-actions">
-          <a
-            href="/projects/board-game-intelligence-api"
-            class="project-link project-link-primary"
-          >
-            View Project
-          </a>
-          <a
-            href="https://github.com/STU6266/board-game-intelligence-api"
-            class="project-link project-link-secondary"
-            target="_blank"
-            rel="noopener"
-          >
-            GitHub
-          </a>
-          <a
-            href="https://board-game-intelligence-api.onrender.com/docs"
-            class="project-link project-link-secondary"
-            target="_blank"
-            rel="noopener"
-          >
-            API Docs
           </a>
         </div>
       </div>

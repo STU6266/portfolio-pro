@@ -41,6 +41,15 @@ router.get("/resume", handleErrors(siteController.buildResume));
 router.get("/projects", handleErrors(siteController.buildProjects));
 
 /**
+ * GET /projects/printtune
+ * Detail page for the PrintTune local-first 3D printing project.
+ */
+router.get(
+  "/projects/printtune",
+  handleErrors(siteController.buildPrintTuneProject)
+);
+
+/**
  * GET /projects/ffki-alpha
  * Detail page for the FFKI Alpha private alpha project.
  */

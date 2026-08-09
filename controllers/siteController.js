@@ -38,6 +38,18 @@ module.exports = {
     renderPage(res, "projects", "Projects – Steven Kemendics", "projects"),
 
   /**
+   * GET /projects/printtune
+   * Detail page for the PrintTune local-first 3D printing project.
+   */
+  buildPrintTuneProject: (req, res) =>
+    renderPage(
+      res,
+      "project-printtune",
+      "PrintTune – Steven Kemendics",
+      "projects"
+    ),
+
+  /**
    * GET /projects/ffki-alpha
    * Detail page for the private alpha fantasy football project.
    */
